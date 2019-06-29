@@ -1,0 +1,324 @@
+﻿<Page x:Class="InstaBudka.Views.Kolazh_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InstaBudka.Views"
+      mc:Ignorable="d" 
+      Loaded="Kolazh_Page_OnLoaded"
+      d:DesignHeight="1920" d:DesignWidth="1080"
+      Title="Kolazh_Page"
+      DataContext="{Binding RelativeSource= {RelativeSource Self}}">
+
+    <Grid Background="White" Width="1080" Height="1920" Name="GlobalGrid">
+        <Grid.Resources>
+        <Style TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseDown">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Button.BorderThickness" Duration="0:0:1" From="0" To="8"  />
+                                
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        </Grid.Resources>
+        <Canvas Name="PrintCanvas" Width="900" Height="600"
+                VerticalAlignment="Top" Background="White"
+                Margin="0,0,0,0"
+                HorizontalAlignment="Center">
+            <!--<Canvas.Effect>
+                <DropShadowEffect BlurRadius="20"
+                                  Opacity="0.8">
+
+                </DropShadowEffect>
+            </Canvas.Effect>-->
+            <Grid  Width="900" Height="600" Name="PrintGrid">
+            
+
+                <Image Name="FonImage" Stretch="Fill" 
+                   Source="{Binding Fon}"
+                   Panel.ZIndex="10"/>
+
+        
+        <StackPanel Width="900" 
+                    Height="600" 
+                    Name="PrintStackpanel"
+                    Panel.ZIndex="30"
+                    Background="Transparent"
+                    Orientation="Vertical"
+                    >
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding Photo1}" 
+                       Margin="25,20,0,0" Width="360"
+                       Height="270"
+                       >
+                    <Image.LayoutTransform>
+                        <RotateTransform CenterX="0.5" CenterY="0.5" Angle="270"/>
+                    </Image.LayoutTransform>
+                </Image>
+                <Image Source="{Binding Photo2}" 
+                       Margin="20,20,20,0"
+                       Width="360"
+                       Height="270"
+                       >
+                    <Image.LayoutTransform>
+                        <RotateTransform CenterX="0.5" CenterY="0.5" Angle="270"/>
+                        
+                    </Image.LayoutTransform>
+                </Image>
+                <Image Source="{Binding Photo3}" 
+                       Margin="0,20,0,0"
+                       Width="360"
+                       Height="270"
+                       >
+                    <Image.LayoutTransform>
+                        <RotateTransform CenterX="0.5" CenterY="0.5" Angle="270"/>
+                    </Image.LayoutTransform>
+                </Image>
+            </StackPanel>
+                    
+                        <TextBox Text="Введите описание"
+                                 Name="TextBox"
+                                 
+                                 Margin="0,40,0,0"
+                                 
+                                  MaxLength="120"
+                                   TextAlignment="Center"
+                                   Foreground="#6b6b6b"
+                                   AcceptsReturn="True"
+                                   CaretBrush="Black"
+                                   MaxLines="5"
+                                   Width="700"
+                                   Padding="4"
+                                    
+                                   Panel.ZIndex="40"
+                                   TextWrapping="Wrap"
+                                   FontWeight="Bold"
+                                   FontFamily="Roboto Slab"
+                                   FontSize="30"></TextBox>
+                    
+        </StackPanel>
+            
+        </Grid>
+        </Canvas>
+<Grid Name="SecondGrid">
+        <ItemsControl AlternationCount="15" ItemsSource="{Binding AllFonModels}" 
+                      HorizontalAlignment="Center" Margin="0,330,0,0" Width="950"
+                      Height="560">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel 
+                            Width="950"
+                            Height="560"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <Button Command= "{Binding  RelativeSource={RelativeSource FindAncestor,AncestorType=Page}, 
+                                        Path=ChangeFonCommand }"
+                                BorderBrush="#b82e9c"
+                                Panel.ZIndex="100"
+                                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Path=(ItemsControl.AlternationIndex)}"
+                                Margin="10">
+                            <Button.Effect>
+                                <DropShadowEffect BlurRadius="20"
+                                                  Opacity="0.8">
+
+                                </DropShadowEffect>
+                            </Button.Effect>
+                            <Button.Template>
+                            <ControlTemplate>
+
+
+                               
+                                <Border CornerRadius="20" Width="170"
+                                            BorderBrush="#b82e9c"
+                                            
+                                            ClipToBounds="True"
+                                            Panel.ZIndex="40"
+                                            Height="170" Background="Transparent">
+
+                                    <Border.Triggers>
+                                        <EventTrigger RoutedEvent="Border.MouseDown">
+                                            
+                                            <!--<Setter Property="Border.BorderBrush" Value="DarkViolet"></Setter>-->
+                                        </EventTrigger>
+                                    </Border.Triggers>
+                                    <Rectangle RadiusX="10" RadiusY="10" Width="150" Height="150"
+                                        >
+                                            <Rectangle.Fill>
+                                                <ImageBrush  ImageSource="{Binding  PathToImage}" Stretch="Fill"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    <!--<Image Source="{Binding PathToImage}" Width="160" Height="160" Stretch="Fill"
+                                               ClipToBounds="True">
+                                            
+                                        </Image>-->
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+
+
+
+
+
+
+
+<StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Margin="0,0,0,150">
+        <Button Name="PhotoAgainButton"
+                Panel.ZIndex="100"
+                Width="260"
+                Visibility="Visible"
+                Height="95"
+                Command="{Binding BackCommand}">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="20"
+                                  Opacity="0.8">
+
+                </DropShadowEffect>
+            </Button.Effect>
+
+                <Button.Template>
+                <ControlTemplate>
+                    <Border Background="#bababa"
+                            CornerRadius="10">
+                        <TextBlock Text="НАЗАД"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Name="PhotoTextBlock"
+                                   Foreground="White"
+                                   Padding="30"
+                                   FontSize="30"
+                                   
+                                   FontFamily="Roboto"></TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Name="PhotoButton"
+                Panel.ZIndex="100"
+                Width="360"
+                Height="95"
+                Margin="20,0,0,0"
+                Command="{Binding PrintCommand}">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="20"
+                                  Opacity="0.8">
+
+                </DropShadowEffect>
+            </Button.Effect>
+
+                <Button.Template>
+                <ControlTemplate>
+                    <Border Background="#b82e9c"
+                            CornerRadius="10">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/print.png" 
+                                   Height="45"
+                                   Margin="45,0,35,0"></Image>
+                            <TextBlock Text="ПЕЧАТЬ"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Name="PhotoTextBlock"
+                                       Foreground="White"
+                                       Padding="30"
+                                       FontSize="30"
+                                       FontFamily="Roboto"></TextBlock>
+                            </StackPanel>
+                        
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+</StackPanel>
+        <TextBlock TextAlignment="Center"
+                   Text="Выберите фон" 
+                   FontSize="30" 
+                   Height="40"
+                   VerticalAlignment="Top"
+                   Foreground="#6b6b6b"
+                   FontWeight="Bold"
+                   Margin="0,780,0,0"
+                   FontFamily="Roboto Slab"></TextBlock>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                    Margin="0,0,0,470">
+            <Button Name="AddText"
+                    Panel.ZIndex="100"
+                    Width="240"
+                    Visibility="Collapsed"
+                    Height="60"
+                    Command="{Binding AddTextCommand}">
+                <Button.Effect>
+                    <DropShadowEffect BlurRadius="20"
+                                      Opacity="0.8">
+
+                    </DropShadowEffect>
+                </Button.Effect>
+
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border Background="#b82e9c"
+                                CornerRadius="10">
+                            <TextBlock Text="ДОБАВИТЬ НАДПИСЬ"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Name="PhotoTextBlock"
+                                       Foreground="White"
+                                       Padding="30"
+                                       FontSize="20"
+                                       FontFamily="Roboto"></TextBlock>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button Name="DeleteText"
+                    Panel.ZIndex="100"
+                    Width="240"
+                    Height="60"
+                    Margin="10,10,10,10"
+                    Command="{Binding DeleteTextCommand}">
+                <Button.Effect>
+                    <DropShadowEffect BlurRadius="20"
+                                      Opacity="0.8">
+
+                    </DropShadowEffect>
+                </Button.Effect>
+
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border Background="#b82e9c"
+                                CornerRadius="10">
+                            <TextBlock Text="УБРАТЬ НАДПИСЬ"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Name="PhotoTextBlock"
+                                       Foreground="White"
+                                       Padding="30"
+                                       FontSize="20"
+                                       FontFamily="Roboto"></TextBlock>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+</Grid>
+    </Grid>
+</Page>
