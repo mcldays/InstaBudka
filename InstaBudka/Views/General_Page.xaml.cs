@@ -71,6 +71,7 @@ namespace InstaBudka.Views
             }
             catch (ArgumentNullException)
             {
+                MessageBox.Show("kek");
                 //Something wrong with Stream
             }
         }
