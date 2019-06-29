@@ -34,10 +34,15 @@ namespace InstaBudka.Views
        )));
 
         private ICommand _instagramCommand;
-        public ICommand InstagramCommand => _instagramCommand ?? (_instagramCommand = new Command((c =>
-             {
-                 NavigationService.Navigate(new General_Page());
-             }
+       
+
+
+        private ICommand _loginCommand;
+        public ICommand LoginCommand => _instagramCommand ?? (_loginCommand = new Command((c =>
+        {
+            NavigationService.Navigate(new LoginPage());
+        }
          )));
+
     }
 }

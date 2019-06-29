@@ -9,5 +9,6 @@ namespace InstaBudka.Models
    public class FonModel
     {
         public string PathToImage { get; set; }
+       
     }
 }
