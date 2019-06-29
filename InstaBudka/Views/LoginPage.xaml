@@ -1,0 +1,44 @@
+﻿<Page x:Class="InstaBudka.Views.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InstaBudka.Views"
+    
+      mc:Ignorable="d" 
+      d:DesignHeight="1920" d:DesignWidth="1080"
+      Title="LoginPage"
+      DataContext="{Binding RelativeSource= {RelativeSource Self}}" >
+   
+
+
+    <Grid Width="1080" Height="1920">
+        <Image Source="../Images/pepe.jpg"></Image>
+        <TextBox 
+                HorizontalAlignment="Center" 
+                 Height="100"
+                 Margin="215,1110,215,0"
+                 TextWrapping="Wrap" 
+                 Text="{Binding login,  Mode=TwoWay}"
+                 FontSize="70"
+                 VerticalAlignment="Top"
+                 Width="656"/>
+
+        <Button Content="Найти страницу"
+                HorizontalAlignment="Center" 
+                Margin="212,1320,212,0" 
+                VerticalAlignment="Top" 
+                Width="656"
+                Height="100"
+                FontSize="70"
+
+                Command="{Binding InstagramCommand}"
+
+               />
+
+
+
+
+
+    </Grid>
+</Page>

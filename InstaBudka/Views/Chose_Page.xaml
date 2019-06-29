@@ -23,7 +23,7 @@
 
         <Button
                     Margin="316,1114,316,692"
-                    Command="{Binding InstagramCommand}">
+                    Command="{Binding LoginCommand}">
             <Button.Template>
                 <ControlTemplate>
                     <Border Background="Transparent"/>

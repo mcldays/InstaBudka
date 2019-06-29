@@ -32,7 +32,7 @@ namespace InstaBudka.Views
     {
         IWebDriver Browser;
 
-        public General_Page()
+        public General_Page(string login)
         {
             InitializeComponent();
 
@@ -40,7 +40,7 @@ namespace InstaBudka.Views
             Browser.Manage().Window.Maximize();
             Browser.Manage().Window.FullScreen();
             
-            Browser.Navigate().GoToUrl("https://www.instagram.com/serkser70/");//для теста пиздовали на страницу Сереги. надо между  Chose_Page  и этой сделать промежуточную, где
+            Browser.Navigate().GoToUrl("https://www.instagram.com/"+login);//для теста пиздовали на страницу Сереги. надо между  Chose_Page  и этой сделать промежуточную, где
                 //вводится ник человека или хаштег. по которому ищут публикации
             ((IJavaScriptExecutor)Browser).ExecuteScript("document.body.style.zoom='150%';");
             ((IJavaScriptExecutor)Browser).ExecuteScript("document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
