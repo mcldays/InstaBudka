@@ -123,10 +123,7 @@ namespace InstaBudka.Views
                 App.CurrentApp.Browser.Navigate().GoToUrl("https://www.instagram.com/explore/tags/" +
                                                           login.Replace("#", string.Empty) +
                                                           "/?hl = ru");
-                while (!IsElementPresent(By.ClassName("_8Rna9  _3Laht ")))
-                {
-                    Thread.Sleep(100);
-                }
+                // TODO Поставить проверку, загрузилась ли страница, и если загрузилась, то можно продолжать
                 //((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
                 if(IsElementPresent(By.ClassName("_8Rna9  _3Laht "))) ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
@@ -154,6 +151,7 @@ namespace InstaBudka.Views
                 App.CurrentApp.Browser.Navigate()
                     .GoToUrl(
                         "https://www.instagram.com/" + login + "/");
+                // TODO Поставить проверку, загрузилась ли страница, и если загрузилась, то можно продолжать
                 //((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
                 ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
