@@ -5,27 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InstaBudka"
         mc:Ignorable="d"
-
         Height="1920" Width="1080"
         Title="Chosen_Page"
-        DataContext="{Binding RelativeSource= {RelativeSource Self}}" WindowStyle="None">
+        DataContext="{Binding RelativeSource= {RelativeSource Self}}" 
+        WindowStyle="None"
+        WindowState="Maximized">
 
     <Grid Width="1080" Height="1920">
-        <Image Source="../Images/страница выбранной фото.png"></Image>
-
+        <Image Source="../Images/страница выбранной фото.png"/>
         <Button
-            Command="{Binding PrintCommand }" Margin="316,1451,316,355">
+            Command="{Binding PrintCommand}" 
+            Margin="316,1451,316,355">
             <Button.Template>
                 <ControlTemplate>
                     <Border Background="Transparent"/>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Image Source="{Binding NameImage}" 
-               HorizontalAlignment="Left" 
-               Height="1208"
-               Margin="44,200,0,0" 
-               VerticalAlignment="Top" Width="984"/>
+        <Border x:Name="Border"
+                Padding="20">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <Image Source="{Binding NameImage}" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Width="984"/>
+                <Image Source="{Binding ScreenImage}"/>
+            </StackPanel>
+        </Border>
+    
+        <Button Name="PhotoAgainButton"
+                Panel.ZIndex="100"
+                Width="260"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="60"
+                Visibility="Visible"
+                Height="95"
+                Command="{Binding BackCommand}">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="20"
+                                  Opacity="0.8">
+
+                </DropShadowEffect>
+            </Button.Effect>
+
+            <Button.Template>
+                <ControlTemplate>
+                    <Border Background="#bababa"
+                            CornerRadius="10">
+                        <TextBlock Text="НАЗАД"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Name="PhotoTextBlock"
+                                   Foreground="White"
+                                   Padding="30"
+                                   FontSize="30"
+                                   
+                                   FontFamily="Roboto"></TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
     </Grid>
 </Window>

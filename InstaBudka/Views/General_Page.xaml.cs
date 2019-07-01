@@ -79,6 +79,7 @@ namespace InstaBudka.Views
 
 
 
+        DispatcherTimer timer2 = new DispatcherTimer();
 
         public General_Page(string login)
         {
@@ -89,7 +90,10 @@ namespace InstaBudka.Views
 
             if (hwnd != 0) WinAPI.ShowWindow(hwnd, 3);
 
+
             InitializeComponent();
+            try
+            {
 
 
             DispatcherTimer timer = new DispatcherTimer();
@@ -97,10 +101,10 @@ namespace InstaBudka.Views
             timer.Tick+= TimerOnTick;
             timer.Start();
 
-            DispatcherTimer timer2 = new DispatcherTimer();
             timer2.Interval = TimeSpan.FromMilliseconds(500);
             timer2.Tick += TimerOnTick2;
             timer2.Start();
+
             if (App.CurrentApp.Browser == null)
             {
                 App.CurrentApp.Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
@@ -117,7 +121,27 @@ namespace InstaBudka.Views
                 App.CurrentApp.Browser.Navigate().GoToUrl("https://www.instagram.com/explore/tags/" +
                                                           login.Replace("#", string.Empty) +
                                                           "/?hl = ru");
+                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
+                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
+                    "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
+                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
+                    "document.getElementsByClassName('r9-Os')[0].parentElement.removeChild(document.getElementsByClassName('r9-Os')[0])");
+                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                    @"
+                    document.getElementsByClassName('LWmhU _0aCwM')[0].parentElement.removeChild(document.getElementsByClassName('LWmhU _0aCwM')[0]);
+                    document.getElementsByClassName('id8oV ')[0].parentElement.removeChild(document.getElementsByClassName('id8oV ')[0]);
+                    var classHren = '      tHaIX            Igw0E     IwRSH   pmxbr     YBx95       _4EzTm                                      CIRqI                  IY_1_                           XfCBB             HcJZg        O1flK D8xaz  _7JkPY  TxciK  N9d2H ZUqME ';
+                    if(document.getElementsByClassName(classHren)[0]) document.getElementsByClassName(classHren)[0].parentElement.removeChild(document.getElementsByClassName(classHren)[0]);
+                    
+                    document.getElementsByClassName('oJZym')[0].removeChild(document.getElementsByClassName('oJZym')[0].children[0]);
+                    var img = document.createElement('img');
+                    img.setAttribute('src', 'https://image.flaticon.com/icons/png/512/93/93634.png');
+                    img.setAttribute('width', '28px');
+                    img.setAttribute('onclick', 'document.location.href = \'/\'');
 
+                    document.getElementsByClassName('oJZym')[0].appendChild(img);
+
+");
             }
             else
             {
@@ -133,6 +157,8 @@ namespace InstaBudka.Views
                     "document.getElementsByClassName('fx7hk')[0].parentElement.removeChild(document.getElementsByClassName('fx7hk')[0])");
                 ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('BY3EC ')[0].parentElement.removeChild(document.getElementsByClassName('BY3EC ')[0])");
+
+
 
 
                 ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
@@ -174,6 +200,11 @@ namespace InstaBudka.Views
                 document.getElementsByClassName('oJZym')[0].appendChild(img);
             ");
             }
+            }
+            catch (Exception e)
+            {
+                NavigationService?.GoBack();
+            }
 
             //для теста пиздовали на страницу Сереги. надо между  Chose_Page  и этой сделать промежуточную, где
             //вводится ник человека или хаштег. по которому ищут публикации
@@ -184,56 +215,20 @@ namespace InstaBudka.Views
 
 
 
-            //while (true)
+            
+
+        }
+
+        private async void TimerOnTick2(object sender, EventArgs e)
+        {
+            //var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
+            //var element = wait.Until(condition =>
             //{
-            //    var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
-            //    var element = wait.Until(condition =>
+            //    try
             //    {
-            //        try
-            //        {
-            //            var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
-            //            return elementToBeDisplayed.Displayed;
-                        
-                        
+            //        var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
+            //        return elementToBeDisplayed.Displayed;
 
-            //        }
-            //        catch (StaleElementReferenceException)
-            //        {
-            //            return false;
-            //        }
-            //        catch (NoSuchElementException)
-            //        {
-            //            return false;
-                        
-            //        }
-            //    });
-            //    if (element is false) continue;
-
-            //    if (IsElementPresent(By.ClassName("bY2yH")))
-            //    {
-
-            //        var d = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
-            //        if (d != null)
-            //            TakesScreenshot(App.CurrentApp.Browser,
-            //                App.CurrentApp.Browser.FindElement(
-            //                    By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
-            //        try
-            //        {
-            //            SaveImage("1.jpeg", ImageFormat.Jpeg);
-            //            Window_Chosen_Photo wnd = new Window_Chosen_Photo();
-            //            wnd.Topmost = true;
-            //            wnd.Show();
-            //        }
-            //        catch (ExternalException)
-            //        {
-            //            //Something is wrong with Format -- Maybe required Format is not 
-            //            // applicable here
-            //        }
-            //        catch (ArgumentNullException)
-            //        {
-            //            //MessageBox.Show("kek");
-            //            //Something wrong with Stream
-            //        }
 
 
             //        //     ((IJavaScriptExecutor) Browser).ExecuteScript(
@@ -287,7 +282,6 @@ namespace InstaBudka.Views
             //        // if (!temp){document.getElementsByClassName('eo2As ')[0].appendChild(btn);}
 
 
-            //        // ");
             //    }
 
 
@@ -295,47 +289,18 @@ namespace InstaBudka.Views
 
             //}
 
-        }
-
-        private void TimerOnTick2(object sender, EventArgs e)
-        {
-            //var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
-            //var element = wait.Until(condition =>
-            //{
-            //    try
-            //    {
-            //        var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
-            //        return elementToBeDisplayed.Displayed;
-
-
-
-            //    }
-            //    catch (StaleElementReferenceException)
-            //    {
-            //        return false;
-            //    }
-            //    catch (NoSuchElementException)
-            //    {
-            //        return false;
-
-            //    }
-            //});
-            //if (element is false) return;
 
             if (IsElementPresent(By.ClassName("bY2yH")))
             {
-
-                var d = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
-                if (d != null)
-                    TakesScreenshot(App.CurrentApp.Browser,
-                        App.CurrentApp.Browser.FindElement(
-                            By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
+                timer2.Stop();
+              
                 try
                 {
-                    SaveImage("1.jpeg", ImageFormat.Jpeg);
+                   await SaveImage("1.jpeg", ImageFormat.Jpeg);
                     Window_Chosen_Photo wnd = new Window_Chosen_Photo();
-                    wnd.Topmost = true;
+                    wnd.ShowDialog();
                     wnd.Show();
+                    timer2.Start();
                 }
                 catch (ExternalException)
                 {
@@ -347,6 +312,7 @@ namespace InstaBudka.Views
                     //MessageBox.Show("kek");
                     //Something wrong with Stream
                 }
+                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.getElementsByClassName('ckWGn')[0].click();");
             }
         }
 
@@ -368,10 +334,10 @@ namespace InstaBudka.Views
 
 
 
-        public async void  SaveImage(string filename, ImageFormat format)
+        public async Task  SaveImage(string filename, ImageFormat format)
         {
 
-            Task.Run((() =>
+           await Task.Run((async () =>
             {
 
                 while (true)
@@ -379,7 +345,7 @@ namespace InstaBudka.Views
                     try
                     {
                         var a = (string) ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
-                            "return document.getElementsByClassName('KL4Bh')[a].children[0].getAttribute('src')"); //тут мы сэйвим картинку. которую открыли. но тут указан индекс нулевой для теста,но надо получать актуальный у блока фотки. на которую нажали и выгружать оттуда фотку
+                            "return document.getElementsByClassName('KL4Bh')[0].children[0].getAttribute('src')"); //тут мы сэйвим картинку. которую открыли. но тут указан индекс нулевой для теста,но надо получать актуальный у блока фотки. на которую нажали и выгружать оттуда фотку
                         //вообще лучше отдельным окном повесить где-нибудь в углу кнопку печать и на нее команду , куски кода которой можно спиздить в kolazh page
                         //надо соединить фото, которое печатаем и его подпись с хаштэгами и вывести это на печать
                         WebClient client = new WebClient();
@@ -394,6 +360,12 @@ namespace InstaBudka.Views
                         stream.Flush();
                         stream.Close();
                         client.Dispose();
+                        await Task.Delay(600);
+                        var d = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
+                        if (d != null)
+                            TakesScreenshot(App.CurrentApp.Browser,
+                                App.CurrentApp.Browser.FindElement(
+                                    By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
                         break;
                     }
                     catch { }
@@ -404,7 +376,7 @@ namespace InstaBudka.Views
 
         public void TakesScreenshot(IWebDriver driver, IWebElement element)
         {
-            string fileName = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".jpg";
+            string fileName ="screen.jpg";
             Byte[] byteArray = ((ITakesScreenshot)driver).GetScreenshot().AsByteArray;
             Bitmap screenshot = new Bitmap(new System.IO.MemoryStream(byteArray));
             Rectangle croppedImage = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width, element.Size.Height);
