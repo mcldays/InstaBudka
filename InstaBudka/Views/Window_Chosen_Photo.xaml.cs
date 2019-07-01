@@ -79,13 +79,31 @@ namespace InstaBudka
         private ICommand _printCommand;
         public ICommand PrintCommand => _printCommand ?? (_printCommand = new Command((c =>
         {
-            MakeScreenElement(Border);
             PrintDocument pd = new PrintDocument();
             //пробуй и true и false
             pd.OriginAtMargins = false;
             pd.PrintPage += PrintPage;
-            pd.Print();
 
+            PrintDialog printDialog = new PrintDialog();
+
+            //Border.Visibility = Visibility.Hidden;
+            Border.VerticalAlignment = VerticalAlignment.Top;
+            Border.HorizontalAlignment = HorizontalAlignment.Left;
+            // Увеличить размер в 5 раз
+            //Border.LayoutTransform = new ScaleTransform(0.625, 0.625);
+            Border.Margin = new Thickness(0,0,0,0);
+            // Определить поля
+            int pageMargin = 0;
+
+            // Получить размер страницы
+            System.Windows.Size pageSize = new System.Windows.Size(printDialog.PrintableAreaWidth,
+                printDialog.PrintableAreaHeight);
+
+            // Инициировать установку размера элемента
+            Border.Measure(pageSize);
+            Border.Arrange(new Rect(pageMargin, pageMargin, pageSize.Width, pageSize.Height));
+            MakeScreenElement(Border);
+            pd.Print();
             (App.Current.MainWindow as MainWindow).Frame1.Navigate(new Chose_Page());
             Close();
         }
