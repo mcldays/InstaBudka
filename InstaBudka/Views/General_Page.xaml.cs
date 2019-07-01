@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.UI.HtmlControls;
 using System.Windows;
@@ -20,6 +21,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using InstaBudka.Utilities;
+using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.UI;
 using Image = System.Drawing.Image;
 using Rectangle = System.Drawing.Rectangle;
@@ -90,6 +93,9 @@ namespace InstaBudka.Views
                 App.CurrentApp.Browser.Manage().Window.Maximize();
                 
                 App.CurrentApp.Browser.Manage().Window.FullScreen();
+
+                
+
             }
 
             if (login.Contains("#"))
@@ -120,7 +126,7 @@ namespace InstaBudka.Views
                 var classHren = '      tHaIX            Igw0E     IwRSH   pmxbr     YBx95       _4EzTm                                      CIRqI                  IY_1_                           XfCBB             HcJZg        O1flK D8xaz  _7JkPY  TxciK  N9d2H ZUqME ';
                 if(document.getElementsByClassName(classHren)[0]) document.getElementsByClassName(classHren)[0].parentElement.removeChild(document.getElementsByClassName(classHren)[0]);
                 document.getElementsByClassName('LWmhU _0aCwM')[0].parentElement.removeChild(document.getElementsByClassName('LWmhU _0aCwM')[0]);
-                document.getElementsByClassName('oJZym')[0].children[0].removeAttribute('href');
+
                 document.getElementsByClassName('-nal3 ')[0].removeAttribute('href');
                 document.getElementsByClassName('-nal3 ')[1].removeAttribute('href');
                 document.getElementsByClassName('-nal3 ')[2].removeAttribute('href');
@@ -143,16 +149,37 @@ namespace InstaBudka.Views
                 replaceTag(document.getElementsByClassName('-nal3 ')[0], 'div');
                 replaceTag(document.getElementsByClassName('-nal3 ')[1], 'div');
                 replaceTag(document.getElementsByClassName('-nal3 ')[2], 'div');
+                
 
+                document.getElementsByClassName('oJZym')[0].removeChild(document.getElementsByClassName('oJZym')[0].children[0]);
+                var img = document.createElement('img');
+                img.setAttribute('src', 'https://image.flaticon.com/icons/png/512/93/93634.png');
+                img.setAttribute('width', '28px');
+                img.setAttribute('onclick', 'document.location.href = \'/\'');
+
+                document.getElementsByClassName('oJZym')[0].appendChild(img);
             ");
             }
+
             //для теста пиздовали на страницу Сереги. надо между  Chose_Page  и этой сделать промежуточную, где
             //вводится ник человека или хаштег. по которому ищут публикации
 
 
             //убираем все лишние кнопки. чтобы челик далеко не ушел
             //событие открытия одной из фотографий, обычно я ставил тут точку остановы, тыкал на фотку и продолжал тесы, нужно щелчок по определенному фото вынести в отдельное событие
-            
+
+            while (!IsElementPresent(By.ClassName("oJZym")))
+            {
+                Thread.Sleep(100);
+            }
+            EventFiringWebDriver eventDriver = new EventFiringWebDriver(App.CurrentApp.Browser);
+
+            eventDriver.ElementClicked += (a, b) =>
+            {
+                if (b.Element.GetAttribute("Class") == "oJZym")
+                    NavigationService?.GoBack();
+            };
+
             while (true)
             {
                 var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
@@ -177,6 +204,7 @@ namespace InstaBudka.Views
                     }
                 });
                 if (element is false) continue;
+
                 if (IsElementPresent(By.ClassName("bY2yH")))
                 {
 
