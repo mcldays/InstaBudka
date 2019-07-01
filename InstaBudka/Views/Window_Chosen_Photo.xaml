@@ -22,7 +22,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Border x:Name="Border"
+        <Border Name="Border"
                 Padding="20">
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center">
