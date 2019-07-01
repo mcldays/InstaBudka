@@ -49,20 +49,18 @@ namespace InstaBudka.Views
                  //LoadingBorder.Visibility = Visibility.Visible;
                  TextBoxHush.Text = string.Empty;
                  TextBoxNick.Text = string.Empty;
-                 BW.Show();
                  (App.Current.MainWindow as MainWindow).Topmost = false;
                  //LoadingBorder.Visibility = Visibility.Collapsed;
 
              }
          )));
 
-                 Back_Window BW = new Back_Window();
 
                  private ICommand _searchByHushTagCommand;
 
         public ICommand SearchByHushTagCommand => _searchByHushTagCommand ?? (_searchByHushTagCommand = new Command((c =>
              {
-                 NavigationService.Navigate(new General_Page("#"+TextBoxHush.Text));
+                 NavigationService.Navigate(new General_Page("#"+TextBoxHush.Text.Replace("#", "")));
                  TextBoxHush.Text = string.Empty;
                  TextBoxNick.Text = string.Empty;
              }
