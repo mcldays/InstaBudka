@@ -103,7 +103,7 @@ namespace InstaBudka.Views
             timer.Tick+= TimerOnTick;
             timer.Start();
 
-            timer2.Interval = TimeSpan.FromMilliseconds(500);
+            timer2.Interval = TimeSpan.FromMilliseconds(100);
             timer2.Tick += TimerOnTick2;
             timer2.Start();
 
@@ -418,8 +418,7 @@ namespace InstaBudka.Views
         {
    
             ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("arguments[0].scrollIntoView(true);", App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK")));
-            Thread.Sleep(500);
-          
+            Thread.Sleep(100);
 
             string fileName ="screen.jpg";
             Byte[] byteArray = ((ITakesScreenshot)driver).GetScreenshot().AsByteArray;
