@@ -21,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using InstaBudka.Utilities;
 using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.UI;
@@ -64,6 +65,15 @@ namespace InstaBudka.Views
         {
 
             InitializeComponent();
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval= TimeSpan.FromMilliseconds(500);
+            timer.Tick+= TimerOnTick;
+            timer.Start();
+
+            DispatcherTimer timer2 = new DispatcherTimer();
+            timer2.Interval = TimeSpan.FromMilliseconds(500);
+            timer2.Tick += TimerOnTick2;
+            timer2.Start();
             if (App.CurrentApp.Browser == null)
             {
                 App.CurrentApp.Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
@@ -145,132 +155,182 @@ namespace InstaBudka.Views
             //убираем все лишние кнопки. чтобы челик далеко не ушел
             //событие открытия одной из фотографий, обычно я ставил тут точку остановы, тыкал на фотку и продолжал тесы, нужно щелчок по определенному фото вынести в отдельное событие
 
-            while (!IsElementPresent(By.ClassName("oJZym")))
-            {
-                Thread.Sleep(100);
-            }
-            EventFiringWebDriver eventDriver = new EventFiringWebDriver(App.CurrentApp.Browser);
 
-            eventDriver.ElementClicked += (a, b) =>
-            {
-                if (b.Element.GetAttribute("Class") == "oJZym")
-                    NavigationService?.GoBack();
-            };
 
-            while (true)
-            {
-                var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
-                var element = wait.Until(condition =>
-                {
-                    try
-                    {
-                        var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
-                        return elementToBeDisplayed.Displayed;
+            //while (true)
+            //{
+            //    var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
+            //    var element = wait.Until(condition =>
+            //    {
+            //        try
+            //        {
+            //            var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
+            //            return elementToBeDisplayed.Displayed;
                         
                         
 
-                    }
-                    catch (StaleElementReferenceException)
-                    {
-                        return false;
-                    }
-                    catch (NoSuchElementException)
-                    {
-                        return false;
+            //        }
+            //        catch (StaleElementReferenceException)
+            //        {
+            //            return false;
+            //        }
+            //        catch (NoSuchElementException)
+            //        {
+            //            return false;
                         
-                    }
-                });
-                if (element is false) continue;
+            //        }
+            //    });
+            //    if (element is false) continue;
 
-                if (IsElementPresent(By.ClassName("bY2yH")))
-                {
+            //    if (IsElementPresent(By.ClassName("bY2yH")))
+            //    {
 
-                    var d = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
-                    if (d != null)
-                        TakesScreenshot(App.CurrentApp.Browser,
-                            App.CurrentApp.Browser.FindElement(
-                                By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
-                    try
-                    {
-                        SaveImage("1.jpeg", ImageFormat.Jpeg);
-                        Window_Chosen_Photo wnd = new Window_Chosen_Photo();
-                        wnd.Topmost = true;
-                        wnd.Show();
-                    }
-                    catch (ExternalException)
-                    {
-                        //Something is wrong with Format -- Maybe required Format is not 
-                        // applicable here
-                    }
-                    catch (ArgumentNullException)
-                    {
-                        //MessageBox.Show("kek");
-                        //Something wrong with Stream
-                    }
-
-
-                    //     ((IJavaScriptExecutor) Browser).ExecuteScript(
-                    //         @"
-                    // function replaceTag( element, newTag )
-                    // {
-                    //     var elementNew = document.createElement( newTag );
-                    //     elementNew.innerHTML = element.innerHTML;
-
-                    //     Array.prototype.forEach.call( element.attributes, function( attr ) {
-                    //         elementNew.setAttribute( attr.name, attr.value );
-                    //     });
-
-                    //     element.parentNode.insertBefore( elementNew, element );
-                    //     element.parentNode.removeChild( element );
-                    //     return elementNew;
-                    // }
-                    // var avs = document.getElementsByClassName('_2dbep qNELH kIKUG');
-                    // var name = document.getElementsByClassName('FPmhX notranslate nJAzx')[0];
-
-                    //for (index = 0; index < avs.length; ++index) {
-                    //     replaceTag(avs[index], 'div');
-                    //     avs[index].removeAttribute('href');
-                    // }
-                    // replaceTag(name, 'div');
-                    // name.removeAttribute('href');
-                    // document.getElementsByClassName('bY2yH')[0].style.visibility = 'hidden';
-                    // var icons = document.getElementsByClassName('dCJp8 afkep _0mzm-');
-                    // icons[0].style.visibility = 'hidden';
-                    // icons[1].style.visibility = 'hidden';
-                    // icons[2].style.visibility = 'hidden';
-                    // icons[3].style.visibility = 'hidden';
-                    // icons[4].style.visibility = 'hidden';
-                    // document.getElementsByClassName('sH9wk  _JgwE ')[0].style.visibility = 'hidden';
-                    // var answer = document.getElementsByClassName('FH9sR');
-                    // for (index = 0; index < answer.length; ++index) {
-                    //     answer[index].style.visibility = 'hidden';
-                    // }
-                    // var temp1 = document.getElementsByClassName('vcOH2')[0];
-                    // if (!temp1) {document.getElementsByClassName('_0mzm- sqdOP yWX7d    _8A5w5    ')[0].style.visibility = 'hidden';}
-                    // else {temp1.style.visibility = 'hidden';}
-
-                    // document.getElementsByClassName('k_Q0X NnvRN')[0].style.visibility = 'hidden';
+            //        var d = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
+            //        if (d != null)
+            //            TakesScreenshot(App.CurrentApp.Browser,
+            //                App.CurrentApp.Browser.FindElement(
+            //                    By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
+            //        try
+            //        {
+            //            SaveImage("1.jpeg", ImageFormat.Jpeg);
+            //            Window_Chosen_Photo wnd = new Window_Chosen_Photo();
+            //            wnd.Topmost = true;
+            //            wnd.Show();
+            //        }
+            //        catch (ExternalException)
+            //        {
+            //            //Something is wrong with Format -- Maybe required Format is not 
+            //            // applicable here
+            //        }
+            //        catch (ArgumentNullException)
+            //        {
+            //            //MessageBox.Show("kek");
+            //            //Something wrong with Stream
+            //        }
 
 
-                    // var btn = document.createElement('button');
-                    // btn.style.height = '50px';
-                    // btn.textContent = 'Напечатать';
-                    // btn.setAttribute('class', 'btnnew');
-                    // var temp = document.getElementsByClassName('btnnew')[0];
-                    // if (!temp){document.getElementsByClassName('eo2As ')[0].appendChild(btn);}
+            //        //     ((IJavaScriptExecutor) Browser).ExecuteScript(
+            //        //         @"
+            //        // function replaceTag( element, newTag )
+            //        // {
+            //        //     var elementNew = document.createElement( newTag );
+            //        //     elementNew.innerHTML = element.innerHTML;
+
+            //        //     Array.prototype.forEach.call( element.attributes, function( attr ) {
+            //        //         elementNew.setAttribute( attr.name, attr.value );
+            //        //     });
+
+            //        //     element.parentNode.insertBefore( elementNew, element );
+            //        //     element.parentNode.removeChild( element );
+            //        //     return elementNew;
+            //        // }
+            //        // var avs = document.getElementsByClassName('_2dbep qNELH kIKUG');
+            //        // var name = document.getElementsByClassName('FPmhX notranslate nJAzx')[0];
+
+            //        //for (index = 0; index < avs.length; ++index) {
+            //        //     replaceTag(avs[index], 'div');
+            //        //     avs[index].removeAttribute('href');
+            //        // }
+            //        // replaceTag(name, 'div');
+            //        // name.removeAttribute('href');
+            //        // document.getElementsByClassName('bY2yH')[0].style.visibility = 'hidden';
+            //        // var icons = document.getElementsByClassName('dCJp8 afkep _0mzm-');
+            //        // icons[0].style.visibility = 'hidden';
+            //        // icons[1].style.visibility = 'hidden';
+            //        // icons[2].style.visibility = 'hidden';
+            //        // icons[3].style.visibility = 'hidden';
+            //        // icons[4].style.visibility = 'hidden';
+            //        // document.getElementsByClassName('sH9wk  _JgwE ')[0].style.visibility = 'hidden';
+            //        // var answer = document.getElementsByClassName('FH9sR');
+            //        // for (index = 0; index < answer.length; ++index) {
+            //        //     answer[index].style.visibility = 'hidden';
+            //        // }
+            //        // var temp1 = document.getElementsByClassName('vcOH2')[0];
+            //        // if (!temp1) {document.getElementsByClassName('_0mzm- sqdOP yWX7d    _8A5w5    ')[0].style.visibility = 'hidden';}
+            //        // else {temp1.style.visibility = 'hidden';}
+
+            //        // document.getElementsByClassName('k_Q0X NnvRN')[0].style.visibility = 'hidden';
 
 
-                    // ");
-                }
+            //        // var btn = document.createElement('button');
+            //        // btn.style.height = '50px';
+            //        // btn.textContent = 'Напечатать';
+            //        // btn.setAttribute('class', 'btnnew');
+            //        // var temp = document.getElementsByClassName('btnnew')[0];
+            //        // if (!temp){document.getElementsByClassName('eo2As ')[0].appendChild(btn);}
+
+
+            //        // ");
+            //    }
 
 
 
 
-            }
+            //}
 
         }
 
+        private void TimerOnTick2(object sender, EventArgs e)
+        {
+            var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
+            var element = wait.Until(condition =>
+            {
+                try
+                {
+                    var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
+                    return elementToBeDisplayed.Displayed;
 
+
+
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+
+                }
+            });
+            if (element is false) return;
+
+            if (IsElementPresent(By.ClassName("bY2yH")))
+            {
+
+                var d = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
+                if (d != null)
+                    TakesScreenshot(App.CurrentApp.Browser,
+                        App.CurrentApp.Browser.FindElement(
+                            By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
+                try
+                {
+                    SaveImage("1.jpeg", ImageFormat.Jpeg);
+                    Window_Chosen_Photo wnd = new Window_Chosen_Photo();
+                    wnd.Topmost = true;
+                    wnd.Show();
+                }
+                catch (ExternalException)
+                {
+                    //Something is wrong with Format -- Maybe required Format is not 
+                    // applicable here
+                }
+                catch (ArgumentNullException)
+                {
+                    //MessageBox.Show("kek");
+                    //Something wrong with Stream
+                }
+            }
+        }
+
+        private void TimerOnTick(object sender, EventArgs e)
+        {
+            //проверяем адрес
+            if (App.CurrentApp.Browser.Url == "https://www.instagram.com/")
+            {
+                MessageBox.Show("kekmek");
+            }
+        }
 
 
         public void SaveImage(string filename, ImageFormat format)
