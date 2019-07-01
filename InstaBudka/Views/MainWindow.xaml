@@ -16,7 +16,7 @@
                  Height="{Binding Heightt}">
             <Frame NavigationUIVisibility="Hidden"
                    Name="Frame1"
-                   Navigating="Frame1_OnNavigating"
+                   
                    
             ></Frame>
         </Viewbox>
