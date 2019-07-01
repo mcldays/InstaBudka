@@ -136,7 +136,7 @@ namespace InstaBudka.Views
                 
 
                 PrintDialog printDialog = new PrintDialog();
-                
+
                 GlobalGrid.Visibility = Visibility.Hidden;
                 PrintCanvas.VerticalAlignment = VerticalAlignment.Top;
                 PrintCanvas.HorizontalAlignment = HorizontalAlignment.Left;
@@ -155,10 +155,11 @@ namespace InstaBudka.Views
                 PrintCanvas.Measure(pageSize);
                 PrintCanvas.Arrange(new Rect(pageMargin, pageMargin, pageSize.Width, pageSize.Height));
 
-                // Напечатать элемент
-                printDialog.PrintVisual(PrintCanvas, "Распечатываем элемент Canvas");
+                //// Напечатать элемент
+                ////printDialog.PrintVisual(PrintCanvas, "Распечатываем элемент Canvas");
 
-
+                MakeScreenElement(PrintCanvas);
+                btnPrint_Click();
                 // Удалить трансформацию и снова сделать элемент видимым
                 SecondGrid.Visibility = Visibility.Visible;
 
@@ -173,6 +174,36 @@ namespace InstaBudka.Views
             }
         )));
 
+        private void MakeScreenElement(FrameworkElement elem)
+        {
+            RenderTargetBitmap renderTargetBitmap =
+                new RenderTargetBitmap((int)elem.Width, (int)elem.Height, 96, 96, PixelFormats.Pbgra32);
+            renderTargetBitmap.Render(elem);
+            PngBitmapEncoder pngImage = new PngBitmapEncoder();
+            pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+            using (Stream fileStream = File.Create("fileKolazh.png"))
+            {
+                pngImage.Save(fileStream);
+            }
+            
+            
+    }
+
+        protected void btnPrint_Click()
+        {
+            PrintDocument pd = new PrintDocument();
+            //пробуй и true и false
+            pd.OriginAtMargins = false;
+            pd.PrintPage += PrintPage;
+            pd.Print();
+        }
+
+        private void PrintPage(object o, PrintPageEventArgs e)
+        {
+            System.Drawing.Image img = System.Drawing.Image.FromFile(Directory.GetCurrentDirectory()+ "\\fileKolazh.png");
+            System.Drawing.Point loc = new System.Drawing.Point(0, 0);
+            e.Graphics.DrawImage(img, loc);
+        }
 
         private ICommand _changeFonCommand;
         public ICommand ChangeFonCommand => _changeFonCommand ?? (_changeFonCommand = new Command((c =>
@@ -211,6 +242,13 @@ namespace InstaBudka.Views
          )));
 
 
+        private void TextBox_OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            if(TextBox.Text=="Введите описание")
+            TextBox.Text = string.Empty;
+            //CoolKeyBoard.Visibility = Visibility.Visible;
+        }
 
+        
     }
 }
