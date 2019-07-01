@@ -157,6 +157,13 @@ namespace InstaBudka.Views
 
                 //// Напечатать элемент
                 ////printDialog.PrintVisual(PrintCanvas, "Распечатываем элемент Canvas");
+                if (string.IsNullOrEmpty(TextBox.Text) || TextBox.Text == "Введите описание")
+                {
+                    TextBox.Text = "Введите описание";
+                    TextBox.Visibility = Visibility.Collapsed;
+                    AddText.Visibility = Visibility.Visible;
+                    DeleteText.Visibility = Visibility.Collapsed;
+                }
 
                 MakeScreenElement(PrintCanvas);
                 btnPrint_Click();
@@ -166,11 +173,23 @@ namespace InstaBudka.Views
                 PrintCanvas.LayoutTransform = null;
                 PrintGrid.LayoutTransform = null;
 
-
+                EventFiringWebDriver eventDriver = new EventFiringWebDriver(_driver);
+                eventDriver.Navigating += navigatingHandler;
 
                 PrintCanvas.VerticalAlignment = VerticalAlignment.Top;
                 PrintCanvas.HorizontalAlignment = HorizontalAlignment.Center;
                 GlobalGrid.Visibility = Visibility.Visible;
+                //string[] masPhoto = {Photo1, Photo2, Photo3};
+                //Photo1 = null;
+                //Photo2 = null;
+                //Photo3 = null;
+                //foreach (string s in masPhoto)
+                //{
+                //    File.Delete(s);
+                //}
+        
+                NavigationService?.Navigate(new Chose_Page());
+                
             }
         )));
 
