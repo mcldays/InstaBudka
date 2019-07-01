@@ -242,6 +242,13 @@ namespace InstaBudka.Views
          )));
 
 
+        private void TextBox_OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            if(TextBox.Text=="Введите описание")
+            TextBox.Text = string.Empty;
+            //CoolKeyBoard.Visibility = Visibility.Visible;
+        }
 
+        
     }
 }
