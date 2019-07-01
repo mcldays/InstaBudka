@@ -86,6 +86,7 @@ namespace InstaBudka.Views
             if (hwnd != 0) WinAPI.ShowWindow(hwnd, 3);
 
             InitializeComponent();
+
             if (App.CurrentApp.Browser == null)
             {
                 App.CurrentApp.Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
