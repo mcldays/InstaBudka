@@ -80,6 +80,7 @@ namespace InstaBudka.Views
 
 
         DispatcherTimer timer2 = new DispatcherTimer();
+        DispatcherTimer timer = new DispatcherTimer();
 
         public General_Page(string login)
         {
@@ -96,7 +97,7 @@ namespace InstaBudka.Views
             {
 
 
-            DispatcherTimer timer = new DispatcherTimer();
+            
             timer.Interval= TimeSpan.FromMilliseconds(500);
             timer.Tick+= TimerOnTick;
             timer.Start();
@@ -299,7 +300,7 @@ namespace InstaBudka.Views
                    await SaveImage("1.jpeg", ImageFormat.Jpeg);
                     Window_Chosen_Photo wnd = new Window_Chosen_Photo();
                     wnd.ShowDialog();
-                    timer2.Start();
+                    
                 }
                 catch (ExternalException)
                 {
@@ -311,7 +312,13 @@ namespace InstaBudka.Views
                     //MessageBox.Show("kek");
                     //Something wrong with Stream
                 }
+
+                while (!IsElementPresent(By.ClassName("ckWGn")))
+                {
+                    Thread.Sleep(500);
+                }
                 ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.getElementsByClassName('ckWGn')[0].click();");
+                timer2.Start();
             }
         }
 
@@ -320,13 +327,22 @@ namespace InstaBudka.Views
             //проверяем адрес
             if (App.CurrentApp.Browser.Url == "https://www.instagram.com/" || App.CurrentApp.Browser.Url == "https://www.instagram.com")
             {
-                Thread.Sleep(5000);
-                App.CurrentApp.Browser.Navigate().GoToUrl("https://instagram.com/explore/tags/instabudka");
-                
-                //int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
-                App.CurrentApp.Browser.Manage().Window.Minimize();
-                NavigationService.Navigate(new LoginPage());
-                //if (hwnd != 0) WinAPI.ShowWindow(hwnd, SW_HIDE);
+                timer.Stop();
+                try
+                {
+                    App.CurrentApp.Browser.Navigate().GoToUrl("https://instagram.com/explore/tags/instabudka");
+                    Thread.Sleep(500);
+                    //int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
+                    App.CurrentApp.Browser.Manage().Window.Minimize();
+                    NavigationService.Navigate(new LoginPage());
+                    //if (hwnd != 0) WinAPI.ShowWindow(hwnd, SW_HIDE);
+                }
+                catch
+                {
+                    TimerOnTick(sender, e);
+                }
+
+                timer.Start();
             }
         }
 
@@ -375,6 +391,10 @@ namespace InstaBudka.Views
 
         public void TakesScreenshot(IWebDriver driver, IWebElement element)
         {
+   
+            ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("arguments[0].scrollIntoView(true);", App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK")));
+            Thread.Sleep(500);
+
             string fileName ="screen.jpg";
             Byte[] byteArray = ((ITakesScreenshot)driver).GetScreenshot().AsByteArray;
             Bitmap screenshot = new Bitmap(new System.IO.MemoryStream(byteArray));
