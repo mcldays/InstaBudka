@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InstaBudka.Views"
-    
+      xmlns:controls="clr-namespace:MSPBanck.Controls"
       mc:Ignorable="d" 
       d:DesignHeight="1920" d:DesignWidth="1080"
       Title="LoginPage"
@@ -13,31 +13,153 @@
 
 
     <Grid Width="1080" Height="1920">
-        <Image Source="../Images/pepe.jpg"></Image>
-        <TextBox 
+        <Image Source="../Images/страница поиска.png"></Image>
+        <StackPanel VerticalAlignment="Center" Margin="0,100,0,0">
+            <TextBlock Text="Поиск по нику" Foreground="White"
+                       FontSize="80"
+                       HorizontalAlignment="Center"
+                       FontFamily="Roboto Slab"></TextBlock>
+            <TextBox  TextAlignment="Center"
                 HorizontalAlignment="Center" 
                  Height="100"
-                 Margin="215,1110,215,0"
+                 FontFamily="Roboto Slab"
                  TextWrapping="Wrap" 
-                 Text="{Binding login,  Mode=TwoWay}"
+                Name="TextBoxNick"
                  FontSize="70"
-                 VerticalAlignment="Top"
+                 VerticalAlignment="Center"
                  Width="656"/>
 
-        <Button Content="Найти страницу"
-                HorizontalAlignment="Center" 
-                Margin="212,1332,212,0" 
-                VerticalAlignment="Top" 
-                Width="656"
-                Height="100"
-                FontSize="70"
+            <Button 
+                    Panel.ZIndex="100"
+                    Width="360"
+                    Height="95"
+                    Margin="0,30,0,0"
+                    Command="{Binding SearchByNickCommand}">
+                <Button.Effect>
+                    <DropShadowEffect BlurRadius="20"
+                                      Opacity="0.8">
 
-                Command="{Binding InstagramCommand}"
+                    </DropShadowEffect>
+                </Button.Effect>
 
-               />
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border Background="#b82e9c"
+                                CornerRadius="10">
+                            
+                                <TextBlock Text="ПОИСК"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Name="PhotoTextBlock"
+                                           Foreground="White"
+                                           Padding="30"
+                                           FontSize="30"
+                                           FontFamily="Roboto"></TextBlock>
+                           
+
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
 
 
+            <TextBlock Text="Поиск по хэштегу" Foreground="White"
+                       FontSize="80"
+                       HorizontalAlignment="Center"
+                       FontFamily="Roboto Slab"></TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Border Width="100" Height="100" Background="White">
+                    <TextBlock Text="#" FontFamily="Roboto Slab"
+                               FontSize="80" TextAlignment="Center"></TextBlock>
+                </Border>
+                <TextBox  TextAlignment="Center"
+                      HorizontalAlignment="Center" 
+                      Height="100"
+                      Name="TextBoxHush"
+                      FontFamily="Roboto Slab"
+                      TextWrapping="Wrap" 
+                      FontSize="70"
+                      VerticalAlignment="Center"
+                      Width="656"/>
+            </StackPanel>
+            <Button 
+                    Panel.ZIndex="100"
+                    Width="360"
+                    Height="95"
+                    Margin="0,30,0,0"
+                    Command="{Binding SearchByHushTagCommand}">
+                <Button.Effect>
+                    <DropShadowEffect BlurRadius="20"
+                                      Opacity="0.8">
 
+                    </DropShadowEffect>
+                </Button.Effect>
+
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border Background="#b82e9c"
+                                CornerRadius="10">
+
+                            <TextBlock Text="ПОИСК"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Name="PhotoTextBlock"
+                                       Foreground="White"
+                                       Padding="30"
+                                       FontSize="30"
+                                       FontFamily="Roboto"></TextBlock>
+
+
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+
+        </StackPanel>
+        <controls:CoolKeyBoard 
+            x:Name="CoolKeyBoard"
+            Visibility="Visible"
+            Panel.ZIndex="400"
+            Height="400"
+            Margin="0,0,0,100"
+            
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Center" />
+
+        <Button Name="PhotoAgainButton"
+                Panel.ZIndex="100"
+                Width="260"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="60"
+                Visibility="Visible"
+                Height="95"
+                Command="{Binding BackCommand}">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="20"
+                                  Opacity="0.8">
+
+                </DropShadowEffect>
+            </Button.Effect>
+
+            <Button.Template>
+                <ControlTemplate>
+                    <Border Background="#bababa"
+                            CornerRadius="10">
+                        <TextBlock Text="НАЗАД"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Name="PhotoTextBlock"
+                                   Foreground="White"
+                                   Padding="30"
+                                   FontSize="30"
+                                   
+                                   FontFamily="Roboto"></TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
 
     </Grid>

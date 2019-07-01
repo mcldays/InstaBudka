@@ -26,13 +26,37 @@ namespace InstaBudka.Views
         public string login { get; set; }
         public ICommand _instagramCommand;
 
-        
+        private ICommand _backCommand;
+        public ICommand BackCommand => _backCommand ?? (_backCommand = new Command((c =>
+             {
+                 NavigationService?.GoBack();
+
+             }
+         )));
+
 
         public ICommand InstagramCommand => _instagramCommand ?? (_instagramCommand = new Command((c =>
         {
-            NavigationService.Navigate(new General_Page(login));
+            NavigationService?.Navigate(new General_Page(login));
         }
         )));
+        
+        private ICommand _searchByNickCommand;
+
+        public ICommand SearchByNickCommand => _searchByNickCommand ?? (_searchByNickCommand = new Command((c =>
+             {
+                 NavigationService?.Navigate(new General_Page(TextBoxNick.Text));
+             }
+         )));
+
+
+        private ICommand _searchByHushTagCommand;
+
+        public ICommand SearchByHushTagCommand => _searchByHushTagCommand ?? (_searchByHushTagCommand = new Command((c =>
+             {
+                 NavigationService?.Navigate(new General_Page("#"+TextBoxHush.Text.Replace("#", string.Empty)));
+             }
+         )));
 
 
         public LoginPage()

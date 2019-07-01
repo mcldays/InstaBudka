@@ -21,7 +21,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 using Image = System.Drawing.Image;
 using Rectangle = System.Drawing.Rectangle;
 using VICH_Johnson.Utilities;
@@ -34,32 +33,57 @@ namespace InstaBudka.Views
     public partial class General_Page : Page
     {
         IWebDriver Browser;
-        private ICommand _PrintPage;
+
+        private bool IsElementPresent(By by)
+        {
+            try
+            {
+
+                if (Browser.FindElement(by).Displayed)
+                    return true;
+                else
+                    return false;
+                
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public General_Page(string login)
         {
+
             InitializeComponent();
             
              Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
             Browser.Manage().Window.Maximize();
             Browser.Manage().Window.FullScreen();
+            if (login.Contains("#"))
+            {
+                Browser.Navigate().GoToUrl("https://www.instagram.com/explore/tags/" +
+                                           login.Replace("#", string.Empty) +
+                                           "/?hl = ru");
+               
+            }
+            else
+            {
+                Browser.Navigate()
+                    .GoToUrl(
+                        "https://www.instagram.com/" + login + "/");
+                ((IJavaScriptExecutor)Browser).ExecuteScript("document.body.style.zoom='150%';");
+                ((IJavaScriptExecutor)Browser).ExecuteScript(
+                    "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
+                ((IJavaScriptExecutor)Browser).ExecuteScript(
+                    "document.getElementsByClassName('r9-Os')[0].parentElement.removeChild(document.getElementsByClassName('r9-Os')[0])");
+                ((IJavaScriptExecutor)Browser).ExecuteScript(
+                    "document.getElementsByClassName('fx7hk')[0].parentElement.removeChild(document.getElementsByClassName('fx7hk')[0])");
+                ((IJavaScriptExecutor)Browser).ExecuteScript(
+                    "document.getElementsByClassName('BY3EC ')[0].parentElement.removeChild(document.getElementsByClassName('BY3EC ')[0])");
 
-            Browser.Navigate()
-                .GoToUrl(
-                    "https://www.instagram.com/"+login); //для теста пиздовали на страницу Сереги. надо между  Chose_Page  и этой сделать промежуточную, где
-            //вводится ник человека или хаштег. по которому ищут публикации
-            ((IJavaScriptExecutor) Browser).ExecuteScript("document.body.style.zoom='150%';");
-            ((IJavaScriptExecutor) Browser).ExecuteScript(
-                "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
-            ((IJavaScriptExecutor) Browser).ExecuteScript(
-                "document.getElementsByClassName('r9-Os')[0].parentElement.removeChild(document.getElementsByClassName('r9-Os')[0])");
-            ((IJavaScriptExecutor) Browser).ExecuteScript(
-                "document.getElementsByClassName('fx7hk')[0].parentElement.removeChild(document.getElementsByClassName('fx7hk')[0])");
-            ((IJavaScriptExecutor) Browser).ExecuteScript(
-                "document.getElementsByClassName('BY3EC ')[0].parentElement.removeChild(document.getElementsByClassName('BY3EC ')[0])");
 
-
-            ((IJavaScriptExecutor)Browser).ExecuteScript(
-                @"
+                ((IJavaScriptExecutor)Browser).ExecuteScript(
+                    @"
                 var classHren = '      tHaIX            Igw0E     IwRSH   pmxbr     YBx95       _4EzTm                                      CIRqI                  IY_1_                           XfCBB             HcJZg        O1flK D8xaz  _7JkPY  TxciK  N9d2H ZUqME ';
                 if(document.getElementsByClassName(classHren)[0]) document.getElementsByClassName(classHren)[0].parentElement.removeChild(document.getElementsByClassName(classHren)[0]);
                 document.getElementsByClassName('LWmhU _0aCwM')[0].parentElement.removeChild(document.getElementsByClassName('LWmhU _0aCwM')[0]);
@@ -88,6 +112,10 @@ namespace InstaBudka.Views
                 replaceTag(document.getElementsByClassName('-nal3 ')[2], 'div');
 
             ");
+            }
+            //для теста пиздовали на страницу Сереги. надо между  Chose_Page  и этой сделать промежуточную, где
+            //вводится ник человека или хаштег. по которому ищут публикации
+            
 
             //убираем все лишние кнопки. чтобы челик далеко не ушел
             var a = Browser.PageSource;
@@ -117,34 +145,95 @@ namespace InstaBudka.Views
                     }
                 });
                 if(element is false) continue;
+                if (IsElementPresent(By.ClassName("bY2yH")))
+                {
 
-               
+                    var c = Browser.FindElement(By.ClassName("C4VMK"));
+                    if (c != null)
+                        TakesScreenshot(Browser, Browser.FindElement(By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
+                    try
+                    {
+
+                        SaveImage("1.jpeg", ImageFormat.Jpeg);
+                        
+
+                    }
+                    catch (ExternalException)
+                    {
+                        //Something is wrong with Format -- Maybe required Format is not 
+                        // applicable here
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        //MessageBox.Show("kek");
+                        //Something wrong with Stream
+                    }
+
+
+                    //     ((IJavaScriptExecutor) Browser).ExecuteScript(
+                    //         @"
+                    // function replaceTag( element, newTag )
+                    // {
+                    //     var elementNew = document.createElement( newTag );
+                    //     elementNew.innerHTML = element.innerHTML;
+
+                    //     Array.prototype.forEach.call( element.attributes, function( attr ) {
+                    //         elementNew.setAttribute( attr.name, attr.value );
+                    //     });
+
+                    //     element.parentNode.insertBefore( elementNew, element );
+                    //     element.parentNode.removeChild( element );
+                    //     return elementNew;
+                    // }
+                    // var avs = document.getElementsByClassName('_2dbep qNELH kIKUG');
+                    // var name = document.getElementsByClassName('FPmhX notranslate nJAzx')[0];
+
+                    //for (index = 0; index < avs.length; ++index) {
+                    //     replaceTag(avs[index], 'div');
+                    //     avs[index].removeAttribute('href');
+                    // }
+                    // replaceTag(name, 'div');
+                    // name.removeAttribute('href');
+                    // document.getElementsByClassName('bY2yH')[0].style.visibility = 'hidden';
+                    // var icons = document.getElementsByClassName('dCJp8 afkep _0mzm-');
+                    // icons[0].style.visibility = 'hidden';
+                    // icons[1].style.visibility = 'hidden';
+                    // icons[2].style.visibility = 'hidden';
+                    // icons[3].style.visibility = 'hidden';
+                    // icons[4].style.visibility = 'hidden';
+                    // document.getElementsByClassName('sH9wk  _JgwE ')[0].style.visibility = 'hidden';
+                    // var answer = document.getElementsByClassName('FH9sR');
+                    // for (index = 0; index < answer.length; ++index) {
+                    //     answer[index].style.visibility = 'hidden';
+                    // }
+                    // var temp1 = document.getElementsByClassName('vcOH2')[0];
+                    // if (!temp1) {document.getElementsByClassName('_0mzm- sqdOP yWX7d    _8A5w5    ')[0].style.visibility = 'hidden';}
+                    // else {temp1.style.visibility = 'hidden';}
+
+                    // document.getElementsByClassName('k_Q0X NnvRN')[0].style.visibility = 'hidden';
+
+
+                    // var btn = document.createElement('button');
+                    // btn.style.height = '50px';
+                    // btn.textContent = 'Напечатать';
+                    // btn.setAttribute('class', 'btnnew');
+                    // var temp = document.getElementsByClassName('btnnew')[0];
+                    // if (!temp){document.getElementsByClassName('eo2As ')[0].appendChild(btn);}
+
+
+                    // ");
+                }
+
+
+                
 
             }
-            
-           
 
-
-            var c = Browser.FindElement(By.ClassName("C4VMK"));
-            if (c != null)
-            TakesScreenshot(Browser, Browser.FindElement(By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
-            try
-            {
-
-                SaveImage("1.jpeg", ImageFormat.Jpeg);
-
-            }
-            catch (ExternalException)
-            {
-                //Something is wrong with Format -- Maybe required Format is not 
-                // applicable here
-            }
-            catch (ArgumentNullException)
-            {
-                MessageBox.Show("kek");
-                //Something wrong with Stream
-            }
+          
         }
+
+
+
 
         public void SaveImage(string filename, ImageFormat format)
         {
