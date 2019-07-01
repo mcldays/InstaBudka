@@ -83,6 +83,9 @@ namespace InstaBudka.Views
 
         public General_Page(string login)
         {
+            App.CurrentApp.Browser.Manage().Window.Maximize();
+
+            App.CurrentApp.Browser.Manage().Window.FullScreen();
             int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
 
             if (hwnd != 0) WinAPI.ShowWindow(hwnd, 3);
@@ -317,7 +320,13 @@ namespace InstaBudka.Views
             //проверяем адрес
             if (App.CurrentApp.Browser.Url == "https://www.instagram.com/" || App.CurrentApp.Browser.Url == "https://www.instagram.com")
             {
+                Thread.Sleep(5000);
+                App.CurrentApp.Browser.Navigate().GoToUrl("https://instagram.com/explore/tags/instabudka");
+                
+                //int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
                 App.CurrentApp.Browser.Manage().Window.Minimize();
+                NavigationService.Navigate(new LoginPage());
+                //if (hwnd != 0) WinAPI.ShowWindow(hwnd, SW_HIDE);
             }
         }
 
