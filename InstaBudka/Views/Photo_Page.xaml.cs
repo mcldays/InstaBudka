@@ -43,10 +43,7 @@ namespace InstaBudka.Views
 
         void Cam_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-
-
             System.Drawing.Image img = (Bitmap) eventArgs.Frame.Clone();
-
             MemoryStream ms = new MemoryStream();
             img.Save(ms, ImageFormat.Bmp);
             ms.Seek(0, SeekOrigin.Begin);
@@ -63,11 +60,6 @@ namespace InstaBudka.Views
                 frameHolder.Source = bi;
                 bi2 = bi;
             }));
-
-            
-
-
-
         }
 
         private void Photo_Page_OnLoaded(object sender, RoutedEventArgs e)
@@ -78,12 +70,10 @@ namespace InstaBudka.Views
                 LocalWebCam = new VideoCaptureDevice(LoaclWebCamsCollection[0].MonikerString);
                 LocalWebCam.NewFrame += new NewFrameEventHandler(Cam_NewFrame);
                 LocalWebCam.Start();
-
             }
             else
             {
                 MessageBox.Show("Камера не подключена");
-
             }
             
         }
@@ -105,8 +95,6 @@ namespace InstaBudka.Views
         )));
 
 
-
-
         private ICommand _photoCommand;
         public ICommand PhotoCommand => _photoCommand ?? (_photoCommand = new Command((c =>
           {
@@ -122,12 +110,13 @@ namespace InstaBudka.Views
         )));
 
         private ICommand _kolazhCommand;
-        public ICommand KolazhCommand => _kolazhCommand ?? (_kolazhCommand = new Command((c =>
+        public ICommand KolazhCommand => _kolazhCommand ?? (_kolazhCommand = new Command(c =>
          {
              LocalWebCam.Stop();
              NavigationService.Navigate(new Kolazh_Page(PhotoPath1,PhotoPath2,PhotoPath3));
          }
-          )));
+         ));
+
 
         private ICommand _testCommand;
         public ICommand TestCommand => _testCommand ?? (_testCommand = new Command((c =>
@@ -136,9 +125,6 @@ namespace InstaBudka.Views
                  printDlg.PrintVisual(TestGrid, "Grid Printing.");
              }
          )));
-        
-       
-
        
 
         private void StartCountdown(FrameworkElement target)
@@ -184,8 +170,6 @@ namespace InstaBudka.Views
                 PngBitmapEncoder encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(bi2));
                 encoder.Save(stream);
-
-
             }
 
             switch (PhotoIndex)
@@ -208,7 +192,6 @@ namespace InstaBudka.Views
                     CountdownBorder.Visibility = Visibility.Hidden;
                     PhotoAgainButton.Visibility = Visibility.Visible;
                     PhotoButton.Visibility = Visibility.Collapsed;
-
 
                     break;
 
