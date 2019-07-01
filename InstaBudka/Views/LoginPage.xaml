@@ -11,7 +11,7 @@
       DataContext="{Binding RelativeSource= {RelativeSource Self}}" >
     <Grid Width="1080" Height="1920">
 
-        <Image Source="../Images/страница поиска.png"></Image>
+        <Image Source="../Images/pepe.jpg"></Image>
         <StackPanel VerticalAlignment="Center" Margin="0,100,0,0">
             <TextBlock Text="Поиск по нику" Foreground="White"
                        FontSize="80"

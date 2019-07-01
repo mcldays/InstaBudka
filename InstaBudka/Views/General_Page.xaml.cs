@@ -82,11 +82,16 @@ namespace InstaBudka.Views
 
         public General_Page(string login)
         {
+            App.CurrentApp.Browser.Manage().Window.Maximize();
+
+            App.CurrentApp.Browser.Manage().Window.FullScreen();
             int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
 
             if (hwnd != 0) WinAPI.ShowWindow(hwnd, 3);
 
             InitializeComponent();
+
+
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval= TimeSpan.FromMilliseconds(500);
             timer.Tick+= TimerOnTick;
@@ -294,28 +299,28 @@ namespace InstaBudka.Views
 
         private void TimerOnTick2(object sender, EventArgs e)
         {
-            var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
-            var element = wait.Until(condition =>
-            {
-                try
-                {
-                    var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
-                    return elementToBeDisplayed.Displayed;
+            //var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
+            //var element = wait.Until(condition =>
+            //{
+            //    try
+            //    {
+            //        var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
+            //        return elementToBeDisplayed.Displayed;
 
 
 
-                }
-                catch (StaleElementReferenceException)
-                {
-                    return false;
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
+            //    }
+            //    catch (StaleElementReferenceException)
+            //    {
+            //        return false;
+            //    }
+            //    catch (NoSuchElementException)
+            //    {
+            //        return false;
 
-                }
-            });
-            if (element is false) return;
+            //    }
+            //});
+            //if (element is false) return;
 
             if (IsElementPresent(By.ClassName("bY2yH")))
             {
@@ -348,9 +353,15 @@ namespace InstaBudka.Views
         private void TimerOnTick(object sender, EventArgs e)
         {
             //проверяем адрес
-            if (App.CurrentApp.Browser.Url == "https://www.instagram.com/")
+            if (App.CurrentApp.Browser.Url == "https://www.instagram.com/" || App.CurrentApp.Browser.Url == "https://www.instagram.com")
             {
-                MessageBox.Show("kekmek");
+                Thread.Sleep(5000);
+                App.CurrentApp.Browser.Navigate().GoToUrl("https://instagram.com/explore/tags/instabudka");
+                
+                //int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
+                App.CurrentApp.Browser.Manage().Window.Minimize();
+                NavigationService.Navigate(new LoginPage());
+                //if (hwnd != 0) WinAPI.ShowWindow(hwnd, SW_HIDE);
             }
         }
 
