@@ -148,10 +148,7 @@ namespace InstaBudka.Views
                         TakesScreenshot(Browser, Browser.FindElement(By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
                     try
                     {
-
                         SaveImage("1.jpeg", ImageFormat.Jpeg);
-                        
-
                     }
                     catch (ExternalException)
                     {
