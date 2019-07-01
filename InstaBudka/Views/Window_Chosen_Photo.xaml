@@ -25,17 +25,17 @@
         <Border Name="Border"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Height="1208"
-                Padding="20" Margin="46,199,58,513" Width="976">
+                Height="900"
+                Padding="20" Margin="46,199,58,513" Width="600">
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                 <Image Source="{Binding NameImage}" 
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center" 
-                       Width="984"/>
+                       />
                 <Image Source="{Binding ScreenImage}"
                        Stretch="UniformToFill"
-                       Width="334"
+                       Width="200"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"/>
             </StackPanel>
