@@ -299,8 +299,13 @@ namespace InstaBudka.Views
 
             if (IsElementPresent(By.ClassName("bY2yH")))
             {
+                if (IsElementPresent(By.ClassName("QvAa1 ")))
+                {
+                    ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.getElementsByClassName('ckWGn')[0].click();");
+                    return;
+                }
                 timer2.Stop();
-              
+                
                 try
                 {
                    await SaveImage("1.jpeg", ImageFormat.Jpeg);
@@ -340,13 +345,10 @@ namespace InstaBudka.Views
                     //Thread.Sleep(500);
                     //int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
                     App.CurrentApp.Browser.Manage().Window.Minimize();
-                    NavigationService.Navigate(new LoginPage());
+                    NavigationService.GoBack();
                     //if (hwnd != 0) WinAPI.ShowWindow(hwnd, SW_HIDE);
-                }
-                catch
-                {
-                    TimerOnTick(sender, e);
-                }
+                
+                
 
                 timer.Start();
             }
