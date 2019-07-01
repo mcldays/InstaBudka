@@ -17,7 +17,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using InstaBudka.Utilities;
-using OpenQA.Selenium.Support.Events;
 
 namespace InstaBudka.Views
 {
