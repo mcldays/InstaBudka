@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -24,8 +25,23 @@ namespace InstaBudka.Views
     {
         public Chose_Page()
         {
+           
             InitializeComponent();
+            const int SW_MAXIMIZE = 9;
+            const int SW_MINIMIZE = 8;
+
+
+
+
+            int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
+            if (hwnd != 0) WinAPI.ShowWindow(hwnd, 0);
+
+
+
+            WinAPI.ShowWindow(hwnd, 0);
             
+
+
         }
 
         

@@ -56,15 +56,39 @@ namespace InstaBudka.Views
 
         }
 
+
+        public static class WinAPI
+
+        {
+
+            [DllImport("user32.dll", SetLastError = true)]
+            internal static extern int FindWindow(string lpClassName, string lpWindowName);
+
+            [DllImport("user32.dll", SetLastError = true)]
+            internal static extern int ShowWindow(int hwnd, int nCmdShow);
+            [DllImport("user32.dll")]
+            private static extern
+                bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+
+        }
+
+
+
+
+
         public General_Page(string login)
         {
+            int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
+
+            if (hwnd != 0) WinAPI.ShowWindow(hwnd, 3);
 
             InitializeComponent();
             if (App.CurrentApp.Browser == null)
             {
                 App.CurrentApp.Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
+                
                 App.CurrentApp.Browser.Manage().Window.Maximize();
-
+                
                 App.CurrentApp.Browser.Manage().Window.FullScreen();
             }
 
