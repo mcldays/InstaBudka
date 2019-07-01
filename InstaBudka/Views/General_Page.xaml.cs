@@ -331,8 +331,8 @@ namespace InstaBudka.Views
                 {
                    await SaveImage("1.jpeg", ImageFormat.Jpeg);
                     Window_Chosen_Photo wnd = new Window_Chosen_Photo();
+                    wnd.ShowDialog();
                     wnd.Show();
-                    App.CurrentApp.Browser.Manage().Window.Minimize();
                     timer2.Start();
                 }
                 catch (ExternalException)
@@ -364,7 +364,7 @@ namespace InstaBudka.Views
         public async Task  SaveImage(string filename, ImageFormat format)
         {
 
-           await Task.Run((() =>
+           await Task.Run((async () =>
             {
 
                 while (true)
@@ -387,6 +387,7 @@ namespace InstaBudka.Views
                         stream.Flush();
                         stream.Close();
                         client.Dispose();
+                        await Task.Delay(600);
                         var d = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
                         if (d != null)
                             TakesScreenshot(App.CurrentApp.Browser,
