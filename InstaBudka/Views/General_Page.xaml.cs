@@ -151,65 +151,82 @@ namespace InstaBudka.Views
                 if(element is false) continue;
                 if (IsElementPresent(By.ClassName("bY2yH")))
                 {
-                    
-                        ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
-                            @"
-                    function replaceTag( element, newTag )
+
+                    var c = Browser.FindElement(By.ClassName("C4VMK"));
+                    if (c != null)
+                        TakesScreenshot(Browser, Browser.FindElement(By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
+                    try
                     {
-                        var elementNew = document.createElement( newTag );
-                        elementNew.innerHTML = element.innerHTML;
 
-                        Array.prototype.forEach.call( element.attributes, function( attr ) {
-                            elementNew.setAttribute( attr.name, attr.value );
-                        });
+                        SaveImage("1.jpeg", ImageFormat.Jpeg);
+                        
 
-                        element.parentNode.insertBefore( elementNew, element );
-                        element.parentNode.removeChild( element );
-                        return elementNew;
                     }
-                    var avs = document.getElementsByClassName('_2dbep qNELH kIKUG');
-                    var name = document.getElementsByClassName('FPmhX notranslate nJAzx')[0];
-
-                   for (index = 0; index < avs.length; ++index) {
-                        replaceTag(avs[index], 'div');
-                        avs[index].removeAttribute('href');
+                    catch (ExternalException)
+                    {
+                        //Something is wrong with Format -- Maybe required Format is not 
+                        // applicable here
                     }
-                    replaceTag(name, 'div');
-                    name.removeAttribute('href');
-                    document.getElementsByClassName('bY2yH')[0].style.visibility = 'hidden';
-                    var icons = document.getElementsByClassName('dCJp8 afkep _0mzm-');
-                    icons[0].style.visibility = 'hidden';
-                    icons[1].style.visibility = 'hidden';
-                    icons[2].style.visibility = 'hidden';
-                    icons[3].style.visibility = 'hidden';
-                    icons[4].style.visibility = 'hidden';
-                    document.getElementsByClassName('sH9wk  _JgwE ')[0].style.visibility = 'hidden';
-                    var answer = document.getElementsByClassName('FH9sR');
-                    for (index = 0; index < answer.length; ++index) {
-                        answer[index].style.visibility = 'hidden';
-                    }
-                    var temp1 = document.getElementsByClassName('vcOH2')[0];
-                    if (!temp1) {document.getElementsByClassName('_0mzm- sqdOP yWX7d    _8A5w5    ')[0].style.visibility = 'hidden';}
-                    else {temp1.style.visibility = 'hidden';}
-
-                    document.getElementsByClassName('k_Q0X NnvRN')[0].style.visibility = 'hidden';
-
-
-                    var btn = document.createElement('button');
-                    btn.style.height = '50px';
-                    btn.textContent = 'Напечатать';
-                    btn.setAttribute('class', 'btnnew');
-                    var temp = document.getElementsByClassName('btnnew')[0];
-                    if (!temp){document.getElementsByClassName('eo2As ')[0].appendChild(btn);}
-                    
-
-                    ");
+                    catch (ArgumentNullException)
+                    {
+                        //MessageBox.Show("kek");
+                        //Something wrong with Stream
                     }
 
 
-                
+                    //     ((IJavaScriptExecutor) Browser).ExecuteScript(
+                    //         @"
+                    // function replaceTag( element, newTag )
+                    // {
+                    //     var elementNew = document.createElement( newTag );
+                    //     elementNew.innerHTML = element.innerHTML;
 
-            }
+                    //     Array.prototype.forEach.call( element.attributes, function( attr ) {
+                    //         elementNew.setAttribute( attr.name, attr.value );
+                    //     });
+
+                    //     element.parentNode.insertBefore( elementNew, element );
+                    //     element.parentNode.removeChild( element );
+                    //     return elementNew;
+                    // }
+                    // var avs = document.getElementsByClassName('_2dbep qNELH kIKUG');
+                    // var name = document.getElementsByClassName('FPmhX notranslate nJAzx')[0];
+
+                    //for (index = 0; index < avs.length; ++index) {
+                    //     replaceTag(avs[index], 'div');
+                    //     avs[index].removeAttribute('href');
+                    // }
+                    // replaceTag(name, 'div');
+                    // name.removeAttribute('href');
+                    // document.getElementsByClassName('bY2yH')[0].style.visibility = 'hidden';
+                    // var icons = document.getElementsByClassName('dCJp8 afkep _0mzm-');
+                    // icons[0].style.visibility = 'hidden';
+                    // icons[1].style.visibility = 'hidden';
+                    // icons[2].style.visibility = 'hidden';
+                    // icons[3].style.visibility = 'hidden';
+                    // icons[4].style.visibility = 'hidden';
+                    // document.getElementsByClassName('sH9wk  _JgwE ')[0].style.visibility = 'hidden';
+                    // var answer = document.getElementsByClassName('FH9sR');
+                    // for (index = 0; index < answer.length; ++index) {
+                    //     answer[index].style.visibility = 'hidden';
+                    // }
+                    // var temp1 = document.getElementsByClassName('vcOH2')[0];
+                    // if (!temp1) {document.getElementsByClassName('_0mzm- sqdOP yWX7d    _8A5w5    ')[0].style.visibility = 'hidden';}
+                    // else {temp1.style.visibility = 'hidden';}
+
+                    // document.getElementsByClassName('k_Q0X NnvRN')[0].style.visibility = 'hidden';
+
+
+                    // var btn = document.createElement('button');
+                    // btn.style.height = '50px';
+                    // btn.textContent = 'Напечатать';
+                    // btn.setAttribute('class', 'btnnew');
+                    // var temp = document.getElementsByClassName('btnnew')[0];
+                    // if (!temp){document.getElementsByClassName('eo2As ')[0].appendChild(btn);}
+
+
+                    // ");
+                }
 
             var c = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
             if (c != null)
@@ -220,16 +237,8 @@ namespace InstaBudka.Views
                 SaveImage("1.jpeg", ImageFormat.Jpeg);
 
             }
-            catch (ExternalException)
-            {
-                //Something is wrong with Format -- Maybe required Format is not 
-                // applicable here
-            }
-            catch (ArgumentNullException)
-            {
-                MessageBox.Show("kek");
-                //Something wrong with Stream
-            }
+
+          
         }
 
 
