@@ -5,16 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InstaBudka"
         mc:Ignorable="d"
-
         Height="1920" Width="1080"
         Title="Chosen_Page"
-        DataContext="{Binding RelativeSource= {RelativeSource Self}}" WindowStyle="None">
+        DataContext="{Binding RelativeSource= {RelativeSource Self}}" 
+        WindowStyle="None"
+        WindowState="Maximized">
 
     <Grid Width="1080" Height="1920">
-        <Image Source="../Images/страница выбранной фото.png"></Image>
-
+        <Image Source="../Images/страница выбранной фото.png"/>
         <Button
-            Command="{Binding PrintCommand }" Margin="316,1451,316,355">
+            Command="{Binding PrintCommand}" 
+            Margin="316,1451,316,355">
             <Button.Template>
                 <ControlTemplate>
                     <Border Background="Transparent"/>

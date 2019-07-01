@@ -10,8 +10,7 @@
       Title="LoginPage"
       DataContext="{Binding RelativeSource= {RelativeSource Self}}" >
     <Grid Width="1080" Height="1920">
-
-        <Image Source="../Images/page_search.png"></Image>
+        <Image Source="../Images/страница поиска.png"></Image>
         <StackPanel VerticalAlignment="Center" Margin="0,100,0,0">
             <TextBlock Text="Поиск по нику" Foreground="White"
                        FontSize="80"
@@ -137,7 +136,6 @@
             <Button.Effect>
                 <DropShadowEffect BlurRadius="20"
                                   Opacity="0.8">
-
                 </DropShadowEffect>
             </Button.Effect>
 
@@ -152,7 +150,6 @@
                                    Foreground="White"
                                    Padding="30"
                                    FontSize="30"
-                                   
                                    FontFamily="Roboto"></TextBlock>
                     </Border>
                 </ControlTemplate>
