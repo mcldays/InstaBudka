@@ -30,8 +30,8 @@ namespace InstaBudka
             if (hwnd != 0) Chose_Page.WinAPI.ShowWindow(hwnd, 0);
 
             InitializeComponent();
-            NameImage = $"{Directory.GetCurrentDirectory()}\\1.jpeg";
-            ScreenImage = Directory.GetCurrentDirectory() + "screen.jpg";
+            NameImage = new BitmapImage(new Uri($"file:///{Directory.GetCurrentDirectory()}\\1.jpeg"));
+            ScreenImage =new BitmapImage(new Uri("file:///"+Directory.GetCurrentDirectory() + "\\screen.jpg"));
         }
 
         private void MakeScreenElement(FrameworkElement elem)
@@ -41,30 +41,29 @@ namespace InstaBudka
             renderTargetBitmap.Render(elem);
             PngBitmapEncoder pngImage = new PngBitmapEncoder();
             pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
-            using (Stream fileStream = File.Create("fileKolazh.png"))
+            using (Stream fileStream = File.Create("readyFile.png"))
             {
                 pngImage.Save(fileStream);
             }
-
 
         }
 
 
         public static readonly DependencyProperty ScreenImageProperty = DependencyProperty.Register(
-            "ScreenImage", typeof(string), typeof(Window_Chosen_Photo), new PropertyMetadata(default(string)));
+            "ScreenImage", typeof(BitmapImage), typeof(Window_Chosen_Photo), new PropertyMetadata(default(BitmapImage)));
 
-        public string ScreenImage
+        public BitmapImage ScreenImage
         {
-            get => (string) GetValue(ScreenImageProperty);
+            get => (BitmapImage) GetValue(ScreenImageProperty);
             set => SetValue(ScreenImageProperty, value);
         }
 
         public static readonly DependencyProperty NameImageProperty = DependencyProperty.Register(
-            "NameImage", typeof(string), typeof(Window_Chosen_Photo), new PropertyMetadata(default(string)));
+            "NameImage", typeof(BitmapImage), typeof(Window_Chosen_Photo), new PropertyMetadata(default(BitmapImage)));
 
-        public string NameImage
+        public BitmapImage NameImage
         {
-            get => (string) GetValue(NameImageProperty);
+            get => (BitmapImage) GetValue(NameImageProperty);
             set => SetValue(NameImageProperty, value);
         }
 
