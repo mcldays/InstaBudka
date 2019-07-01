@@ -86,6 +86,7 @@ namespace InstaBudka.Views
 
             if (hwnd != 0) WinAPI.ShowWindow(hwnd, 3);
 
+
             InitializeComponent();
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval= TimeSpan.FromMilliseconds(500);
@@ -93,9 +94,10 @@ namespace InstaBudka.Views
             timer.Start();
 
             DispatcherTimer timer2 = new DispatcherTimer();
-            timer2.Interval = TimeSpan.FromMilliseconds(500);
+            timer2.Interval = TimeSpan.FromMilliseconds(5000);
             timer2.Tick += TimerOnTick2;
             timer2.Start();
+
             if (App.CurrentApp.Browser == null)
             {
                 App.CurrentApp.Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
@@ -112,7 +114,27 @@ namespace InstaBudka.Views
                 App.CurrentApp.Browser.Navigate().GoToUrl("https://www.instagram.com/explore/tags/" +
                                                           login.Replace("#", string.Empty) +
                                                           "/?hl = ru");
+                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
+                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
+                    "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
+                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
+                    "document.getElementsByClassName('r9-Os')[0].parentElement.removeChild(document.getElementsByClassName('r9-Os')[0])");
+                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                    @"
+                    document.getElementsByClassName('LWmhU _0aCwM')[0].parentElement.removeChild(document.getElementsByClassName('LWmhU _0aCwM')[0]);
+                    document.getElementsByClassName('id8oV ')[0].parentElement.removeChild(document.getElementsByClassName('id8oV ')[0]);
+                    var classHren = '      tHaIX            Igw0E     IwRSH   pmxbr     YBx95       _4EzTm                                      CIRqI                  IY_1_                           XfCBB             HcJZg        O1flK D8xaz  _7JkPY  TxciK  N9d2H ZUqME ';
+                    if(document.getElementsByClassName(classHren)[0]) document.getElementsByClassName(classHren)[0].parentElement.removeChild(document.getElementsByClassName(classHren)[0]);
+                    
+                    document.getElementsByClassName('oJZym')[0].removeChild(document.getElementsByClassName('oJZym')[0].children[0]);
+                    var img = document.createElement('img');
+                    img.setAttribute('src', 'https://image.flaticon.com/icons/png/512/93/93634.png');
+                    img.setAttribute('width', '28px');
+                    img.setAttribute('onclick', 'document.location.href = \'/\'');
 
+                    document.getElementsByClassName('oJZym')[0].appendChild(img);
+
+");
             }
             else
             {
@@ -128,6 +150,8 @@ namespace InstaBudka.Views
                     "document.getElementsByClassName('fx7hk')[0].parentElement.removeChild(document.getElementsByClassName('fx7hk')[0])");
                 ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('BY3EC ')[0].parentElement.removeChild(document.getElementsByClassName('BY3EC ')[0])");
+
+
 
 
                 ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
@@ -179,143 +203,34 @@ namespace InstaBudka.Views
 
 
 
-            //while (true)
-            //{
-            //    var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
-            //    var element = wait.Until(condition =>
-            //    {
-            //        try
-            //        {
-            //            var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
-            //            return elementToBeDisplayed.Displayed;
-                        
-                        
-
-            //        }
-            //        catch (StaleElementReferenceException)
-            //        {
-            //            return false;
-            //        }
-            //        catch (NoSuchElementException)
-            //        {
-            //            return false;
-                        
-            //        }
-            //    });
-            //    if (element is false) continue;
-
-            //    if (IsElementPresent(By.ClassName("bY2yH")))
-            //    {
-
-            //        var d = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
-            //        if (d != null)
-            //            TakesScreenshot(App.CurrentApp.Browser,
-            //                App.CurrentApp.Browser.FindElement(
-            //                    By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
-            //        try
-            //        {
-            //            SaveImage("1.jpeg", ImageFormat.Jpeg);
-            //            Window_Chosen_Photo wnd = new Window_Chosen_Photo();
-            //            wnd.Topmost = true;
-            //            wnd.Show();
-            //        }
-            //        catch (ExternalException)
-            //        {
-            //            //Something is wrong with Format -- Maybe required Format is not 
-            //            // applicable here
-            //        }
-            //        catch (ArgumentNullException)
-            //        {
-            //            //MessageBox.Show("kek");
-            //            //Something wrong with Stream
-            //        }
-
-
-            //        //     ((IJavaScriptExecutor) Browser).ExecuteScript(
-            //        //         @"
-            //        // function replaceTag( element, newTag )
-            //        // {
-            //        //     var elementNew = document.createElement( newTag );
-            //        //     elementNew.innerHTML = element.innerHTML;
-
-            //        //     Array.prototype.forEach.call( element.attributes, function( attr ) {
-            //        //         elementNew.setAttribute( attr.name, attr.value );
-            //        //     });
-
-            //        //     element.parentNode.insertBefore( elementNew, element );
-            //        //     element.parentNode.removeChild( element );
-            //        //     return elementNew;
-            //        // }
-            //        // var avs = document.getElementsByClassName('_2dbep qNELH kIKUG');
-            //        // var name = document.getElementsByClassName('FPmhX notranslate nJAzx')[0];
-
-            //        //for (index = 0; index < avs.length; ++index) {
-            //        //     replaceTag(avs[index], 'div');
-            //        //     avs[index].removeAttribute('href');
-            //        // }
-            //        // replaceTag(name, 'div');
-            //        // name.removeAttribute('href');
-            //        // document.getElementsByClassName('bY2yH')[0].style.visibility = 'hidden';
-            //        // var icons = document.getElementsByClassName('dCJp8 afkep _0mzm-');
-            //        // icons[0].style.visibility = 'hidden';
-            //        // icons[1].style.visibility = 'hidden';
-            //        // icons[2].style.visibility = 'hidden';
-            //        // icons[3].style.visibility = 'hidden';
-            //        // icons[4].style.visibility = 'hidden';
-            //        // document.getElementsByClassName('sH9wk  _JgwE ')[0].style.visibility = 'hidden';
-            //        // var answer = document.getElementsByClassName('FH9sR');
-            //        // for (index = 0; index < answer.length; ++index) {
-            //        //     answer[index].style.visibility = 'hidden';
-            //        // }
-            //        // var temp1 = document.getElementsByClassName('vcOH2')[0];
-            //        // if (!temp1) {document.getElementsByClassName('_0mzm- sqdOP yWX7d    _8A5w5    ')[0].style.visibility = 'hidden';}
-            //        // else {temp1.style.visibility = 'hidden';}
-
-            //        // document.getElementsByClassName('k_Q0X NnvRN')[0].style.visibility = 'hidden';
-
-
-            //        // var btn = document.createElement('button');
-            //        // btn.style.height = '50px';
-            //        // btn.textContent = 'Напечатать';
-            //        // btn.setAttribute('class', 'btnnew');
-            //        // var temp = document.getElementsByClassName('btnnew')[0];
-            //        // if (!temp){document.getElementsByClassName('eo2As ')[0].appendChild(btn);}
-
-
-            //        // ");
-            //    }
-
-
-
-
-            //}
+            
 
         }
 
-        private void TimerOnTick2(object sender, EventArgs e)
+        private async void TimerOnTick2(object sender, EventArgs e)
         {
-            var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
-            var element = wait.Until(condition =>
-            {
-                try
-                {
-                    var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
-                    return elementToBeDisplayed.Displayed;
+            //var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
+            //var element = wait.Until(condition =>
+            //{
+            //    try
+            //    {
+            //        var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
+            //        return elementToBeDisplayed.Displayed;
 
 
 
-                }
-                catch (StaleElementReferenceException)
-                {
-                    return false;
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
+            //    }
+            //    catch (StaleElementReferenceException)
+            //    {
+            //        return false;
+            //    }
+            //    catch (NoSuchElementException)
+            //    {
+            //        return false;
 
-                }
-            });
-            if (element is false) return;
+            //    }
+            //});
+            //if (element is false) return;
 
             if (IsElementPresent(By.ClassName("bY2yH")))
             {
@@ -327,7 +242,7 @@ namespace InstaBudka.Views
                             By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
                 try
                 {
-                    SaveImage("1.jpeg", ImageFormat.Jpeg);
+                    await SaveImage("1.jpeg", ImageFormat.Jpeg);
                     Window_Chosen_Photo wnd = new Window_Chosen_Photo();
                     wnd.Topmost = true;
                     wnd.Show();
@@ -348,7 +263,7 @@ namespace InstaBudka.Views
         private void TimerOnTick(object sender, EventArgs e)
         {
             //проверяем адрес
-            if (App.CurrentApp.Browser.Url == "https://www.instagram.com/")
+            if (App.CurrentApp.Browser.Url == "https://www.instagram.com/" || App.CurrentApp.Browser.Url == "https://www.instagram.com")
             {
                 MessageBox.Show("kekmek");
             }
@@ -357,10 +272,10 @@ namespace InstaBudka.Views
 
 
 
-        public async void  SaveImage(string filename, ImageFormat format)
+        public async Task  SaveImage(string filename, ImageFormat format)
         {
 
-            Task.Run((() =>
+            await Task.Run((() =>
             {
 
                 while (true)

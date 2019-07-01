@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using InstaBudka.Utilities;
 using InstaBudka.Views;
@@ -41,6 +42,14 @@ namespace InstaBudka
             get => (string) GetValue(NameImageProperty);
             set => SetValue(NameImageProperty, value);
         }
+
+        private ICommand _backCommand;
+        public ICommand BackCommand => _backCommand ?? (_backCommand = new Command((c =>
+                                               {
+                                                   Close();
+
+                                               }
+                                           )));
 
         private ICommand _printCommand;
         public ICommand PrintCommand => _printCommand ?? (_printCommand = new Command((c =>
