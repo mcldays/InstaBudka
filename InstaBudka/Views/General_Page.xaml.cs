@@ -50,7 +50,7 @@ namespace InstaBudka.Views
             }
         }
 
-        public General_Page()
+        public General_Page(string login)
         {
 
             InitializeComponent();
@@ -61,7 +61,7 @@ namespace InstaBudka.Views
 
             Browser.Navigate()
                 .GoToUrl(
-                    "https://www.instagram.com/serkser70/"); //для теста пиздовали на страницу Сереги. надо между  Chose_Page  и этой сделать промежуточную, где
+                    "https://www.instagram.com/" + login + "/"); //для теста пиздовали на страницу Сереги. надо между  Chose_Page  и этой сделать промежуточную, где
             //вводится ник человека или хаштег. по которому ищут публикации
             ((IJavaScriptExecutor) Browser).ExecuteScript("document.body.style.zoom='150%';");
             ((IJavaScriptExecutor) Browser).ExecuteScript(

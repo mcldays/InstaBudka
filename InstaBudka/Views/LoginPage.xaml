@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InstaBudka.Views"
-    
+      xmlns:controls="clr-namespace:MSPBanck.Controls"
       mc:Ignorable="d" 
       d:DesignHeight="1920" d:DesignWidth="1080"
       Title="LoginPage"
@@ -14,20 +14,21 @@
 
     <Grid Width="1080" Height="1920">
         <Image Source="../Images/pepe.jpg"></Image>
-        <TextBox 
+        <StackPanel VerticalAlignment="Center">
+        <TextBox  TextAlignment="Center"
                 HorizontalAlignment="Center" 
                  Height="100"
-                 Margin="215,1110,215,0"
+                 
                  TextWrapping="Wrap" 
                  Text="{Binding login,  Mode=TwoWay}"
                  FontSize="70"
-                 VerticalAlignment="Top"
+                 VerticalAlignment="Center"
                  Width="656"/>
 
         <Button Content="Найти страницу"
                 HorizontalAlignment="Center" 
-                Margin="212,1320,212,0" 
-                VerticalAlignment="Top" 
+                Margin="0,80,0,0"
+                
                 Width="656"
                 Height="100"
                 FontSize="70"
@@ -35,7 +36,16 @@
                 Command="{Binding InstagramCommand}"
 
                />
-
+        
+        </StackPanel>
+        <controls:CoolKeyBoard  
+            x:Name="CoolKeyBoard"
+            Visibility="Visible"
+            Panel.ZIndex="400"
+            Height="300"
+            
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Center" />
 
 
 
