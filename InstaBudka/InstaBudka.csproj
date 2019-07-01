@@ -103,6 +103,9 @@
     <Compile Include="Models\FonModel.cs" />
     <Compile Include="Utilities\Command.cs" />
     <Compile Include="Utilities\UserInactivity.cs" />
+    <Compile Include="Views\Back_Window.xaml.cs">
+      <DependentUpon>Back_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Chosen_Page.xaml.cs">
       <DependentUpon>Chosen_Page.xaml</DependentUpon>
     </Compile>
@@ -118,6 +121,10 @@
     <Compile Include="Views\Photo_Page.xaml.cs">
       <DependentUpon>Photo_Page.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Back_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Chosen_Page.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

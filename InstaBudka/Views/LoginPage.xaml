@@ -9,10 +9,22 @@
       d:DesignHeight="1920" d:DesignWidth="1080"
       Title="LoginPage"
       DataContext="{Binding RelativeSource= {RelativeSource Self}}" >
-   
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingWave.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingThreeDots.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingFlipPlane.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingPulse.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingDoubleBounce.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
 
 
     <Grid Width="1080" Height="1920">
+
         <Image Source="../Images/страница поиска.png"></Image>
         <StackPanel VerticalAlignment="Center" Margin="0,100,0,0">
             <TextBlock Text="Поиск по нику" Foreground="White"
@@ -160,7 +172,5 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-
-
     </Grid>
 </Page>

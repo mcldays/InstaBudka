@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,13 @@ namespace InstaBudka
     /// </summary>
     public partial class App : Application
     {
+        public static App CurrentApp => App.Current as App;
+
+       private  IWebDriver _browser;
+       public IWebDriver Browser {
+           get =>_browser;
+           set { _browser = value; }
+
+       }
     }
 }
