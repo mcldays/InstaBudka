@@ -24,6 +24,7 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using Image = System.Drawing.Image;
 using Rectangle = System.Drawing.Rectangle;
+using VICH_Johnson.Utilities;
 
 namespace InstaBudka.Views
 {
@@ -33,18 +34,18 @@ namespace InstaBudka.Views
     public partial class General_Page : Page
     {
         IWebDriver Browser;
-
+        private ICommand _PrintPage;
         public General_Page(string login)
         {
             InitializeComponent();
-
-            Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
+            
+             Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
             Browser.Manage().Window.Maximize();
             Browser.Manage().Window.FullScreen();
 
             Browser.Navigate()
                 .GoToUrl(
-                    "https://www.instagram.com/serkser70/"); //для теста пиздовали на страницу Сереги. надо между  Chose_Page  и этой сделать промежуточную, где
+                    "https://www.instagram.com/"+login); //для теста пиздовали на страницу Сереги. надо между  Chose_Page  и этой сделать промежуточную, где
             //вводится ник человека или хаштег. по которому ищут публикации
             ((IJavaScriptExecutor) Browser).ExecuteScript("document.body.style.zoom='150%';");
             ((IJavaScriptExecutor) Browser).ExecuteScript(
@@ -91,7 +92,7 @@ namespace InstaBudka.Views
             //убираем все лишние кнопки. чтобы челик далеко не ушел
             var a = Browser.PageSource;
             //событие открытия одной из фотографий, обычно я ставил тут точку остановы, тыкал на фотку и продолжал тесы, нужно щелчок по определенному фото вынести в отдельное событие
-
+            
             while (true)
             {
                 var wait = new WebDriverWait(Browser, new TimeSpan(99, 0, 0));
@@ -101,6 +102,9 @@ namespace InstaBudka.Views
                     {
                         var elementToBeDisplayed = Browser.FindElement(By.ClassName("_97aPb "));
                         return elementToBeDisplayed.Displayed;
+                        
+                        
+
                     }
                     catch (StaleElementReferenceException)
                     {
@@ -109,11 +113,17 @@ namespace InstaBudka.Views
                     catch (NoSuchElementException)
                     {
                         return false;
+                        
                     }
                 });
                 if(element is false) continue;
-                
+
+               
+
             }
+            
+           
+
 
             var c = Browser.FindElement(By.ClassName("C4VMK"));
             if (c != null)
@@ -164,6 +174,15 @@ namespace InstaBudka.Views
             screenshot = screenshot.Clone(croppedImage, screenshot.PixelFormat);
             screenshot.Save(String.Format(fileName, ImageFormat.Jpeg));
         }
+
+
+        public ICommand PrintCommand => _PrintPage ?? (_PrintPage = new Command((c =>
+       {
+           NavigationService.Navigate(new PrintPage());
+
+       }
+        )));
+
 
     }
 }

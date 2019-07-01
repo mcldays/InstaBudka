@@ -26,7 +26,7 @@
 
         <Button Content="Найти страницу"
                 HorizontalAlignment="Center" 
-                Margin="212,1320,212,0" 
+                Margin="212,1332,212,0" 
                 VerticalAlignment="Top" 
                 Width="656"
                 Height="100"
