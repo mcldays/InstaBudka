@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,26 @@ namespace InstaBudka
         private ICommand _printCommand;
         public ICommand PrintCommand => _printCommand ?? (_printCommand = new Command((c =>
         {
+            var bi = new BitmapImage();
+            bi.BeginInit();
+            bi.CacheOption = BitmapCacheOption.OnLoad;
+            bi.UriSource = new Uri($"file:///{Directory.GetCurrentDirectory()}\\1.jpeg");
+            bi.EndInit();
 
+            var vis = new DrawingVisual();
+            using (var dc = vis.RenderOpen())
+            {
+                dc.DrawImage(bi, new Rect { Width = bi.Width, Height = bi.Height });
+            }
+
+            var pdialog = new PrintDialog();
+            if (pdialog.ShowDialog() == true)
+            {
+                pdialog.PrintVisual(vis, "Instagram");
+            }
+
+            (App.Current.MainWindow as MainWindow).Frame1.Navigate(new Window_Chosen_Photo());
+            Close();
         }
     )));
     }
