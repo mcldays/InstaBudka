@@ -20,10 +20,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using InstaBudka.Utilities;
 using OpenQA.Selenium.Support.UI;
 using Image = System.Drawing.Image;
 using Rectangle = System.Drawing.Rectangle;
-using VICH_Johnson.Utilities;
 
 namespace InstaBudka.Views
 {
@@ -120,7 +120,14 @@ namespace InstaBudka.Views
                 replaceTag(document.getElementsByClassName('-nal3 ')[0], 'div');
                 replaceTag(document.getElementsByClassName('-nal3 ')[1], 'div');
                 replaceTag(document.getElementsByClassName('-nal3 ')[2], 'div');
+                
 
+                var img = document.createElement('img');
+                img.setAttribute('src', 'https://image.flaticon.com/icons/png/512/93/93634.png');
+                img.setAttribute('width', '28px');
+                img.setAttribute('onclick', 'document.getElementsByClassName(\'oJZym\')[0].className = \'oJZym huy1\'');
+
+                document.getElementsByClassName('oJZym')[0].appendChild(img);
             ");
             }
             //для теста пиздовали на страницу Сереги. надо между  Chose_Page  и этой сделать промежуточную, где
@@ -270,12 +277,6 @@ namespace InstaBudka.Views
         }
 
 
-        public ICommand PrintCommand => _PrintPage ?? (_PrintPage = new Command((c =>
-       {
-           NavigationService.Navigate(new PrintPage());
-
-       }
-        )));
 
 
     }

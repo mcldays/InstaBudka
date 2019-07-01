@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace VICH_Johnson.Utilities
+namespace InstaBudka.Utilities
 {
     public class Command : ICommand
     {
