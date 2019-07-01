@@ -23,7 +23,6 @@ using System.Windows.Shapes;
 using OpenQA.Selenium.Support.UI;
 using Image = System.Drawing.Image;
 using Rectangle = System.Drawing.Rectangle;
-using VICH_Johnson.Utilities;
 
 namespace InstaBudka.Views
 {
@@ -165,6 +164,9 @@ namespace InstaBudka.Views
                     try
                     {
                         SaveImage("1.jpeg", ImageFormat.Jpeg);
+                        Window_Chosen_Photo wnd = new Window_Chosen_Photo();
+                        wnd.Topmost = true;
+                        wnd.Show();
                     }
                     catch (ExternalException)
                     {
@@ -240,6 +242,8 @@ namespace InstaBudka.Views
         }
 
 
+
+
         public void SaveImage(string filename, ImageFormat format)
         {
            var a= (string)((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
@@ -268,15 +272,6 @@ namespace InstaBudka.Views
             screenshot = screenshot.Clone(croppedImage, screenshot.PixelFormat);
             screenshot.Save(String.Format(fileName, ImageFormat.Jpeg));
         }
-
-
-       // public ICommand PrintCommand => _PrintPage ?? (_PrintPage = new Command((c =>
-       //{
-       //    NavigationService.Navigate(new PrintPage());
-
-       //}
-       // )));
-
 
     }
 }

@@ -106,9 +106,6 @@
     <Compile Include="Views\Back_Window.xaml.cs">
       <DependentUpon>Back_Window.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Chosen_Page.xaml.cs">
-      <DependentUpon>Chosen_Page.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CoolKeyBoard.xaml.cs">
       <DependentUpon>CoolKeyBoard.xaml</DependentUpon>
     </Compile>
@@ -125,10 +122,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Chosen_Page.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Views\Window_Chosen_Photo.xaml.cs">
+      <DependentUpon>Window_Chosen_Photo.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\Chose_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -168,6 +164,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Photo_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PrintPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Window_Chosen_Photo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

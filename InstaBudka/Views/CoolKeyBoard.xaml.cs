@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
-using VICH_Johnson.Utilities;
+using InstaBudka.Utilities;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace MSPBanck.Controls
