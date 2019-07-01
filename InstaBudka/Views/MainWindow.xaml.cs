@@ -25,7 +25,16 @@ namespace InstaBudka
 
         public MainWindow()
         {
-            
+            if (App.CurrentApp.Browser == null)
+            {
+                App.CurrentApp.Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
+                App.CurrentApp.Browser.Manage().Window.Maximize();
+
+                App.CurrentApp.Browser.Manage().Window.FullScreen();
+            }
+
+
+
             InitializeComponent();
             Frame1.NavigationService.Navigate(new Chose_Page(), UriKind.Relative);
 

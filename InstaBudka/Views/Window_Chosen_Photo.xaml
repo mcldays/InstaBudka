@@ -21,7 +21,11 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Image Source="../Images/1.jpg" x:Name="image" HorizontalAlignment="Left" Height="1208" Margin="44,200,0,0" VerticalAlignment="Top" Width="984"/>
+        <Image Source="{Binding NameImage}" 
+               HorizontalAlignment="Left" 
+               Height="1208"
+               Margin="44,200,0,0" 
+               VerticalAlignment="Top" Width="984"/>
 
     </Grid>
 </Window>
