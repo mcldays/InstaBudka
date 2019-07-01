@@ -87,6 +87,7 @@ namespace InstaBudka.Views
 
             if (hwnd != 0) WinAPI.ShowWindow(hwnd, 3);
 
+
             InitializeComponent();
             try
             {
@@ -100,6 +101,7 @@ namespace InstaBudka.Views
             timer2.Interval = TimeSpan.FromMilliseconds(500);
             timer2.Tick += TimerOnTick2;
             timer2.Start();
+
             if (App.CurrentApp.Browser == null)
             {
                 App.CurrentApp.Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
@@ -116,7 +118,27 @@ namespace InstaBudka.Views
                 App.CurrentApp.Browser.Navigate().GoToUrl("https://www.instagram.com/explore/tags/" +
                                                           login.Replace("#", string.Empty) +
                                                           "/?hl = ru");
+                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
+                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
+                    "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
+                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
+                    "document.getElementsByClassName('r9-Os')[0].parentElement.removeChild(document.getElementsByClassName('r9-Os')[0])");
+                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                    @"
+                    document.getElementsByClassName('LWmhU _0aCwM')[0].parentElement.removeChild(document.getElementsByClassName('LWmhU _0aCwM')[0]);
+                    document.getElementsByClassName('id8oV ')[0].parentElement.removeChild(document.getElementsByClassName('id8oV ')[0]);
+                    var classHren = '      tHaIX            Igw0E     IwRSH   pmxbr     YBx95       _4EzTm                                      CIRqI                  IY_1_                           XfCBB             HcJZg        O1flK D8xaz  _7JkPY  TxciK  N9d2H ZUqME ';
+                    if(document.getElementsByClassName(classHren)[0]) document.getElementsByClassName(classHren)[0].parentElement.removeChild(document.getElementsByClassName(classHren)[0]);
+                    
+                    document.getElementsByClassName('oJZym')[0].removeChild(document.getElementsByClassName('oJZym')[0].children[0]);
+                    var img = document.createElement('img');
+                    img.setAttribute('src', 'https://image.flaticon.com/icons/png/512/93/93634.png');
+                    img.setAttribute('width', '28px');
+                    img.setAttribute('onclick', 'document.location.href = \'/\'');
 
+                    document.getElementsByClassName('oJZym')[0].appendChild(img);
+
+");
             }
             else
             {
@@ -132,6 +154,8 @@ namespace InstaBudka.Views
                     "document.getElementsByClassName('fx7hk')[0].parentElement.removeChild(document.getElementsByClassName('fx7hk')[0])");
                 ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('BY3EC ')[0].parentElement.removeChild(document.getElementsByClassName('BY3EC ')[0])");
+
+
 
 
                 ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
@@ -188,56 +212,20 @@ namespace InstaBudka.Views
 
 
 
-            //while (true)
+            
+
+        }
+
+        private async void TimerOnTick2(object sender, EventArgs e)
+        {
+            //var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
+            //var element = wait.Until(condition =>
             //{
-            //    var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
-            //    var element = wait.Until(condition =>
+            //    try
             //    {
-            //        try
-            //        {
-            //            var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
-            //            return elementToBeDisplayed.Displayed;
+            //        var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
+            //        return elementToBeDisplayed.Displayed;
 
-
-
-            //        }
-            //        catch (StaleElementReferenceException)
-            //        {
-            //            return false;
-            //        }
-            //        catch (NoSuchElementException)
-            //        {
-            //            return false;
-
-            //        }
-            //    });
-            //    if (element is false) continue;
-
-            //    if (IsElementPresent(By.ClassName("bY2yH")))
-            //    {
-
-            //        var d = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
-            //        if (d != null)
-            //            TakesScreenshot(App.CurrentApp.Browser,
-            //                App.CurrentApp.Browser.FindElement(
-            //                    By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
-            //        try
-            //        {
-            //            SaveImage("1.jpeg", ImageFormat.Jpeg);
-            //            Window_Chosen_Photo wnd = new Window_Chosen_Photo();
-            //            wnd.Topmost = true;
-            //            wnd.Show();
-            //        }
-            //        catch (ExternalException)
-            //        {
-            //            //Something is wrong with Format -- Maybe required Format is not 
-            //            // applicable here
-            //        }
-            //        catch (ArgumentNullException)
-            //        {
-            //            //MessageBox.Show("kek");
-            //            //Something wrong with Stream
-            //        }
 
 
             //        //     ((IJavaScriptExecutor) Browser).ExecuteScript(
@@ -291,7 +279,6 @@ namespace InstaBudka.Views
             //        // if (!temp){document.getElementsByClassName('eo2As ')[0].appendChild(btn);}
 
 
-            //        // ");
             //    }
 
 
@@ -301,27 +288,9 @@ namespace InstaBudka.Views
 
         }
 
-        private async void TimerOnTick2(object sender, EventArgs e)
+        private void TimerOnTick2(object sender, EventArgs e)
         {
-            var wait = new WebDriverWait(App.CurrentApp.Browser, new TimeSpan(99, 0, 0));
-            var element = wait.Until(condition =>
-            {
-                try
-                {
-                    var elementToBeDisplayed = App.CurrentApp.Browser.FindElement(By.ClassName("_97aPb "));
-                    return elementToBeDisplayed.Displayed;
-
-                }
-                catch (StaleElementReferenceException)
-                {
-                    return false;
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            });
-            if (element is false) return;
+            
 
             if (IsElementPresent(By.ClassName("bY2yH")))
             {
@@ -352,7 +321,7 @@ namespace InstaBudka.Views
         private void TimerOnTick(object sender, EventArgs e)
         {
             //проверяем адрес
-            if (App.CurrentApp.Browser.Url == "https://www.instagram.com/")
+            if (App.CurrentApp.Browser.Url == "https://www.instagram.com/" || App.CurrentApp.Browser.Url == "https://www.instagram.com")
             {
                 App.CurrentApp.Browser.Manage().Window.Minimize();
             }

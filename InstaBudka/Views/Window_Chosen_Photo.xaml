@@ -22,18 +22,44 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Border Padding="20" Name="Border" Margin="68,223,52,515">
-            <StackPanel HorizontalAlignment="Center">
-                <Image Source="{Binding NameImage}" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Center"
-                       Stretch="UniformToFill"/>
-                <Image Source="{Binding ScreenImage}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"/>
-            </StackPanel>
-        </Border>
+        <Image Source="{Binding NameImage}" 
+               HorizontalAlignment="Left" 
+               Height="1208"
+               Margin="44,200,0,0" 
+               VerticalAlignment="Top" Width="984"/>
+        <Button Name="PhotoAgainButton"
+                Panel.ZIndex="100"
+                Width="260"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="60"
+                Visibility="Visible"
+                Height="95"
+                Command="{Binding BackCommand}">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="20"
+                                  Opacity="0.8">
 
+                </DropShadowEffect>
+            </Button.Effect>
+
+            <Button.Template>
+                <ControlTemplate>
+                    <Border Background="#bababa"
+                            CornerRadius="10">
+                        <TextBlock Text="НАЗАД"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Name="PhotoTextBlock"
+                                   Foreground="White"
+                                   Padding="30"
+                                   FontSize="30"
+                                   
+                                   FontFamily="Roboto"></TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
     </Grid>
 </Window>
