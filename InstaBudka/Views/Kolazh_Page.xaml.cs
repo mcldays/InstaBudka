@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using VICH_Johnson.Utilities;
+using InstaBudka.Utilities;
 
 namespace InstaBudka.Views
 {
@@ -137,28 +137,28 @@ namespace InstaBudka.Views
 
                 PrintDialog printDialog = new PrintDialog();
                 
-                GlobalGrid.Visibility = Visibility.Hidden;
-                PrintCanvas.VerticalAlignment = VerticalAlignment.Top;
-                PrintCanvas.HorizontalAlignment = HorizontalAlignment.Left;
-                // Увеличить размер в 5 раз
-                PrintGrid.LayoutTransform = new RotateTransform(270);
-                PrintCanvas.LayoutTransform = new ScaleTransform(0.625, 0.625);
-                SecondGrid.Visibility = Visibility.Collapsed;
-                // Определить поля
-                int pageMargin = 0;
+                //GlobalGrid.Visibility = Visibility.Hidden;
+                //PrintCanvas.VerticalAlignment = VerticalAlignment.Top;
+                //PrintCanvas.HorizontalAlignment = HorizontalAlignment.Left;
+                //// Увеличить размер в 5 раз
+                //PrintGrid.LayoutTransform = new RotateTransform(270);
+                //PrintCanvas.LayoutTransform = new ScaleTransform(0.625, 0.625);
+                //SecondGrid.Visibility = Visibility.Collapsed;
+                //// Определить поля
+                //int pageMargin = 0;
 
-                // Получить размер страницы
-                System.Windows.Size pageSize = new System.Windows.Size(printDialog.PrintableAreaWidth,
-                    printDialog.PrintableAreaHeight);
+                //// Получить размер страницы
+                //System.Windows.Size pageSize = new System.Windows.Size(printDialog.PrintableAreaWidth,
+                //    printDialog.PrintableAreaHeight);
 
-                // Инициировать установку размера элемента
-                PrintCanvas.Measure(pageSize);
-                PrintCanvas.Arrange(new Rect(pageMargin, pageMargin, pageSize.Width, pageSize.Height));
+                //// Инициировать установку размера элемента
+                //PrintCanvas.Measure(pageSize);
+                //PrintCanvas.Arrange(new Rect(pageMargin, pageMargin, pageSize.Width, pageSize.Height));
 
-                // Напечатать элемент
-                printDialog.PrintVisual(PrintCanvas, "Распечатываем элемент Canvas");
+                //// Напечатать элемент
+                ////printDialog.PrintVisual(PrintCanvas, "Распечатываем элемент Canvas");
 
-
+                MakeScreenElement(PrintGrid);
                 // Удалить трансформацию и снова сделать элемент видимым
                 SecondGrid.Visibility = Visibility.Visible;
 
@@ -173,6 +173,18 @@ namespace InstaBudka.Views
             }
         )));
 
+        private void MakeScreenElement(FrameworkElement elem)
+        {
+            RenderTargetBitmap renderTargetBitmap =
+                new RenderTargetBitmap((int)elem.Width, (int)elem.Height, 96, 96, PixelFormats.Pbgra32);
+            renderTargetBitmap.Render(elem);
+            PngBitmapEncoder pngImage = new PngBitmapEncoder();
+            pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+            using (Stream fileStream = File.Create("fileKolazh.png"))
+            {
+                pngImage.Save(fileStream);
+            }
+        }
 
         private ICommand _changeFonCommand;
         public ICommand ChangeFonCommand => _changeFonCommand ?? (_changeFonCommand = new Command((c =>
