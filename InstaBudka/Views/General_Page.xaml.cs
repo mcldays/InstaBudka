@@ -122,7 +122,7 @@ namespace InstaBudka.Views
                 App.CurrentApp.Browser.Navigate().GoToUrl("https://www.instagram.com/explore/tags/" +
                                                           login.Replace("#", string.Empty) +
                                                           "/?hl = ru");
-                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
+                //((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
                 ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
                 ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
@@ -149,7 +149,7 @@ namespace InstaBudka.Views
                 App.CurrentApp.Browser.Navigate()
                     .GoToUrl(
                         "https://www.instagram.com/" + login + "/");
-                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
+                //((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
                 ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
                 ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
@@ -359,13 +359,17 @@ namespace InstaBudka.Views
                 {
                     try
                     {
-                        var a = (string) ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                        var test1 = App.CurrentApp.Browser.PageSource;
+                        var b = App.CurrentApp.Browser.FindElements(By.ClassName("FFVAD")).Last().GetAttribute("src");
+                        var a = (string)((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
                             "return document.getElementsByClassName('KL4Bh')[0].children[0].getAttribute('src')"); //тут мы сэйвим картинку. которую открыли. но тут указан индекс нулевой для теста,но надо получать актуальный у блока фотки. на которую нажали и выгружать оттуда фотку
                         //вообще лучше отдельным окном повесить где-нибудь в углу кнопку печать и на нее команду , куски кода которой можно спиздить в kolazh page
                         //надо соединить фото, которое печатаем и его подпись с хаштэгами и вывести это на печать
                         WebClient client = new WebClient();
+
+
                         //Адрес картинки  class FFVAD, свойсто src
-                        Stream stream = client.OpenRead(a);
+                        Stream stream = client.OpenRead(b);
                         Bitmap bitmap;
                         bitmap = new Bitmap(stream);
 
@@ -375,7 +379,8 @@ namespace InstaBudka.Views
                         stream.Flush();
                         stream.Close();
                         client.Dispose();
-                        await Task.Delay(600);
+                        //TakesScreenshot(App.CurrentApp.Browser, App.CurrentApp.Browser.FindElements(By.ClassName("_9AhH0")).Last());
+                        var test = App.CurrentApp.Browser.PageSource;
                         var d = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
                         if (d != null)
                             TakesScreenshot(App.CurrentApp.Browser,
