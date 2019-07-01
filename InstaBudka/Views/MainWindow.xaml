@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InstaBudka"
         mc:Ignorable="d"
+        Topmost="False"
         WindowStyle="None"
         WindowState="Maximized"
         Loaded="MainWindow_OnLoaded"

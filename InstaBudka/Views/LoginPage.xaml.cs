@@ -29,7 +29,7 @@ namespace InstaBudka.Views
         private ICommand _backCommand;
         public ICommand BackCommand => _backCommand ?? (_backCommand = new Command((c =>
              {
-                 NavigationService.GoBack();
+                 NavigationService.Navigate(new Chose_Page());
 
              }
          )));
@@ -46,15 +46,25 @@ namespace InstaBudka.Views
         public ICommand SearchByNickCommand => _searchByNickCommand ?? (_searchByNickCommand = new Command((c =>
              {
                  NavigationService.Navigate(new General_Page(TextBoxNick.Text));
+                 LoadingBorder.Visibility = Visibility.Visible;
+                 TextBoxHush.Text = string.Empty;
+                 TextBoxNick.Text = string.Empty;
+                 BW.Show();
+                 (App.Current.MainWindow as MainWindow).Topmost = false;
+                 LoadingBorder.Visibility = Visibility.Collapsed;
+
              }
          )));
 
+                 Back_Window BW = new Back_Window();
 
-        private ICommand _searchByHushTagCommand;
+                 private ICommand _searchByHushTagCommand;
 
         public ICommand SearchByHushTagCommand => _searchByHushTagCommand ?? (_searchByHushTagCommand = new Command((c =>
              {
                  NavigationService.Navigate(new General_Page("#"+TextBoxHush.Text));
+                 TextBoxHush.Text = string.Empty;
+                 TextBoxNick.Text = string.Empty;
              }
          )));
 

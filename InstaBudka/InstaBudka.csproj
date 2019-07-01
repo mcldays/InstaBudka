@@ -58,6 +58,9 @@
     <Reference Include="InstaSharper, Version=1.4.82.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\InstaSharper.1.4.82\lib\net452\InstaSharper.dll</HintPath>
     </Reference>
+    <Reference Include="LoadingIndicators.WPF">
+      <HintPath>..\..\Фичи\Лоадеры\LoadingIndicators.WPF-master\LoadingIndicators.WPF\bin\Debug\LoadingIndicators.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -103,6 +106,9 @@
     <Compile Include="Models\FonModel.cs" />
     <Compile Include="Utilities\Command.cs" />
     <Compile Include="Utilities\UserInactivity.cs" />
+    <Compile Include="Views\Back_Window.xaml.cs">
+      <DependentUpon>Back_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CoolKeyBoard.xaml.cs">
       <DependentUpon>CoolKeyBoard.xaml</DependentUpon>
     </Compile>
@@ -115,6 +121,10 @@
     <Compile Include="Views\Photo_Page.xaml.cs">
       <DependentUpon>Photo_Page.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Back_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Chose_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
