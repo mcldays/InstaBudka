@@ -339,8 +339,7 @@ namespace InstaBudka.Views
             if (App.CurrentApp.Browser.Url == "https://www.instagram.com/" || App.CurrentApp.Browser.Url == "https://www.instagram.com"|| App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
             {
                 timer.Stop();
-                try
-                {
+              
                     App.CurrentApp.Browser.Url="auto:blank";
                     //Thread.Sleep(500);
                     //int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
