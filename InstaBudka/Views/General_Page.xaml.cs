@@ -270,12 +270,12 @@ namespace InstaBudka.Views
         }
 
 
-        public ICommand PrintCommand => _PrintPage ?? (_PrintPage = new Command((c =>
-       {
-           NavigationService.Navigate(new PrintPage());
+       // public ICommand PrintCommand => _PrintPage ?? (_PrintPage = new Command((c =>
+       //{
+       //    NavigationService.Navigate(new PrintPage());
 
-       }
-        )));
+       //}
+       // )));
 
 
     }

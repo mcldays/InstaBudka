@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,7 +25,27 @@ namespace InstaBudka.Views
         public Chose_Page()
         {
             InitializeComponent();
+            
         }
+
+        
+
+        public static class WinAPI
+
+        {
+
+            [DllImport("user32.dll", SetLastError = true)]
+            internal static extern int FindWindow(string lpClassName, string lpWindowName);
+
+            [DllImport("user32.dll", SetLastError = true)]
+            internal static extern int ShowWindow(int hwnd, int nCmdShow);
+            [DllImport("user32.dll")]
+            private static extern
+                bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+
+        }
+
+
 
         private ICommand _photoCommand;
         public ICommand PhotoCommand => _photoCommand ?? (_photoCommand = new Command((c =>
