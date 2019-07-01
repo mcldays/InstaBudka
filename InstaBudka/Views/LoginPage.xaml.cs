@@ -46,12 +46,12 @@ namespace InstaBudka.Views
         public ICommand SearchByNickCommand => _searchByNickCommand ?? (_searchByNickCommand = new Command((c =>
              {
                  NavigationService.Navigate(new General_Page(TextBoxNick.Text));
-                 LoadingBorder.Visibility = Visibility.Visible;
+                 //LoadingBorder.Visibility = Visibility.Visible;
                  TextBoxHush.Text = string.Empty;
                  TextBoxNick.Text = string.Empty;
                  BW.Show();
                  (App.Current.MainWindow as MainWindow).Topmost = false;
-                 LoadingBorder.Visibility = Visibility.Collapsed;
+                 //LoadingBorder.Visibility = Visibility.Collapsed;
 
              }
          )));

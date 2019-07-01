@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InstaBudka.Views"
       xmlns:controls="clr-namespace:MSPBanck.Controls"
-      xmlns:loadin="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
       mc:Ignorable="d" 
       d:DesignHeight="1920" d:DesignWidth="1080"
       Title="LoginPage"
@@ -173,9 +172,5 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-<Border Background="Black" Visibility="Collapsed" Name="LoadingBorder" Panel.ZIndex="500" Opacity="0.5">
-    <loadin:LoadingIndicator SpeedRatio="2" Margin="0,0,0,250" Style="{DynamicResource LoadingIndicatorArcsStyle}"/>
-        </Border>
-
     </Grid>
 </Page>

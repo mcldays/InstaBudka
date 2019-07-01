@@ -58,9 +58,6 @@
     <Reference Include="InstaSharper, Version=1.4.82.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\InstaSharper.1.4.82\lib\net452\InstaSharper.dll</HintPath>
     </Reference>
-    <Reference Include="LoadingIndicators.WPF">
-      <HintPath>..\..\Фичи\Лоадеры\LoadingIndicators.WPF-master\LoadingIndicators.WPF\bin\Debug\LoadingIndicators.WPF.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>

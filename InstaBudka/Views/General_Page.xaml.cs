@@ -60,37 +60,38 @@ namespace InstaBudka.Views
         {
 
             InitializeComponent();
-            if(App.CurrentApp.Browser==null)
+            if (App.CurrentApp.Browser == null)
             {
                 App.CurrentApp.Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
                 App.CurrentApp.Browser.Manage().Window.Maximize();
 
                 App.CurrentApp.Browser.Manage().Window.FullScreen();
             }
+
             if (login.Contains("#"))
             {
                 App.CurrentApp.Browser.Navigate().GoToUrl("https://www.instagram.com/explore/tags/" +
-                                           login.Replace("#", string.Empty) +
-                                           "/?hl = ru");
-               
+                                                          login.Replace("#", string.Empty) +
+                                                          "/?hl = ru");
+
             }
             else
             {
                 App.CurrentApp.Browser.Navigate()
                     .GoToUrl(
                         "https://www.instagram.com/" + login + "/");
-                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
-                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
+                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
+                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
-                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
+                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('r9-Os')[0].parentElement.removeChild(document.getElementsByClassName('r9-Os')[0])");
-                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
+                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('fx7hk')[0].parentElement.removeChild(document.getElementsByClassName('fx7hk')[0])");
-                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
+                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('BY3EC ')[0].parentElement.removeChild(document.getElementsByClassName('BY3EC ')[0])");
 
 
-                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
+                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
                     @"
                 var classHren = '      tHaIX            Igw0E     IwRSH   pmxbr     YBx95       _4EzTm                                      CIRqI                  IY_1_                           XfCBB             HcJZg        O1flK D8xaz  _7JkPY  TxciK  N9d2H ZUqME ';
                 if(document.getElementsByClassName(classHren)[0]) document.getElementsByClassName(classHren)[0].parentElement.removeChild(document.getElementsByClassName(classHren)[0]);
@@ -123,10 +124,9 @@ namespace InstaBudka.Views
             }
             //для теста пиздовали на страницу Сереги. надо между  Chose_Page  и этой сделать промежуточную, где
             //вводится ник человека или хаштег. по которому ищут публикации
-            
+
 
             //убираем все лишние кнопки. чтобы челик далеко не ушел
-            var a = App.CurrentApp.Browser.PageSource;
             //событие открытия одной из фотографий, обычно я ставил тут точку остановы, тыкал на фотку и продолжал тесы, нужно щелчок по определенному фото вынести в отдельное событие
 
             while (true)
@@ -148,13 +148,15 @@ namespace InstaBudka.Views
                         return false;
                     }
                 });
-                if(element is false) continue;
+                if (element is false) continue;
                 if (IsElementPresent(By.ClassName("bY2yH")))
                 {
 
-                    var c = Browser.FindElement(By.ClassName("C4VMK"));
-                    if (c != null)
-                        TakesScreenshot(Browser, Browser.FindElement(By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
+                    var d = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
+                    if (d != null)
+                        TakesScreenshot(App.CurrentApp.Browser,
+                            App.CurrentApp.Browser.FindElement(
+                                By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
                     try
                     {
                         SaveImage("1.jpeg", ImageFormat.Jpeg);
@@ -225,20 +227,12 @@ namespace InstaBudka.Views
                     // ");
                 }
 
-            var c = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
-            if (c != null)
-            TakesScreenshot(App.CurrentApp.Browser, App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
-            try
-            {
 
-                SaveImage("1.jpeg", ImageFormat.Jpeg);
+
 
             }
 
-          
         }
-
-
 
 
         public void SaveImage(string filename, ImageFormat format)
