@@ -167,10 +167,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PrintPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Window_Chosen_Photo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
