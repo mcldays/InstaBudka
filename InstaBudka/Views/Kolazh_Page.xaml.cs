@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using InstaBudka.Utilities;
+using OpenQA.Selenium.Support.Events;
 
 namespace InstaBudka.Views
 {
@@ -172,9 +173,6 @@ namespace InstaBudka.Views
 
                 PrintCanvas.LayoutTransform = null;
                 PrintGrid.LayoutTransform = null;
-
-                EventFiringWebDriver eventDriver = new EventFiringWebDriver(_driver);
-                eventDriver.Navigating += navigatingHandler;
 
                 PrintCanvas.VerticalAlignment = VerticalAlignment.Top;
                 PrintCanvas.HorizontalAlignment = HorizontalAlignment.Center;
