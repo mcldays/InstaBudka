@@ -293,8 +293,13 @@ namespace InstaBudka.Views
 
             if (IsElementPresent(By.ClassName("bY2yH")))
             {
+                if (IsElementPresent(By.ClassName("QvAa1 ")))
+                {
+                    ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.getElementsByClassName('ckWGn')[0].click();");
+                    return;
+                }
                 timer2.Stop();
-              
+                
                 try
                 {
                    await SaveImage("1.jpeg", ImageFormat.Jpeg);
@@ -328,19 +333,15 @@ namespace InstaBudka.Views
             if (App.CurrentApp.Browser.Url == "https://www.instagram.com/" || App.CurrentApp.Browser.Url == "https://www.instagram.com")
             {
                 timer.Stop();
-                try
-                {
+                Thread.Sleep(3000);
                     App.CurrentApp.Browser.Navigate().GoToUrl("https://instagram.com/explore/tags/instabudka");
                     Thread.Sleep(500);
                     //int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
                     App.CurrentApp.Browser.Manage().Window.Minimize();
-                    NavigationService.Navigate(new LoginPage());
+                    NavigationService.GoBack();
                     //if (hwnd != 0) WinAPI.ShowWindow(hwnd, SW_HIDE);
-                }
-                catch
-                {
-                    TimerOnTick(sender, e);
-                }
+                
+                
 
                 timer.Start();
             }
