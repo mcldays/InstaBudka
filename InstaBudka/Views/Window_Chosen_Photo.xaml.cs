@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,10 +28,33 @@ namespace InstaBudka
             int hwnd = General_Page.WinAPI.FindWindow("Chrome_WidgetWin_1", null);
             if (hwnd != 0) Chose_Page.WinAPI.ShowWindow(hwnd, 0);
 
-
-
             InitializeComponent();
-            NameImage = "{Directory.GetCurrentDirectory()}\\1.jpeg";
+            NameImage = $"{Directory.GetCurrentDirectory()}\\1.jpeg";
+        }
+
+        private void MakeScreenElement(FrameworkElement elem)
+        {
+            RenderTargetBitmap renderTargetBitmap =
+                new RenderTargetBitmap((int)elem.Width, (int)elem.Height, 96, 96, PixelFormats.Pbgra32);
+            renderTargetBitmap.Render(elem);
+            PngBitmapEncoder pngImage = new PngBitmapEncoder();
+            pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+            using (Stream fileStream = File.Create("fileKolazh.png"))
+            {
+                pngImage.Save(fileStream);
+            }
+
+
+        }
+
+
+        public static readonly DependencyProperty ScreenImageProperty = DependencyProperty.Register(
+            "ScreenImage", typeof(string), typeof(Window_Chosen_Photo), new PropertyMetadata(Directory.GetCurrentDirectory()+"screen.jpg"));
+
+        public string ScreenImage
+        {
+            get => (string) GetValue(ScreenImageProperty);
+            set => SetValue(ScreenImageProperty, value);
         }
 
         public static readonly DependencyProperty NameImageProperty = DependencyProperty.Register(
@@ -45,27 +69,24 @@ namespace InstaBudka
         private ICommand _printCommand;
         public ICommand PrintCommand => _printCommand ?? (_printCommand = new Command((c =>
         {
-            var bi = new BitmapImage();
-            bi.BeginInit();
-            bi.CacheOption = BitmapCacheOption.OnLoad;
-            bi.UriSource = new Uri($"file:///{Directory.GetCurrentDirectory()}\\1.jpeg");
-            bi.EndInit();
+            MakeScreenElement(Border);
+            PrintDocument pd = new PrintDocument();
+            //пробуй и true и false
+            pd.OriginAtMargins = false;
+            pd.PrintPage += PrintPage;
+            pd.Print();
 
-            var vis = new DrawingVisual();
-            using (var dc = vis.RenderOpen())
-            {
-                dc.DrawImage(bi, new Rect { Width = bi.Width, Height = bi.Height });
-            }
-
-            var pdialog = new PrintDialog();
-            if (pdialog.ShowDialog() == true)
-            {
-                pdialog.PrintVisual(vis, "Instagram");
-            }
-
-            (App.Current.MainWindow as MainWindow).Frame1.Navigate(new Window_Chosen_Photo());
+            (App.Current.MainWindow as MainWindow).Frame1.Navigate(new Chose_Page());
             Close();
         }
+
     )));
+
+        private void PrintPage(object o, PrintPageEventArgs e)
+        {
+            System.Drawing.Image img = System.Drawing.Image.FromFile(Directory.GetCurrentDirectory() + "\\readyFile.png");
+            System.Drawing.Point loc = new System.Drawing.Point(0, 0);
+            e.Graphics.DrawImage(img, loc);
+        }
     }
 }
