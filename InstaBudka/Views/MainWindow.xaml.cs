@@ -61,11 +61,11 @@ namespace InstaBudka
             ta.To = new Thickness(0, 0, 0, 0);
             if (e.NavigationMode == NavigationMode.New)
             {
-                ta.From = new Thickness(500, 200, 500, 200);
+                ta.From = new Thickness(700, 200, 700, 200);
             }
             else if (e.NavigationMode == NavigationMode.Back)
             {
-                ta.From = new Thickness(-500, -200, -500, -200);
+                ta.From = new Thickness(-700, -200, -700, -200);
             }
             (e.Content as Page).BeginAnimation(MarginProperty, ta);
         }
