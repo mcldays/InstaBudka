@@ -98,7 +98,7 @@ namespace InstaBudka.Views
 
 
             
-            timer.Interval= TimeSpan.FromMilliseconds(500);
+            timer.Interval= TimeSpan.FromMilliseconds(50);
             timer.Tick+= TimerOnTick;
             timer.Start();
 
@@ -116,7 +116,7 @@ namespace InstaBudka.Views
                 
 
             }
-
+            Unloaded+= OnUnloaded;
             if (login.Contains("#"))
             {
                 App.CurrentApp.Browser.Navigate().GoToUrl("https://www.instagram.com/explore/tags/" +
@@ -218,6 +218,12 @@ namespace InstaBudka.Views
 
             
 
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            timer.Stop();
+            timer2.Stop();
         }
 
         private async void TimerOnTick2(object sender, EventArgs e)
@@ -325,13 +331,13 @@ namespace InstaBudka.Views
         private void TimerOnTick(object sender, EventArgs e)
         {
             //проверяем адрес
-            if (App.CurrentApp.Browser.Url == "https://www.instagram.com/" || App.CurrentApp.Browser.Url == "https://www.instagram.com")
+            if (App.CurrentApp.Browser.Url == "https://www.instagram.com/" || App.CurrentApp.Browser.Url == "https://www.instagram.com"|| App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
             {
                 timer.Stop();
                 try
                 {
-                    App.CurrentApp.Browser.Navigate().GoToUrl("https://instagram.com/explore/tags/instabudka");
-                    Thread.Sleep(500);
+                    App.CurrentApp.Browser.Url="auto:blank";
+                    //Thread.Sleep(500);
                     //int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
                     App.CurrentApp.Browser.Manage().Window.Minimize();
                     NavigationService.Navigate(new LoginPage());
@@ -373,16 +379,17 @@ namespace InstaBudka.Views
                         Bitmap bitmap;
                         bitmap = new Bitmap(stream);
 
-                        if (bitmap != null)
-                            bitmap.Save(filename, format);
+                        bitmap.Save(filename, format);
 
                         stream.Flush();
                         stream.Close();
                         client.Dispose();
                         //TakesScreenshot(App.CurrentApp.Browser, App.CurrentApp.Browser.FindElements(By.ClassName("_9AhH0")).Last());
                         var test = App.CurrentApp.Browser.PageSource;
-                        var d = App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK"));
-                        if (d != null)
+                        if (File.Exists("screen.jpg"))
+                            File.Delete("screen.jpg");
+                        //App.CurrentApp.Browser.Manage().Window.Size = new Size(1091,);
+                        if (IsElementPresent(By.ClassName("C4VMK")))
                             TakesScreenshot(App.CurrentApp.Browser,
                                 App.CurrentApp.Browser.FindElement(
                                     By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
@@ -399,11 +406,12 @@ namespace InstaBudka.Views
    
             ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("arguments[0].scrollIntoView(true);", App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK")));
             Thread.Sleep(500);
+          
 
             string fileName ="screen.jpg";
             Byte[] byteArray = ((ITakesScreenshot)driver).GetScreenshot().AsByteArray;
             Bitmap screenshot = new Bitmap(new System.IO.MemoryStream(byteArray));
-            Rectangle croppedImage = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width, element.Size.Height);
+            Rectangle croppedImage = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width, element.Size.Height>374?374:element.Size.Height);
             screenshot = screenshot.Clone(croppedImage, screenshot.PixelFormat);
             screenshot.Save(String.Format(fileName, ImageFormat.Jpeg));
         }

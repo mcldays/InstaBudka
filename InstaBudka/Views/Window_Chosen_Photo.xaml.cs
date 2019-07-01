@@ -31,6 +31,7 @@ namespace InstaBudka
 
             InitializeComponent();
             NameImage = new BitmapImage(new Uri($"file:///{Directory.GetCurrentDirectory()}\\1.jpeg"));
+            if(File.Exists("screen.jpg"))
             ScreenImage =new BitmapImage(new Uri("file:///"+Directory.GetCurrentDirectory() + "\\screen.jpg"));
         }
 
