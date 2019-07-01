@@ -155,7 +155,7 @@ namespace InstaBudka.Views
                 }
 
                 countdownAnimation.KeyFrames.Add(new DiscreteStringKeyFrame(" ",
-                    KeyTime.FromTimeSpan(TimeSpan.FromSeconds(6))));
+                    KeyTime.FromTimeSpan(TimeSpan.FromSeconds(4))));
                 Storyboard.SetTargetName(countdownAnimation, target.Name);
                 Storyboard.SetTargetProperty(countdownAnimation, new PropertyPath(TextBlock.TextProperty));
 
