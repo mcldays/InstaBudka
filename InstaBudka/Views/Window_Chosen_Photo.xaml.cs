@@ -31,6 +31,7 @@ namespace InstaBudka
 
             InitializeComponent();
             NameImage = $"{Directory.GetCurrentDirectory()}\\1.jpeg";
+            ScreenImage = Directory.GetCurrentDirectory() + "screen.jpg";
         }
 
         private void MakeScreenElement(FrameworkElement elem)
@@ -50,7 +51,7 @@ namespace InstaBudka
 
 
         public static readonly DependencyProperty ScreenImageProperty = DependencyProperty.Register(
-            "ScreenImage", typeof(string), typeof(Window_Chosen_Photo), new PropertyMetadata(Directory.GetCurrentDirectory()+"screen.jpg"));
+            "ScreenImage", typeof(string), typeof(Window_Chosen_Photo), new PropertyMetadata(default(string)));
 
         public string ScreenImage
         {

@@ -286,11 +286,6 @@ namespace InstaBudka.Views
 
             //}
 
-        }
-
-        private void TimerOnTick2(object sender, EventArgs e)
-        {
-            
 
             if (IsElementPresent(By.ClassName("bY2yH")))
             {
