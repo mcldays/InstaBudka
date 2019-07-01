@@ -24,6 +24,16 @@ namespace InstaBudka
         public Window_Chosen_Photo()
         {
             InitializeComponent();
+            NameImage = "{Directory.GetCurrentDirectory()}\\1.jpeg";
+        }
+
+        public static readonly DependencyProperty NameImageProperty = DependencyProperty.Register(
+            "NameImage", typeof(string), typeof(Window_Chosen_Photo), new PropertyMetadata(default(string)));
+
+        public string NameImage
+        {
+            get => (string) GetValue(NameImageProperty);
+            set => SetValue(NameImageProperty, value);
         }
 
         private ICommand _printCommand;
