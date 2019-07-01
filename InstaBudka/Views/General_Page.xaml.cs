@@ -168,17 +168,7 @@ namespace InstaBudka.Views
             //убираем все лишние кнопки. чтобы челик далеко не ушел
             //событие открытия одной из фотографий, обычно я ставил тут точку остановы, тыкал на фотку и продолжал тесы, нужно щелчок по определенному фото вынести в отдельное событие
 
-            while (!IsElementPresent(By.ClassName("oJZym")))
-            {
-                Thread.Sleep(100);
-            }
-            EventFiringWebDriver eventDriver = new EventFiringWebDriver(App.CurrentApp.Browser);
-
-            eventDriver.ElementClicked += (a, b) =>
-            {
-                if (b.Element.GetAttribute("Class") == "oJZym")
-                    NavigationService?.GoBack();
-            };
+           
 
             while (true)
             {
