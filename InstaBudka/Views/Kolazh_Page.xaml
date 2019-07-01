@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InstaBudka.Views"
+      xmlns:controls="clr-namespace:MSPBanck.Controls"
       mc:Ignorable="d" 
       Loaded="Kolazh_Page_OnLoaded"
       d:DesignHeight="1920" d:DesignWidth="1080"
@@ -86,6 +87,8 @@
                         <TextBox Text="Введите описание"
                                  Name="TextBox"
                                  
+                                 GotFocus="TextBox_OnGotFocus"
+                                 
                                  Margin="0,40,0,0"
                                  
                                   MaxLength="120"
@@ -108,8 +111,17 @@
         </Grid>
         </Canvas>
 <Grid Name="SecondGrid">
-        <ItemsControl AlternationCount="15" ItemsSource="{Binding AllFonModels}" 
-                      HorizontalAlignment="Center" Margin="0,330,0,0" Width="950"
+    <controls:CoolKeyBoard 
+        x:Name="CoolKeyBoard"
+        Visibility="Visible"
+        Panel.ZIndex="400"
+        Height="300"
+        Margin="0,0,0,250"
+            
+        VerticalAlignment="Bottom"
+        HorizontalAlignment="Center" />
+            <ItemsControl AlternationCount="15" ItemsSource="{Binding AllFonModels}" 
+                      HorizontalAlignment="Center" Margin="0,200,0,0" Width="950"
                       Height="560">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -255,10 +267,10 @@
                    VerticalAlignment="Top"
                    Foreground="#6b6b6b"
                    FontWeight="Bold"
-                   Margin="0,780,0,0"
+                   Margin="0,730,0,0"
                    FontFamily="Roboto Slab"></TextBlock>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
-                    Margin="0,0,0,470">
+                    Margin="0,0,0,590">
             <Button Name="AddText"
                     Panel.ZIndex="100"
                     Width="240"
