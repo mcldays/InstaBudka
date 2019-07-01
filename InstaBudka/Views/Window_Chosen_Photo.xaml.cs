@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using InstaBudka.Utilities;
+using InstaBudka.Views;
 
 namespace InstaBudka
 {
@@ -23,6 +24,11 @@ namespace InstaBudka
     {
         public Window_Chosen_Photo()
         {
+            int hwnd = General_Page.WinAPI.FindWindow("Chrome_WidgetWin_1", null);
+            if (hwnd != 0) Chose_Page.WinAPI.ShowWindow(hwnd, 0);
+
+
+
             InitializeComponent();
             NameImage = "{Directory.GetCurrentDirectory()}\\1.jpeg";
         }

@@ -286,23 +286,38 @@ namespace InstaBudka.Views
 
 
 
-        public void SaveImage(string filename, ImageFormat format)
+        public async void  SaveImage(string filename, ImageFormat format)
         {
-           var a= (string)((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
-                "return document.getElementsByClassName('KL4Bh')[a].children[0].getAttribute('src')");//тут мы сэйвим картинку. которую открыли. но тут указан индекс нулевой для теста,но надо получать актуальный у блока фотки. на которую нажали и выгружать оттуда фотку
-           //вообще лучше отдельным окном повесить где-нибудь в углу кнопку печать и на нее команду , куски кода которой можно спиздить в kolazh page
-           //надо соединить фото, которое печатаем и его подпись с хаштэгами и вывести это на печать
-            WebClient client = new WebClient();
-                //Адрес картинки  class FFVAD, свойсто src
-            Stream stream = client.OpenRead(a);
-            Bitmap bitmap; bitmap = new Bitmap(stream);
 
-            if (bitmap != null)
-                bitmap.Save(filename, format);
+            Task.Run((() =>
+            {
 
-            stream.Flush();
-            stream.Close();
-            client.Dispose();
+                while (true)
+                {
+                    try
+                    {
+                        var a = (string) ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                            "return document.getElementsByClassName('KL4Bh')[a].children[0].getAttribute('src')"); //тут мы сэйвим картинку. которую открыли. но тут указан индекс нулевой для теста,но надо получать актуальный у блока фотки. на которую нажали и выгружать оттуда фотку
+                        //вообще лучше отдельным окном повесить где-нибудь в углу кнопку печать и на нее команду , куски кода которой можно спиздить в kolazh page
+                        //надо соединить фото, которое печатаем и его подпись с хаштэгами и вывести это на печать
+                        WebClient client = new WebClient();
+                        //Адрес картинки  class FFVAD, свойсто src
+                        Stream stream = client.OpenRead(a);
+                        Bitmap bitmap;
+                        bitmap = new Bitmap(stream);
+
+                        if (bitmap != null)
+                            bitmap.Save(filename, format);
+
+                        stream.Flush();
+                        stream.Close();
+                        client.Dispose();
+                        break;
+                    }
+                    catch { }
+                }
+            }));
+            
         }
 
         public void TakesScreenshot(IWebDriver driver, IWebElement element)
