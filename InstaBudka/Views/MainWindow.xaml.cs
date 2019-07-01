@@ -22,6 +22,7 @@ namespace InstaBudka
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             
