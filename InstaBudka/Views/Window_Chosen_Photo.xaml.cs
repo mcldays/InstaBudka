@@ -83,15 +83,18 @@ namespace InstaBudka
             //пробуй и true и false
             pd.OriginAtMargins = false;
             pd.PrintPage += PrintPage;
-
             PrintDialog printDialog = new PrintDialog();
-
-            //Border.Visibility = Visibility.Hidden;
+            Border.Visibility = Visibility.Hidden;
             Border.VerticalAlignment = VerticalAlignment.Top;
             Border.HorizontalAlignment = HorizontalAlignment.Left;
+
             // Увеличить размер в 5 раз
-            //Border.LayoutTransform = new ScaleTransform(0.625, 0.625);
-            Border.Margin = new Thickness(0,0,0,0);
+            Border.Margin = new Thickness(0, 0, 0, 0);
+            TransformGroup group = new TransformGroup();
+            //group.Children.Add(new RotateTransform(270));
+            group.Children.Add(new ScaleTransform(0.625, 0.625));
+
+            Border.LayoutTransform = group;
             // Определить поля
             int pageMargin = 0;
 
@@ -102,7 +105,9 @@ namespace InstaBudka
             // Инициировать установку размера элемента
             Border.Measure(pageSize);
             Border.Arrange(new Rect(pageMargin, pageMargin, pageSize.Width, pageSize.Height));
+            Border.Visibility = Visibility.Visible;
             MakeScreenElement(Border);
+
             pd.Print();
             (App.Current.MainWindow as MainWindow).Frame1.Navigate(new Chose_Page());
             Close();
