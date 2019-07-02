@@ -34,21 +34,22 @@
                        VerticalAlignment="Center" 
                        />
                 <TextBlock Text= "{Binding Nick}" 
-                           FontSize="40"
+                           FontSize="22"
                            Foreground="LightBlue"
                            HorizontalAlignment="Left"
                            Margin="30,10,0,0"/>
 
                 <TextBlock Text= "{Binding Deskription}" 
-                           FontSize="40"
+                           FontSize="22"
                            Width="460"
                            TextWrapping="Wrap"
                            Foreground="Black"
                            HorizontalAlignment="Left"
-                           Margin="30,10,0,0"/>
+                           Margin="30,10,0,0"
+                           MaxHeight="80"/>
                 
                 <TextBlock Text= "{Binding Date}" 
-                           FontSize="40"
+                           FontSize="22"
                            Foreground="Gray"
                            HorizontalAlignment="Left"
                            Margin="30,10,0,0"/>

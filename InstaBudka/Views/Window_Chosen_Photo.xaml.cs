@@ -128,7 +128,7 @@ namespace InstaBudka
             Border.HorizontalAlignment = HorizontalAlignment.Left;
 
             // Увеличить размер в 5 раз
-            Border.Margin = new Thickness(0, -50, 0, 0);
+            Border.Margin = new Thickness(0, 0, 0, 0);
             TransformGroup group = new TransformGroup();
             //group.Children.Add(new RotateTransform(270));
             group.Children.Add(new ScaleTransform(0.625, 0.625));
