@@ -24,16 +24,54 @@ namespace InstaBudka
     /// </summary>
     public partial class Window_Chosen_Photo : Window
     {
-        public Window_Chosen_Photo()
+        public Window_Chosen_Photo(string nick, string deskription, string datetime)
         {
             int hwnd = General_Page.WinAPI.FindWindow("Chrome_WidgetWin_1", null);
             if (hwnd != 0) Chose_Page.WinAPI.ShowWindow(hwnd, 0);
+
+            Nick = nick;
+            Deskription = deskription;
+            Date = datetime;
+
+
 
             InitializeComponent();
             NameImage = new BitmapImage(new Uri($"file:///{Directory.GetCurrentDirectory()}\\1.jpeg"));
             if(File.Exists("screen.jpg"))
             ScreenImage =new BitmapImage(new Uri("file:///"+Directory.GetCurrentDirectory() + "\\screen.jpg"));
         }
+
+        public static readonly DependencyProperty NickProperty = DependencyProperty.Register(
+            "Nick", typeof(string), typeof(Kolazh_Page), new PropertyMetadata(default(string)));
+
+        public string Nick
+        {
+            get { return (string)GetValue(NickProperty); }
+            set { SetValue(NickProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty DeskriptionProperty = DependencyProperty.Register(
+            "Deskription", typeof(string), typeof(Kolazh_Page), new PropertyMetadata(default(string)));
+
+        public string Deskription
+        {
+            get { return (string)GetValue(DeskriptionProperty); }
+            set { SetValue(DeskriptionProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty DateProperty = DependencyProperty.Register(
+           "Date", typeof(string), typeof(Kolazh_Page), new PropertyMetadata(default(string)));
+
+        public string Date
+        {
+            get { return (string)GetValue(DateProperty); }
+            set { SetValue(DateProperty, value); }
+        }
+
+
+
 
         private void MakeScreenElement(FrameworkElement elem)
         {
