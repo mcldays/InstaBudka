@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using InstaBudka.Views;
 
 namespace InstaBudka
@@ -41,8 +42,23 @@ namespace InstaBudka
             
             Widthh = SystemParameters.PrimaryScreenWidth;
             Heightt = SystemParameters.PrimaryScreenHeight;
+//this.Cursor = Cursors.None; 
+            Process process = Process.Start(new ProcessStartInfo
+            {
+                FileName = "taskkill",
+                Arguments = "/F /IM explorer.exe",
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                WindowStyle = ProcessWindowStyle.Hidden
+            });
+            process?.WaitForExit();
+            Closing += (e, a) =>
+            {
+
+                Process.Start(Path.Combine(Environment.GetEnvironmentVariable("windir"), "explorer.exe"));
+            };
         }
-        
+
 
         public static readonly DependencyProperty WidthhProperty = DependencyProperty.Register(
             "Widthh", typeof(double), typeof(MainWindow), new PropertyMetadata(default(double)));

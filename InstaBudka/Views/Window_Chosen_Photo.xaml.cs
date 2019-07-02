@@ -90,8 +90,9 @@ namespace InstaBudka
             Border.VerticalAlignment = VerticalAlignment.Top;
             Border.HorizontalAlignment = HorizontalAlignment.Left;
             // Увеличить размер в 5 раз
-            //Border.LayoutTransform = new ScaleTransform(0.625, 0.625);
-            Border.Margin = new Thickness(0,0,0,0);
+            Border.Margin = new Thickness(0, 0, 0, 0);
+
+            Border.LayoutTransform = new ScaleTransform(0.625, 0.625);
             // Определить поля
             int pageMargin = 0;
 
