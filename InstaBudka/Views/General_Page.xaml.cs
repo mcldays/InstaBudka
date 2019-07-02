@@ -55,7 +55,17 @@ namespace InstaBudka.Views
         }
         private bool IsElementExist(string classname)
         {
-            var t = (string)((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("return document.getElementsByClassName(arguments[0])[0].click();",classname);
+            try
+            {
+                var t = (string) ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                    "return document.getElementsByClassName(arguments[0])[0].click();", classname);
+                if (t == null) return false;
+                else return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
 
@@ -131,7 +141,12 @@ namespace InstaBudka.Views
 
                 // TODO Поставить проверку, загрузилась ли страница, и если загрузилась, то можно продолжать
                 //((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
-                    ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
+                var a = ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript("return document.readyState").Equals("complete");
+                while (a == false)
+                {
+                    Thread.Sleep(100);
+                }
+                if(IsElementExist("_8Rna9  _3Laht ")) ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
                     ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('r9-Os')[0].parentElement.removeChild(document.getElementsByClassName('r9-Os')[0])");
