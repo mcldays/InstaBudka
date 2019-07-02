@@ -24,7 +24,7 @@ namespace InstaBudka
     /// </summary>
     public partial class Window_Chosen_Photo : Window
     {
-        public Window_Chosen_Photo()
+        public Window_Chosen_Photo(string text, string date, string name)
         {
             int hwnd = General_Page.WinAPI.FindWindow("Chrome_WidgetWin_1", null);
             if (hwnd != 0) Chose_Page.WinAPI.ShowWindow(hwnd, 0);
@@ -49,6 +49,7 @@ namespace InstaBudka
 
         }
 
+   
 
         public static readonly DependencyProperty ScreenImageProperty = DependencyProperty.Register(
             "ScreenImage", typeof(BitmapImage), typeof(Window_Chosen_Photo), new PropertyMetadata(default(BitmapImage)));

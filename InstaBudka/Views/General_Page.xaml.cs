@@ -188,7 +188,7 @@ namespace InstaBudka.Views
                 {
                     await SaveImage("1.jpeg", ImageFormat.Jpeg);
 
-                    Window_Chosen_Photo wnd = new Window_Chosen_Photo();
+                    Window_Chosen_Photo wnd = new Window_Chosen_Photo(text, date, name);
                     App.CurrentApp.Browser.Manage().Window.Minimize();
 
                     wnd.ShowDialog();
@@ -292,20 +292,27 @@ namespace InstaBudka.Views
 
         }
 
+        private string text;
+        private string date;
+        private string name;
         public void TakesScreenshot(IWebDriver driver, IWebElement element)
         {
+            text = (string) ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript("return document.getElementsByClassName('C4VMK')[0].children[1].textContent");
+            date = (string)((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("return document.getElementsByClassName('FH9sR Nzb55')[0].getAttribute('title')");
+            name = (string)((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("return document.getElementsByClassName('FPmhX notranslate TlrDj')[0].text");
 
-            ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript("arguments[0].scrollIntoView(true);",
-                App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK")));
-            Thread.Sleep(100);
 
-            string fileName = "screen.jpg";
-            Byte[] byteArray = ((ITakesScreenshot) driver).GetScreenshot().AsByteArray;
-            Bitmap screenshot = new Bitmap(new System.IO.MemoryStream(byteArray));
-            Rectangle croppedImage = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width,
-                element.Size.Height > 374 ? 374 : element.Size.Height);
-            screenshot = screenshot.Clone(croppedImage, screenshot.PixelFormat);
-            screenshot.Save(String.Format(fileName, ImageFormat.Jpeg));
+            //((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript("arguments[0].scrollIntoView(true);",
+            //    App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK")));
+            //Thread.Sleep(100);
+
+            //string fileName = "screen.jpg";
+            //Byte[] byteArray = ((ITakesScreenshot) driver).GetScreenshot().AsByteArray;
+            //Bitmap screenshot = new Bitmap(new System.IO.MemoryStream(byteArray));
+            //Rectangle croppedImage = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width,
+            //    element.Size.Height > 374 ? 374 : element.Size.Height);
+            //screenshot = screenshot.Clone(croppedImage, screenshot.PixelFormat);
+            //screenshot.Save(String.Format(fileName, ImageFormat.Jpeg));
         }
 
         private async void General_Page_OnLoaded(object sender, RoutedEventArgs ee)
