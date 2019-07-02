@@ -299,7 +299,7 @@ namespace InstaBudka.Views
                    await SaveImage("1.jpeg", ImageFormat.Jpeg);
                     Window_Chosen_Photo wnd = new Window_Chosen_Photo();
                     wnd.ShowDialog();
-                    wnd.Show();
+                    
                     timer2.Start();
                 }
                 catch (ExternalException)
