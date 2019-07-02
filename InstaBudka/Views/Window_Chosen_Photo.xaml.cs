@@ -87,6 +87,7 @@ namespace InstaBudka
 
         }
 
+   
 
         public static readonly DependencyProperty ScreenImageProperty = DependencyProperty.Register(
             "ScreenImage", typeof(BitmapImage), typeof(Window_Chosen_Photo), new PropertyMetadata(default(BitmapImage)));
@@ -149,6 +150,7 @@ namespace InstaBudka
             pd.Print();
             App.CurrentApp.Browser.Manage().Window.Minimize();
             (App.Current.MainWindow as MainWindow).Frame1.Navigate(new Chose_Page());
+
             Close();
         }
 
