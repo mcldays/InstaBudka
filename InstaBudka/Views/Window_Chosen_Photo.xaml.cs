@@ -109,7 +109,9 @@ namespace InstaBudka
             MakeScreenElement(Border);
 
             pd.Print();
+            App.CurrentApp.Browser.Manage().Window.Minimize();
             (App.Current.MainWindow as MainWindow).Frame1.Navigate(new Chose_Page());
+
             Close();
         }
 

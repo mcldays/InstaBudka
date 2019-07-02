@@ -350,6 +350,7 @@ namespace InstaBudka.Views
 
             if (IsElementPresent(By.ClassName("bY2yH")))
             {
+                // Проверка, видос ли это
                 if (IsElementPresent(By.ClassName("QvAa1 ")))
                 {
                     ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.getElementsByClassName('ckWGn')[0].click();");
@@ -374,7 +375,7 @@ namespace InstaBudka.Views
                     //MessageBox.Show("kek");
                     //Something wrong with Stream
                 }
-
+                // Дожидаемся пока на появится крестик у фотографии и нажимаем на него
                 while (!IsElementPresent(By.ClassName("ckWGn")))
                 {
                     Thread.Sleep(500);
