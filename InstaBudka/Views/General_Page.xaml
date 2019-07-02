@@ -6,6 +6,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="1920" d:DesignWidth="1080"
       Title="General_Page"
+      Loaded="General_Page_OnLoaded"
       DataContext="{Binding RelativeSource= {RelativeSource Self}}">
 
     <Grid Background="White">
