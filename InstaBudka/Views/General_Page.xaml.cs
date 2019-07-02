@@ -152,11 +152,13 @@ namespace InstaBudka.Views
                     document.getElementsByClassName('oJZym')[0].appendChild(img);
 
 ");
+
                         break;
                     }
                     catch (Exception e)
                     {
-                        
+                        if (App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
+                            break;
                     }
                 }
             }
@@ -236,7 +238,8 @@ namespace InstaBudka.Views
                     }
                     catch (Exception e)
                     {
-
+                        if(App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
+                        break;
                     }
                 }
             }
