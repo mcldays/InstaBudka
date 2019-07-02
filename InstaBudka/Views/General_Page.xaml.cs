@@ -22,6 +22,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using AForge.Imaging.Filters;
 using InstaBudka.Utilities;
 using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.UI;
@@ -46,14 +47,14 @@ namespace InstaBudka.Views
                     return true;
                 else
                     return false;
-                
+
             }
             catch
             {
                 return false;
             }
         }
-        
+
 
 
         public void ChangeAdress(string NewAdress)
@@ -71,6 +72,7 @@ namespace InstaBudka.Views
 
             [DllImport("user32.dll", SetLastError = true)]
             internal static extern int ShowWindow(int hwnd, int nCmdShow);
+
             [DllImport("user32.dll")]
             private static extern
                 bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
@@ -82,193 +84,15 @@ namespace InstaBudka.Views
 
         DispatcherTimer timer2 = new DispatcherTimer();
         DispatcherTimer timer = new DispatcherTimer();
+        private string _login;
 
         public General_Page(string login)
         {
-            App.CurrentApp.Browser.Manage().Window.Maximize();
-
-            App.CurrentApp.Browser.Manage().Window.FullScreen();
-            int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
-
-            if (hwnd != 0) WinAPI.ShowWindow(hwnd, 3);
-
-
             InitializeComponent();
-            //try
-            //{
 
+            _login = login;
 
-            
-            timer.Interval= TimeSpan.FromMilliseconds(50);
-            timer.Tick+= TimerOnTick;
-            timer.Start();
-
-            timer2.Interval = TimeSpan.FromMilliseconds(100);
-            timer2.Tick += TimerOnTick2;
-            timer2.Start();
-
-            if (App.CurrentApp.Browser == null)
-            {
-                App.CurrentApp.Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
-                App.CurrentApp.Browser.Manage().Window.Maximize();
-
-                App.CurrentApp.Browser.Manage().Window.FullScreen();
-
-                
-
-            }
-            Unloaded+= OnUnloaded;
-            if (login.Contains("#"))
-            {
-                App.CurrentApp.Browser.Navigate().GoToUrl("https://www.instagram.com/explore/tags/" +
-                                                          login.Replace("#", string.Empty) +
-                                                          "/?hl = ru");
-
-                while (true)
-                {
-                    try
-                    {
-
-                   
-                // TODO Поставить проверку, загрузилась ли страница, и если загрузилась, то можно продолжать
-                //((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
-                    ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
-                    "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
-                    ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
-                    "document.getElementsByClassName('r9-Os')[0].parentElement.removeChild(document.getElementsByClassName('r9-Os')[0])");
-                    ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
-                    @"
-                    document.getElementsByClassName('LWmhU _0aCwM')[0].parentElement.removeChild(document.getElementsByClassName('LWmhU _0aCwM')[0]);
-                    document.getElementsByClassName('id8oV ')[0].parentElement.removeChild(document.getElementsByClassName('id8oV ')[0]);
-                    var classHren = '      tHaIX            Igw0E     IwRSH   pmxbr     YBx95       _4EzTm                                      CIRqI                  IY_1_                           XfCBB             HcJZg        O1flK D8xaz  _7JkPY  TxciK  N9d2H ZUqME ';
-                    if(document.getElementsByClassName(classHren)[0]) document.getElementsByClassName(classHren)[0].parentElement.removeChild(document.getElementsByClassName(classHren)[0]);
-                    
-                    document.getElementsByClassName('oJZym')[0].removeChild(document.getElementsByClassName('oJZym')[0].children[0]);
-                    var img = document.createElement('img');
-                    img.setAttribute('src', 'https://image.flaticon.com/icons/png/512/93/93634.png');
-                    img.setAttribute('width', '28px');
-                    img.setAttribute('onclick', 'document.location.href = \'/\'');
-
-                    document.getElementsByClassName('oJZym')[0].appendChild(img);
-
-");
-
-                        break;
-                    }
-                    catch (Exception e)
-                    {
-                        if (string.IsNullOrEmpty(App.CurrentApp.Browser.PageSource))
-                            App.CurrentApp.Browser.Navigate().Refresh();
-                        if (App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
-                            break;
-                    }
-                }
-            }
-            else
-            {
-                App.CurrentApp.Browser.Navigate()
-                    .GoToUrl(
-                        "https://www.instagram.com/" + login + "/");
-                // TODO Поставить проверку, загрузилась ли страница, и если загрузилась, то можно продолжать
-                //((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
-                while (true)
-                {
-                    try
-                    {
-
-            
-                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
-                    "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
-                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
-                    "document.getElementsByClassName('r9-Os')[0].parentElement.removeChild(document.getElementsByClassName('r9-Os')[0])");
-                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
-                    "document.getElementsByClassName('fx7hk')[0].parentElement.removeChild(document.getElementsByClassName('fx7hk')[0])");
-                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
-                    "document.getElementsByClassName('BY3EC ')[0].parentElement.removeChild(document.getElementsByClassName('BY3EC ')[0])");
-
-                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
-                    "document.getElementsByClassName('LWmhU _0aCwM')[0].parentElement.removeChild(document.getElementsByClassName('LWmhU _0aCwM')[0]);");
-
-                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
-                    @"var classHren = '      tHaIX            Igw0E     IwRSH   pmxbr     YBx95       _4EzTm                                      CIRqI                  IY_1_                           XfCBB             HcJZg        O1flK D8xaz  _7JkPY  TxciK  N9d2H ZUqME ';
-                if (document.getElementsByClassName(classHren)[0]) document.getElementsByClassName(classHren)[0].parentElement.removeChild(document.getElementsByClassName(classHren)[0]);");
-
-
-
-
-                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
-                    @"
-                var classHren = '      tHaIX            Igw0E     IwRSH   pmxbr     YBx95       _4EzTm                                      CIRqI                  IY_1_                           XfCBB             HcJZg        O1flK D8xaz  _7JkPY  TxciK  N9d2H ZUqME ';
-                if(document.getElementsByClassName(classHren)[0]) document.getElementsByClassName(classHren)[0].parentElement.removeChild(document.getElementsByClassName(classHren)[0]);
-                
-
-                document.getElementsByClassName('-nal3 ')[0].removeAttribute('href');
-                document.getElementsByClassName('-nal3 ')[1].removeAttribute('href');
-                document.getElementsByClassName('-nal3 ')[2].removeAttribute('href');
-
-                function replaceTag( element, newTag )
-                {
-                    var elementNew = document.createElement( newTag );
-                    elementNew.innerHTML = element.innerHTML;
-
-                    Array.prototype.forEach.call( element.attributes, function( attr ) {
-                        elementNew.setAttribute( attr.name, attr.value );
-                    });
-
-                    element.parentNode.insertBefore( elementNew, element );
-                    element.parentNode.removeChild( element );
-                    return elementNew;
-                }
-                
-                replaceTag(document.getElementsByClassName('oJZym')[0].children[0], 'div');
-                replaceTag(document.getElementsByClassName('-nal3 ')[0], 'div');
-                replaceTag(document.getElementsByClassName('-nal3 ')[1], 'div');
-                replaceTag(document.getElementsByClassName('-nal3 ')[2], 'div');
-                
-
-                document.getElementsByClassName('oJZym')[0].removeChild(document.getElementsByClassName('oJZym')[0].children[0]);
-                var img = document.createElement('img');
-                img.setAttribute('src', 'https://image.flaticon.com/icons/png/512/93/93634.png');
-                img.setAttribute('width', '28px');
-                img.setAttribute('onclick', 'document.location.href = \'/\'');
-
-                document.getElementsByClassName('oJZym')[0].appendChild(img);
-
-                document.getElementsByClassName('-vDIg')[0].parentElement.removeChild(document.getElementsByClassName('-vDIg')[0]);
-                        
-                var element=document.getElementsByClassName('_4bSq7')[0];
-                if(element){element.parentElement.removeChild(element)}
-
-");
-                        break;
-                    }
-                    catch (Exception e)
-                    {
-                        if(string.IsNullOrEmpty(App.CurrentApp.Browser.PageSource))
-                            App.CurrentApp.Browser.Navigate().Refresh();
-                        if(App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
-                        break;
-
-                    }
-                }
-            }
-            //}
-            //catch (Exception e)
-            //{
-            //    NavigationService?.GoBack();
-            //}
-
-            //для теста пиздовали на страницу Сереги. надо между  Chose_Page  и этой сделать промежуточную, где
-            //вводится ник человека или хаштег. по которому ищут публикации
-
-
-            //убираем все лишние кнопки. чтобы челик далеко не ушел
-            //событие открытия одной из фотографий, обычно я ставил тут точку остановы, тыкал на фотку и продолжал тесы, нужно щелчок по определенному фото вынести в отдельное событие
-
-
-
-            
-
+            Unloaded += OnUnloaded;
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
@@ -352,17 +176,22 @@ namespace InstaBudka.Views
             {
                 if (IsElementPresent(By.ClassName("QvAa1 ")))
                 {
-                    ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.getElementsByClassName('ckWGn')[0].click();");
+                    ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                        "document.getElementsByClassName('ckWGn')[0].click();");
                     return;
                 }
+
                 timer2.Stop();
-                
+
                 try
                 {
-                   await SaveImage("1.jpeg", ImageFormat.Jpeg);
+                    await SaveImage("1.jpeg", ImageFormat.Jpeg);
+
                     Window_Chosen_Photo wnd = new Window_Chosen_Photo();
+                    App.CurrentApp.Browser.Manage().Window.Minimize();
+
                     wnd.ShowDialog();
-                    
+
                 }
                 catch (ExternalException)
                 {
@@ -379,7 +208,9 @@ namespace InstaBudka.Views
                 {
                     Thread.Sleep(500);
                 }
-                ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.getElementsByClassName('ckWGn')[0].click();");
+
+                ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                    "document.getElementsByClassName('ckWGn')[0].click();");
                 timer2.Start();
             }
         }
@@ -387,18 +218,21 @@ namespace InstaBudka.Views
         private void TimerOnTick(object sender, EventArgs e)
         {
             //проверяем адрес
-            if (App.CurrentApp.Browser.Url == "https://www.instagram.com/" || App.CurrentApp.Browser.Url == "https://www.instagram.com"|| App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна.") || App.CurrentApp.Browser.Url.Contains("stories"))
+            if (App.CurrentApp.Browser.Url == "https://www.instagram.com/" ||
+                App.CurrentApp.Browser.Url == "https://www.instagram.com" ||
+                App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна.") ||
+                App.CurrentApp.Browser.Url.Contains("stories"))
             {
                 timer.Stop();
-              
-                    App.CurrentApp.Browser.Url="auto:blank";
-                    //Thread.Sleep(500);
-                    //int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
-                    App.CurrentApp.Browser.Manage().Window.Minimize();
-                    NavigationService.GoBack();
-                    //if (hwnd != 0) WinAPI.ShowWindow(hwnd, SW_HIDE);
-                
-                
+
+                App.CurrentApp.Browser.Url = "auto:blank";
+                //Thread.Sleep(500);
+                //int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
+                App.CurrentApp.Browser.Manage().Window.Minimize();
+                NavigationService.GoBack();
+                //if (hwnd != 0) WinAPI.ShowWindow(hwnd, SW_HIDE);
+
+
 
                 timer.Start();
             }
@@ -409,10 +243,10 @@ namespace InstaBudka.Views
 
 
 
-        public async Task  SaveImage(string filename, ImageFormat format)
+        public async Task SaveImage(string filename, ImageFormat format)
         {
 
-           await Task.Run((async () =>
+            await Task.Run((async () =>
             {
 
                 while (true)
@@ -421,7 +255,7 @@ namespace InstaBudka.Views
                     {
                         var test1 = App.CurrentApp.Browser.PageSource;
                         var b = App.CurrentApp.Browser.FindElements(By.ClassName("FFVAD")).Last().GetAttribute("src");
-                        var a = (string)((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
+                        var a = (string) ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
                             "return document.getElementsByClassName('KL4Bh')[0].children[0].getAttribute('src')"); //тут мы сэйвим картинку. которую открыли. но тут указан индекс нулевой для теста,но надо получать актуальный у блока фотки. на которую нажали и выгружать оттуда фотку
                         //вообще лучше отдельным окном повесить где-нибудь в углу кнопку печать и на нее команду , куски кода которой можно спиздить в kolazh page
                         //надо соединить фото, которое печатаем и его подпись с хаштэгами и вывести это на печать
@@ -449,25 +283,210 @@ namespace InstaBudka.Views
                                     By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
                         break;
                     }
-                    catch { }
+                    catch
+                    {
+                    }
                 }
             }));
-            
+
         }
 
         public void TakesScreenshot(IWebDriver driver, IWebElement element)
         {
-   
-            ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("arguments[0].scrollIntoView(true);", App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK")));
+
+            ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript("arguments[0].scrollIntoView(true);",
+                App.CurrentApp.Browser.FindElement(By.ClassName("C4VMK")));
             Thread.Sleep(100);
 
-            string fileName ="screen.jpg";
-            Byte[] byteArray = ((ITakesScreenshot)driver).GetScreenshot().AsByteArray;
+            string fileName = "screen.jpg";
+            Byte[] byteArray = ((ITakesScreenshot) driver).GetScreenshot().AsByteArray;
             Bitmap screenshot = new Bitmap(new System.IO.MemoryStream(byteArray));
-            Rectangle croppedImage = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width, element.Size.Height>374?374:element.Size.Height);
+            Rectangle croppedImage = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width,
+                element.Size.Height > 374 ? 374 : element.Size.Height);
             screenshot = screenshot.Clone(croppedImage, screenshot.PixelFormat);
             screenshot.Save(String.Format(fileName, ImageFormat.Jpeg));
         }
 
+        private async void General_Page_OnLoaded(object sender, RoutedEventArgs ee)
+        {
+            App.CurrentApp.Browser.Manage().Window.Maximize();
+
+            App.CurrentApp.Browser.Manage().Window.FullScreen();
+            int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
+
+            if (hwnd != 0) WinAPI.ShowWindow(hwnd, 3);
+
+
+            //try
+            //{
+
+
+
+            timer.Interval = TimeSpan.FromMilliseconds(50);
+            timer.Tick += TimerOnTick;
+            timer.Start();
+
+            timer2.Interval = TimeSpan.FromMilliseconds(100);
+            timer2.Tick += TimerOnTick2;
+            timer2.Start();
+
+            if (App.CurrentApp.Browser == null)
+            {
+                App.CurrentApp.Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
+                App.CurrentApp.Browser.Manage().Window.Maximize();
+
+                App.CurrentApp.Browser.Manage().Window.FullScreen();
+
+
+
+            }
+
+            if (_login.Contains("#"))
+            {
+                App.CurrentApp.Browser.Navigate().GoToUrl("https://www.instagram.com/explore/tags/" +
+                                                          _login.Replace("#", string.Empty) +
+                                                          "/?hl = ru");
+
+                while (true)
+                {
+                    try
+                    {
+
+
+                        // TODO Поставить проверку, загрузилась ли страница, и если загрузилась, то можно продолжать
+                        //((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
+                        ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                            "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
+                        ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                            "document.getElementsByClassName('r9-Os')[0].parentElement.removeChild(document.getElementsByClassName('r9-Os')[0])");
+                        ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                            @"
+                    document.getElementsByClassName('LWmhU _0aCwM')[0].parentElement.removeChild(document.getElementsByClassName('LWmhU _0aCwM')[0]);
+                    document.getElementsByClassName('id8oV ')[0].parentElement.removeChild(document.getElementsByClassName('id8oV ')[0]);
+                    var classHren = '      tHaIX            Igw0E     IwRSH   pmxbr     YBx95       _4EzTm                                      CIRqI                  IY_1_                           XfCBB             HcJZg        O1flK D8xaz  _7JkPY  TxciK  N9d2H ZUqME ';
+                    if(document.getElementsByClassName(classHren)[0]) document.getElementsByClassName(classHren)[0].parentElement.removeChild(document.getElementsByClassName(classHren)[0]);
+                    
+                    document.getElementsByClassName('oJZym')[0].removeChild(document.getElementsByClassName('oJZym')[0].children[0]);
+                    var img = document.createElement('img');
+                    img.setAttribute('src', 'https://image.flaticon.com/icons/png/512/93/93634.png');
+                    img.setAttribute('width', '28px');
+                    img.setAttribute('onclick', 'document.location.href = \'/\'');
+
+                    document.getElementsByClassName('oJZym')[0].appendChild(img);
+
+");
+
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+                        if (string.IsNullOrEmpty(App.CurrentApp.Browser.PageSource))
+                        {
+                            App.CurrentApp.Browser.Navigate().Refresh();
+                            await Task.Delay(3000);
+                        }
+                        if (App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                App.CurrentApp.Browser.Navigate()
+                    .GoToUrl(
+                        "https://www.instagram.com/" + _login + "/");
+                // TODO Поставить проверку, загрузилась ли страница, и если загрузилась, то можно продолжать
+                //((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
+                await Task.Delay(2000);
+                while (true)
+                {
+                    try
+                    {
+
+
+                        ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                            "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
+                        ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                            "document.getElementsByClassName('r9-Os')[0].parentElement.removeChild(document.getElementsByClassName('r9-Os')[0])");
+                        ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                            "document.getElementsByClassName('fx7hk')[0].parentElement.removeChild(document.getElementsByClassName('fx7hk')[0])");
+                        ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                            "document.getElementsByClassName('BY3EC ')[0].parentElement.removeChild(document.getElementsByClassName('BY3EC ')[0])");
+
+                        ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                            "document.getElementsByClassName('LWmhU _0aCwM')[0].parentElement.removeChild(document.getElementsByClassName('LWmhU _0aCwM')[0]);");
+
+                        ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                            @"var classHren = '      tHaIX            Igw0E     IwRSH   pmxbr     YBx95       _4EzTm                                      CIRqI                  IY_1_                           XfCBB             HcJZg        O1flK D8xaz  _7JkPY  TxciK  N9d2H ZUqME ';
+                if (document.getElementsByClassName(classHren)[0]) document.getElementsByClassName(classHren)[0].parentElement.removeChild(document.getElementsByClassName(classHren)[0]);");
+
+
+
+
+                        ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
+                            @"
+                var classHren = '      tHaIX            Igw0E     IwRSH   pmxbr     YBx95       _4EzTm                                      CIRqI                  IY_1_                           XfCBB             HcJZg        O1flK D8xaz  _7JkPY  TxciK  N9d2H ZUqME ';
+                if(document.getElementsByClassName(classHren)[0]) document.getElementsByClassName(classHren)[0].parentElement.removeChild(document.getElementsByClassName(classHren)[0]);
+                
+
+                document.getElementsByClassName('-nal3 ')[0].removeAttribute('href');
+                document.getElementsByClassName('-nal3 ')[1].removeAttribute('href');
+                document.getElementsByClassName('-nal3 ')[2].removeAttribute('href');
+
+                function replaceTag( element, newTag )
+                {
+                    var elementNew = document.createElement( newTag );
+                    elementNew.innerHTML = element.innerHTML;
+
+                    Array.prototype.forEach.call( element.attributes, function( attr ) {
+                        elementNew.setAttribute( attr.name, attr.value );
+                    });
+
+                    element.parentNode.insertBefore( elementNew, element );
+                    element.parentNode.removeChild( element );
+                    return elementNew;
+                }
+                
+                replaceTag(document.getElementsByClassName('oJZym')[0].children[0], 'div');
+                replaceTag(document.getElementsByClassName('-nal3 ')[0], 'div');
+                replaceTag(document.getElementsByClassName('-nal3 ')[1], 'div');
+                replaceTag(document.getElementsByClassName('-nal3 ')[2], 'div');
+                
+
+                document.getElementsByClassName('oJZym')[0].removeChild(document.getElementsByClassName('oJZym')[0].children[0]);
+                var img = document.createElement('img');
+                img.setAttribute('src', 'https://image.flaticon.com/icons/png/512/93/93634.png');
+                img.setAttribute('width', '28px');
+                img.setAttribute('onclick', 'document.location.href = \'/\'');
+
+                document.getElementsByClassName('oJZym')[0].appendChild(img);
+
+                document.getElementsByClassName('-vDIg')[0].parentElement.removeChild(document.getElementsByClassName('-vDIg')[0]);
+                        
+                var element=document.getElementsByClassName('_4bSq7')[0];
+                if(element){element.parentElement.removeChild(element)}
+
+");
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+                        //if (e.Message.Contains("Cannot read property 'parentElement' of undefined"))
+                        //{
+                        //    App.CurrentApp.Browser.Navigate().Refresh();
+                        //    await Task.Delay(5000);
+
+                        //}
+                        App.CurrentApp.Browser.Manage().Window.Minimize();
+                        NavigationService.Navigate(new Chose_Page());
+                        break;
+
+                        if (App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
+                            break;
+
+                    }
+                }
+            }
+        }
     }
 }
