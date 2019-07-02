@@ -157,6 +157,8 @@ namespace InstaBudka.Views
                     }
                     catch (Exception e)
                     {
+                        if (string.IsNullOrEmpty(App.CurrentApp.Browser.PageSource))
+                            App.CurrentApp.Browser.Navigate().Refresh();
                         if (App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
                             break;
                     }
@@ -232,14 +234,21 @@ namespace InstaBudka.Views
 
                 document.getElementsByClassName('oJZym')[0].appendChild(img);
 
-                document.getElementsByClassName('-vDIg')[0].parentElement.removeChild(document.getElementsByClassName('-vDIg')[0])
-            ");
+                document.getElementsByClassName('-vDIg')[0].parentElement.removeChild(document.getElementsByClassName('-vDIg')[0]);
+                        
+                var element=document.getElementsByClassName('_4bSq7')[0];
+                if(element){element.parentElement.removeChild(element)}
+
+");
                         break;
                     }
                     catch (Exception e)
                     {
+                        if(string.IsNullOrEmpty(App.CurrentApp.Browser.PageSource))
+                            App.CurrentApp.Browser.Navigate().Refresh();
                         if(App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
                         break;
+
                     }
                 }
             }
@@ -378,7 +387,7 @@ namespace InstaBudka.Views
         private void TimerOnTick(object sender, EventArgs e)
         {
             //проверяем адрес
-            if (App.CurrentApp.Browser.Url == "https://www.instagram.com/" || App.CurrentApp.Browser.Url == "https://www.instagram.com"|| App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
+            if (App.CurrentApp.Browser.Url == "https://www.instagram.com/" || App.CurrentApp.Browser.Url == "https://www.instagram.com"|| App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна.") || App.CurrentApp.Browser.Url.Contains("stories"))
             {
                 timer.Stop();
               
@@ -393,6 +402,8 @@ namespace InstaBudka.Views
 
                 timer.Start();
             }
+
+
         }
 
 
