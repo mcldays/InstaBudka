@@ -42,7 +42,7 @@ namespace InstaBudka
             
             Widthh = SystemParameters.PrimaryScreenWidth;
             Heightt = SystemParameters.PrimaryScreenHeight;
-//this.Cursor = Cursors.None; 
+            //this.Cursor = Cursors.None; 
             Process process = Process.Start(new ProcessStartInfo
             {
                 FileName = "taskkill",
@@ -68,7 +68,7 @@ namespace InstaBudka
             get { return (double) GetValue(WidthhProperty); }
             set { SetValue(WidthhProperty, value); }
         }
-
+            
         public static readonly DependencyProperty HeighttProperty = DependencyProperty.Register(
             "Heightt", typeof(double), typeof(MainWindow), new PropertyMetadata(default(double)));
 

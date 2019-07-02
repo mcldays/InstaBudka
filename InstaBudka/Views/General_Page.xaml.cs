@@ -157,6 +157,8 @@ namespace InstaBudka.Views
                     }
                     catch (Exception e)
                     {
+                        if (string.IsNullOrEmpty(App.CurrentApp.Browser.PageSource))
+                            App.CurrentApp.Browser.Navigate().Refresh();
                         if (App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
                             break;
                     }
@@ -238,8 +240,11 @@ namespace InstaBudka.Views
                     }
                     catch (Exception e)
                     {
+                        if(string.IsNullOrEmpty(App.CurrentApp.Browser.PageSource))
+                            App.CurrentApp.Browser.Navigate().Refresh();
                         if(App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
                         break;
+
                     }
                 }
             }
