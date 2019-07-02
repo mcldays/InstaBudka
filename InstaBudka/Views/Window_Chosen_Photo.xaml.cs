@@ -30,8 +30,9 @@ namespace InstaBudka
             if (hwnd != 0) Chose_Page.WinAPI.ShowWindow(hwnd, 0);
 
             InitializeComponent();
-            NameImage = $"{Directory.GetCurrentDirectory()}\\1.jpeg";
-            ScreenImage = Directory.GetCurrentDirectory() + "screen.jpg";
+            NameImage = new BitmapImage(new Uri($"file:///{Directory.GetCurrentDirectory()}\\1.jpeg"));
+            if(File.Exists("screen.jpg"))
+            ScreenImage =new BitmapImage(new Uri("file:///"+Directory.GetCurrentDirectory() + "\\screen.jpg"));
         }
 
         private void MakeScreenElement(FrameworkElement elem)
@@ -41,30 +42,29 @@ namespace InstaBudka
             renderTargetBitmap.Render(elem);
             PngBitmapEncoder pngImage = new PngBitmapEncoder();
             pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
-            using (Stream fileStream = File.Create("fileKolazh.png"))
+            using (Stream fileStream = File.Create("readyFile.png"))
             {
                 pngImage.Save(fileStream);
             }
-
 
         }
 
 
         public static readonly DependencyProperty ScreenImageProperty = DependencyProperty.Register(
-            "ScreenImage", typeof(string), typeof(Window_Chosen_Photo), new PropertyMetadata(default(string)));
+            "ScreenImage", typeof(BitmapImage), typeof(Window_Chosen_Photo), new PropertyMetadata(default(BitmapImage)));
 
-        public string ScreenImage
+        public BitmapImage ScreenImage
         {
-            get => (string) GetValue(ScreenImageProperty);
+            get => (BitmapImage) GetValue(ScreenImageProperty);
             set => SetValue(ScreenImageProperty, value);
         }
 
         public static readonly DependencyProperty NameImageProperty = DependencyProperty.Register(
-            "NameImage", typeof(string), typeof(Window_Chosen_Photo), new PropertyMetadata(default(string)));
+            "NameImage", typeof(BitmapImage), typeof(Window_Chosen_Photo), new PropertyMetadata(default(BitmapImage)));
 
-        public string NameImage
+        public BitmapImage NameImage
         {
-            get => (string) GetValue(NameImageProperty);
+            get => (BitmapImage) GetValue(NameImageProperty);
             set => SetValue(NameImageProperty, value);
         }
 
@@ -79,13 +79,32 @@ namespace InstaBudka
         private ICommand _printCommand;
         public ICommand PrintCommand => _printCommand ?? (_printCommand = new Command((c =>
         {
-            MakeScreenElement(Border);
             PrintDocument pd = new PrintDocument();
             //пробуй и true и false
             pd.OriginAtMargins = false;
             pd.PrintPage += PrintPage;
-            pd.Print();
 
+            PrintDialog printDialog = new PrintDialog();
+
+            //Border.Visibility = Visibility.Hidden;
+            Border.VerticalAlignment = VerticalAlignment.Top;
+            Border.HorizontalAlignment = HorizontalAlignment.Left;
+            // Увеличить размер в 5 раз
+            Border.Margin = new Thickness(0, 0, 0, 0);
+
+            Border.LayoutTransform = new ScaleTransform(0.625, 0.625);
+            // Определить поля
+            int pageMargin = 0;
+
+            // Получить размер страницы
+            System.Windows.Size pageSize = new System.Windows.Size(printDialog.PrintableAreaWidth,
+                printDialog.PrintableAreaHeight);
+
+            // Инициировать установку размера элемента
+            Border.Measure(pageSize);
+            Border.Arrange(new Rect(pageMargin, pageMargin, pageSize.Width, pageSize.Height));
+            MakeScreenElement(Border);
+            pd.Print();
             (App.Current.MainWindow as MainWindow).Frame1.Navigate(new Chose_Page());
             Close();
         }

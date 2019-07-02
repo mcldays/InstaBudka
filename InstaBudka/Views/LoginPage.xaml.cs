@@ -22,7 +22,6 @@ namespace InstaBudka.Views
     public partial class LoginPage : Page
     {
 
-
         public string login { get; set; }
         public ICommand _instagramCommand;
 
@@ -45,12 +44,19 @@ namespace InstaBudka.Views
 
         public ICommand SearchByNickCommand => _searchByNickCommand ?? (_searchByNickCommand = new Command((c =>
              {
+                 if (TextBoxNick.Text == "")
+                 {
+                     label.Content = "Имя не введено";
+                     return;
+                 }
+
                  NavigationService.Navigate(new General_Page(TextBoxNick.Text));
                  //LoadingBorder.Visibility = Visibility.Visible;
                  TextBoxHush.Text = string.Empty;
                  TextBoxNick.Text = string.Empty;
                  (App.Current.MainWindow as MainWindow).Topmost = false;
                  //LoadingBorder.Visibility = Visibility.Collapsed;
+                 label.Content = "";
 
              }
          )));
@@ -60,9 +66,15 @@ namespace InstaBudka.Views
 
         public ICommand SearchByHushTagCommand => _searchByHushTagCommand ?? (_searchByHushTagCommand = new Command((c =>
              {
+                 if (TextBoxHush.Text == "")
+                 {
+                     label.Content = "Хэштег не введен";
+                     return;
+                 }
                  NavigationService.Navigate(new General_Page("#"+TextBoxHush.Text.Replace("#", "")));
                  TextBoxHush.Text = string.Empty;
                  TextBoxNick.Text = string.Empty;
+                 label.Content = "";
              }
          )));
 

@@ -22,18 +22,25 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Border x:Name="Border"
-                Padding="20">
+        <Border Name="Border"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Height="900"
+                Padding="20" Margin="46,199,58,513" Width="600">
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                 <Image Source="{Binding NameImage}" 
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center" 
-                       Width="984"/>
-                <Image Source="{Binding ScreenImage}"/>
+                       />
+                <Image Source="{Binding ScreenImage}"
+                       Stretch="UniformToFill"
+                       Width="200"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"/>
             </StackPanel>
         </Border>
-    
+
         <Button Name="PhotoAgainButton"
                 Panel.ZIndex="100"
                 Width="260"

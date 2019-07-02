@@ -10,7 +10,7 @@
       Title="LoginPage"
       DataContext="{Binding RelativeSource= {RelativeSource Self}}" >
     <Grid Width="1080" Height="1920">
-        <Image Source="../Images/страница поиска.png"></Image>
+        <Image Source="../Images/page_search.png"></Image>
         <StackPanel VerticalAlignment="Center" Margin="0,100,0,0">
             <TextBlock Text="Поиск по нику" Foreground="White"
                        FontSize="80"
@@ -155,5 +155,6 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <Label x:Name="label" Foreground="Red" Content="" HorizontalAlignment="Left" Height="79" Margin="354,1341,0,0" VerticalAlignment="Top" Width="444" FontSize="48"/>
     </Grid>
 </Page>
