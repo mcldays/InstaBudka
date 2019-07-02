@@ -53,11 +53,7 @@ namespace InstaBudka.Views
                 return false;
             }
         }
-        private bool IsElementExist(string classname)
-        {
-            var t = (string)((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("return document.getElementsByClassName(arguments[0])[0].click();",classname);
-        }
-
+        
 
 
         public void ChangeAdress(string NewAdress)
@@ -128,7 +124,12 @@ namespace InstaBudka.Views
                                                           login.Replace("#", string.Empty) +
                                                           "/?hl = ru");
 
+                while (true)
+                {
+                    try
+                    {
 
+                   
                 // TODO Поставить проверку, загрузилась ли страница, и если загрузилась, то можно продолжать
                 //((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
                     ((IJavaScriptExecutor)App.CurrentApp.Browser).ExecuteScript(
@@ -151,6 +152,13 @@ namespace InstaBudka.Views
                     document.getElementsByClassName('oJZym')[0].appendChild(img);
 
 ");
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+                        
+                    }
+                }
             }
             else
             {
@@ -159,6 +167,12 @@ namespace InstaBudka.Views
                         "https://www.instagram.com/" + login + "/");
                 // TODO Поставить проверку, загрузилась ли страница, и если загрузилась, то можно продолжать
                 //((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript("document.body.style.zoom='150%';");
+                while (true)
+                {
+                    try
+                    {
+
+            
                 ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
                     "document.getElementsByClassName('_8Rna9  _3Laht ')[0].parentElement.removeChild(document.getElementsByClassName('_8Rna9  _3Laht ')[0])");
                 ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
@@ -218,6 +232,13 @@ namespace InstaBudka.Views
 
                 document.getElementsByClassName('-vDIg')[0].parentElement.removeChild(document.getElementsByClassName('-vDIg')[0])
             ");
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                }
             }
             //}
             //catch (Exception e)
