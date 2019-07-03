@@ -46,7 +46,7 @@
                            Foreground="Black"
                            HorizontalAlignment="Left"
                            Margin="30,10,0,0"
-                           MaxHeight="80"/>
+                           MaxHeight="85"/>
                 
                 <TextBlock Text= "{Binding Date}" 
                            FontSize="22"
@@ -97,4 +97,5 @@
         </Button>
 
     </Grid>
+
 </Window>

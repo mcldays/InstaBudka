@@ -131,7 +131,7 @@ namespace InstaBudka
             Border.Margin = new Thickness(0, 0, 0, 0);
             TransformGroup group = new TransformGroup();
             //group.Children.Add(new RotateTransform(270));
-            group.Children.Add(new ScaleTransform(0.625, 0.625));
+            group.Children.Add(new ScaleTransform(0.578, 0.578));
 
             Border.LayoutTransform = group;
             // Определить поля
