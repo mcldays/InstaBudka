@@ -186,12 +186,16 @@ namespace InstaBudka.Views
 
                 try
                 {
+                    App.CurrentApp.Browser.Manage().Window.Minimize();
                     await SaveImage("1.jpeg", ImageFormat.Jpeg);
 
                     Window_Chosen_Photo wnd = new Window_Chosen_Photo(name, text, date );
                     App.CurrentApp.Browser.Manage().Window.Minimize();
 
                     wnd.ShowDialog();
+                    
+                   
+                    //NavigationService.Navigate(new Chose_Page());
 
                 }
                 catch (ExternalException)
