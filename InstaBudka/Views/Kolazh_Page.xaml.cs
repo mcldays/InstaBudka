@@ -186,6 +186,7 @@ namespace InstaBudka.Views
                 //}
         
                 //NavigationService?.Navigate(new Chose_Page());
+                App.CurrentApp.Kw.Topmost = false;
                 App.CurrentApp.Kw.Close();
                 
             }

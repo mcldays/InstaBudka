@@ -66,11 +66,23 @@ namespace InstaBudka
             {
                 if (UserInactivity.GetSeconds() >= 90)
                 {
+                    if (App.CurrentApp.Kw != null)
+                    {
+                        try
+                        {
+                            App.CurrentApp.Kw.Topmost = false;
+                            App.CurrentApp.Kw.Close();
+                        }
+                        catch (Exception e)
+                        {
 
+                        }
+                    }
 
                     if (!(Frame1.Content is Chose_Page))
                     {
                         Frame1.Navigate(new Chose_Page());
+                        
                         App.CurrentApp.Browser.Manage().Window.Minimize();
                     }
 
