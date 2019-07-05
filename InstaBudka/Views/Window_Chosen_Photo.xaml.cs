@@ -111,7 +111,7 @@ namespace InstaBudka
         public ICommand BackCommand => _backCommand ?? (_backCommand = new Command((c =>
                                                {
                                                    Close();
-                                                   App.CurrentApp.Browser.Manage().Window.Maximize();
+                                                   //App.CurrentApp.Browser.Manage().Window.Maximize();
                                                    App.CurrentApp.Browser.Manage().Window.FullScreen();
 
                                                }
