@@ -185,7 +185,8 @@ namespace InstaBudka.Views
                 //    File.Delete(s);
                 //}
         
-                NavigationService?.Navigate(new Chose_Page());
+                //NavigationService?.Navigate(new Chose_Page());
+                App.CurrentApp.Kw.Close();
                 
             }
         )));
@@ -231,7 +232,15 @@ namespace InstaBudka.Views
         private ICommand _backCommand;
         public ICommand BackCommand => _backCommand ?? (_backCommand = new Command((c =>
               {
+                  Pphoto1.Source = null;
+                  Pphoto2.Source = null;
+                  Pphoto3.Source = null;
+                  Photo1 = null;
+                  Photo2 = null;
+                  Photo3 = null;
+                  
                   NavigationService.Navigate(new Photo_Page());
+                  //NavigationService.GoBack();
 
               }
           )));
@@ -265,6 +274,18 @@ namespace InstaBudka.Views
             //CoolKeyBoard.Visibility = Visibility.Visible;
         }
 
-        
+
+        private void Kolazh_Page_OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            foreach (var allFonModel in AllFonModels)
+            {
+                allFonModel.PathToImage = null;
+            }
+
+            MyItemsControl.ItemsSource = null;
+            Photo1 = null;
+            Photo2 = null;
+            Photo3 = null;
+        }
     }
 }

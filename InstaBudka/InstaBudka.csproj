@@ -121,6 +121,9 @@
     <Compile Include="Views\Kolazh_Page.xaml.cs">
       <DependentUpon>Kolazh_Page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Kollazh_Window.xaml.cs">
+      <DependentUpon>Kollazh_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -143,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Kolazh_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Kollazh_Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

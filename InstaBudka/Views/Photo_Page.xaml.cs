@@ -59,11 +59,18 @@ namespace InstaBudka.Views
             {
                 frameHolder.Source = bi;
                 bi2 = bi;
+                bi = null;
+
             }));
         }
 
         private void Photo_Page_OnLoaded(object sender, RoutedEventArgs e)
         {
+            PhotoPath1 = null;
+            PhotoPath2 = null;
+            PhotoPath3 = null;
+            
+
             LoaclWebCamsCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             if (LoaclWebCamsCollection.Count != 0)
             {
@@ -114,6 +121,13 @@ namespace InstaBudka.Views
          {
              LocalWebCam.Stop();
              NavigationService.Navigate(new Kolazh_Page(PhotoPath1,PhotoPath2,PhotoPath3));
+             PhotoPath1 = null;
+             PhotoPath2 = null;
+             PhotoPath3 = null;
+             Photo1.Source = null;
+             Photo2.Source = null;
+             Photo3.Source = null;
+             PhotoIndex = 0;
          }
          ));
 
@@ -133,15 +147,15 @@ namespace InstaBudka.Views
             {
                 var countdownAnimation = new StringAnimationUsingKeyFrames();
 
-                for (var i = 3; i >= 0; i--)
+                for (var i = 1; i >= 0; i--)
                 {
-                    var keyTime = TimeSpan.FromSeconds(3 - i);
+                    var keyTime = TimeSpan.FromSeconds(1 - i);
                     var frame = new DiscreteStringKeyFrame(i.ToString(), KeyTime.FromTimeSpan(keyTime));
                     countdownAnimation.KeyFrames.Add(frame);
                 }
 
                 countdownAnimation.KeyFrames.Add(new DiscreteStringKeyFrame(" ",
-                    KeyTime.FromTimeSpan(TimeSpan.FromSeconds(4))));
+                    KeyTime.FromTimeSpan(TimeSpan.FromSeconds(2))));
                 Storyboard.SetTargetName(countdownAnimation, target.Name);
                 Storyboard.SetTargetProperty(countdownAnimation, new PropertyPath(TextBlock.TextProperty));
 
@@ -161,16 +175,28 @@ namespace InstaBudka.Views
             set { SetValue(PhotoIndexProperty, value); }
         }
 
+        public static readonly DependencyProperty PhotoAdressProperty = DependencyProperty.Register(
+            "PhotoAdress", typeof(string), typeof(Photo_Page), new PropertyMetadata(default(string)));
+
+        public string PhotoAdress
+        {
+            get { return (string) GetValue(PhotoAdressProperty); }
+            set { SetValue(PhotoAdressProperty, value); }
+        }
+
         private void CountdownTimer_Completed(object sender, EventArgs e)
         {
             string PhotoAdress = "Photo " + DateTime.Now.ToLongTimeString().Replace(":", ".") + ".png";
-            //LocalWebCam.Stop();
+            //LocalWebCam.Stop(); 
             using (FileStream stream = new FileStream(PhotoAdress, FileMode.Create))
             {
                 PngBitmapEncoder encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(bi2));
                 encoder.Save(stream);
             }
+            
+            //LocalWebCam.Stop();
+
 
             switch (PhotoIndex)
             {
@@ -229,9 +255,18 @@ namespace InstaBudka.Views
         }
 
 
-        
+        private void Photo_Page_OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            PhotoPath1 = null;
+            PhotoPath2 = null;
+            PhotoPath3 = null;
+            Photo1.Source = null;
+            Photo2.Source = null;
+            Photo3.Source = null;
+            PhotoIndex = 0;
+            LocalWebCam.Stop();
 
 
-        
+        }
     }
 }
