@@ -76,6 +76,7 @@ namespace InstaBudka
         {
             get { return (double) GetValue(HeighttProperty); }
             set { SetValue(HeighttProperty, value); }
+
         }
 
         private void Frame1_OnNavigating(object sender, NavigatingCancelEventArgs e)
