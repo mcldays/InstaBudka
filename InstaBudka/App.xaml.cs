@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using InstaBudka.Views;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -20,6 +21,16 @@ namespace InstaBudka
        public IWebDriver Browser {
            get =>_browser;
            set { _browser = value; }
+
+       }
+
+      
+
+       private Kollazh_Window _kw;
+       public Kollazh_Window Kw
+       {
+           get => _kw;
+           set { _kw = value; }
 
        }
     }

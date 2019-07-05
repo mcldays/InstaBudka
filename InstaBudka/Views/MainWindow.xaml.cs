@@ -26,7 +26,7 @@ namespace InstaBudka
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        
         public MainWindow()
         {
             if (App.CurrentApp.Browser == null)
@@ -36,7 +36,7 @@ namespace InstaBudka
 
                 App.CurrentApp.Browser.Manage().Window.FullScreen();
             }
-
+            
 
 
             InitializeComponent();
@@ -131,24 +131,59 @@ namespace InstaBudka
         {
             get { return (double) GetValue(HeighttProperty); }
             set { SetValue(HeighttProperty, value); }
+
         }
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
+        }
+
 
         private void Frame1_OnNavigating(object sender, NavigatingCancelEventArgs e)
         {
-            var ta = new ThicknessAnimation();
-            ta.Duration = TimeSpan.FromSeconds(0.2);
 
-            ta.DecelerationRatio = 0.6;
-            ta.To = new Thickness(0, 0, 0, 0);
-            if (e.NavigationMode == NavigationMode.New)
+            var AllImages = FindVisualChildren<Image>(Frame1.Content as DependencyObject);
+            foreach (Image allImage in AllImages)
             {
-                ta.From = new Thickness(700, 200, 700, 200);
+                //if(allImage.Source.ToString().Contains("Назад"))
+                //    continue;
+                
+
+                allImage.Height=0;
+                allImage.Width = 0;
+                allImage.Source = null;
+
+                //allImage.Source = null;
             }
-            else if (e.NavigationMode == NavigationMode.Back)
-            {
-                ta.From = new Thickness(-700, -200, -700, -200);
-            }
-            (e.Content as Page).BeginAnimation(MarginProperty, ta);
+            //var ta = new ThicknessAnimation();
+            //ta.Duration = TimeSpan.FromSeconds(0.2);
+
+            //ta.DecelerationRatio = 0.6;
+            //ta.To = new Thickness(0, 0, 0, 0);
+            //if (e.NavigationMode == NavigationMode.New)
+            //{
+            //    ta.From = new Thickness(700, 200, 700, 200);
+            //}
+            //else if (e.NavigationMode == NavigationMode.Back)
+            //{
+            //    ta.From = new Thickness(-700, -200, -700, -200);
+            //}
+            //(e.Content as Page).BeginAnimation(MarginProperty, ta);
         }
 
 

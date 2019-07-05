@@ -7,6 +7,7 @@
       xmlns:controls="clr-namespace:MSPBanck.Controls"
       mc:Ignorable="d" 
       Loaded="Kolazh_Page_OnLoaded"
+      Unloaded="Kolazh_Page_OnUnloaded"
       d:DesignHeight="1920" d:DesignWidth="1080"
       Title="Kolazh_Page"
       DataContext="{Binding RelativeSource= {RelativeSource Self}}">
@@ -55,7 +56,7 @@
                     Orientation="Vertical"
                     >
             <StackPanel Orientation="Horizontal">
-                <Image Source="{Binding Photo1}" Stretch="UniformToFill"
+                        <Image Source="{Binding Photo1}" Stretch="UniformToFill"  Name="Pphoto1"
                        Margin="25,20,0,0" Width="360"
                        Height="270"
                        >
@@ -63,7 +64,7 @@
                         <RotateTransform CenterX="0.5" CenterY="0.5" Angle="270"/>
                     </Image.LayoutTransform>
                 </Image>
-                        <Image Source="{Binding Photo2}"  Stretch="UniformToFill" 
+                        <Image Source="{Binding Photo2}"   Name="Pphoto2" Stretch="UniformToFill" 
                        Margin="20,20,20,0"
                        Width="360"
                        Height="270"
@@ -73,7 +74,7 @@
                         
                     </Image.LayoutTransform>
                 </Image>
-                        <Image Source="{Binding Photo3}"   Stretch="UniformToFill"
+                        <Image Source="{Binding Photo3}" Name="Pphoto3"   Stretch="UniformToFill"
                        Margin="0,20,0,0"
                        Width="360"
                        Height="270"
@@ -121,6 +122,7 @@
         VerticalAlignment="Bottom"
         HorizontalAlignment="Center" />
             <ItemsControl AlternationCount="15" ItemsSource="{Binding AllFonModels}" 
+                          Name="MyItemsControl"
                       HorizontalAlignment="Center" Margin="0,200,0,0" Width="950"
                       Height="560">
                 <ItemsControl.ItemsPanel>

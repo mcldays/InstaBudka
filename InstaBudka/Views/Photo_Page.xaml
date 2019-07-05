@@ -7,6 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="1920" d:DesignWidth="1080"
       Title="Photo_Page"
+      Unloaded="Photo_Page_OnUnloaded"
       Loaded="Photo_Page_OnLoaded"
       DataContext="{Binding RelativeSource= {RelativeSource Self}}">
 
