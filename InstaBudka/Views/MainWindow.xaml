@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InstaBudka"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Topmost="False"
         WindowStyle="None"
@@ -21,6 +22,32 @@
                    
             ></Frame>
         </Viewbox>
-        
+        <Button 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Bottom" 
+            Panel.ZIndex="3000" 
+            Width="100" 
+            Height="100">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewMouseDown">
+                    <i:InvokeCommandAction Command="{Binding StartTimerCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="PreviewMouseUp">
+                    <i:InvokeCommandAction Command="{Binding StopTimerCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Button.Style>
+                <Style TargetType="Button">
+
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate>
+                    <Border Width="240" Height="240" Background="Transparent">
+
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Window>

@@ -14,7 +14,10 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.Windows.Threading;
+using InstaBudka.Utilities;
 using InstaBudka.Views;
+using YounGuard.Utilities;
 
 namespace InstaBudka
 {
@@ -57,6 +60,58 @@ namespace InstaBudka
 
                 Process.Start(Path.Combine(Environment.GetEnvironmentVariable("windir"), "explorer.exe"));
             };
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(3);
+            timer.Tick += (sender, args) =>
+            {
+                if (UserInactivity.GetSeconds() >= 90)
+                {
+
+
+                    if (!(Frame1.Content is Chose_Page))
+                    {
+                        Frame1.Navigate(new Chose_Page());
+                        App.CurrentApp.Browser.Manage().Window.Minimize();
+                    }
+
+                }
+
+            };
+            timer.Start();
+
+        }
+
+        private ICommand _stopTimerCommand;
+        private ICommand _startTimerCommand;
+
+        public ICommand StopTimerCommand => _stopTimerCommand ?? (_stopTimerCommand = new Command(a =>
+        {
+            _timer.Tick -= Timer;
+            _timer.Stop();
+            _sec = 0;
+        }));
+
+        public ICommand StartTimerCommand => _startTimerCommand ?? (_startTimerCommand = new Command(a =>
+        {
+            _timer?.Stop();
+            _sec = 0;
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Tick += Timer;
+            _timer.Start();
+        }));
+
+        DispatcherTimer _timer = new DispatcherTimer();
+        private int _sec = 0;
+        public string stroka;
+        private void Timer(object sender, EventArgs eventArgs)
+        {
+            _sec++;
+            if (_sec >= 7)
+            {
+                Application.Current.Shutdown();
+                App.CurrentApp.Browser.Quit();
+            }
+            
         }
 
 
