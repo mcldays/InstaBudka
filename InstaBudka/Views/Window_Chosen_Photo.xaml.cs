@@ -137,7 +137,7 @@ namespace InstaBudka
 
             Border.LayoutTransform = group;
             // Определить поля
-            int pageMargin = 0;
+            int pageMargin = 10;
 
             // Получить размер страницы
             System.Windows.Size pageSize = new System.Windows.Size(printDialog.PrintableAreaWidth,

@@ -145,7 +145,7 @@ namespace InstaBudka.Views
                 PrintCanvas.LayoutTransform = new ScaleTransform(0.578, 0.578);
                 SecondGrid.Visibility = Visibility.Collapsed;
                 // Определить поля
-                int pageMargin = 0;
+                int pageMargin = 10;
 
                 // Получить размер страницы
                 System.Windows.Size pageSize = new System.Windows.Size(printDialog.PrintableAreaWidth,
