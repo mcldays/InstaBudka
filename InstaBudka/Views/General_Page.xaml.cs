@@ -258,6 +258,7 @@ namespace InstaBudka.Views
                 {
                     try
                     {
+
                         var test1 = App.CurrentApp.Browser.PageSource;
                         var b = App.CurrentApp.Browser.FindElements(By.ClassName("FFVAD")).Last().GetAttribute("src");
                         var a = (string) ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
