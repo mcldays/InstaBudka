@@ -26,19 +26,27 @@ namespace InstaBudka
     {
         public Window_Chosen_Photo(string nick, string deskription, string datetime)
         {
-            int hwnd = General_Page.WinAPI.FindWindow("Chrome_WidgetWin_1", null);
-            if (hwnd != 0) Chose_Page.WinAPI.ShowWindow(hwnd, 0);
+            try
+            {
+                int hwnd = General_Page.WinAPI.FindWindow("Chrome_WidgetWin_1", null);
+                if (hwnd != 0) Chose_Page.WinAPI.ShowWindow(hwnd, 0);
 
-            Nick = nick;
-            Deskription = deskription;
-            Date = datetime;
+                Nick = nick;
+                Deskription = deskription;
+                Date = datetime;
 
 
 
-            InitializeComponent();
-            NameImage = new BitmapImage(new Uri($"file:///{Directory.GetCurrentDirectory()}\\1.jpeg"));
-            if(File.Exists("screen.jpg"))
-            ScreenImage =new BitmapImage(new Uri("file:///"+Directory.GetCurrentDirectory() + "\\screen.jpg"));
+                InitializeComponent();
+                NameImage = new BitmapImage(new Uri($"file:///{Directory.GetCurrentDirectory()}\\1.jpeg"));
+                if (File.Exists("screen.jpg"))
+                    ScreenImage = new BitmapImage(new Uri("file:///" + Directory.GetCurrentDirectory() + "\\screen.jpg"));
+            }
+            catch (Exception e)
+            {
+                
+            }
+            
         }
 
         public static readonly DependencyProperty NickProperty = DependencyProperty.Register(

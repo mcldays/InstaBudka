@@ -246,12 +246,12 @@ namespace InstaBudka.Views
 
         }
 
-
+        public int DownloadIndex;
 
 
         public async Task SaveImage(string filename, ImageFormat format)
         {
-
+            DownloadIndex = 0;
             await Task.Run((async () =>
             {
 
@@ -267,18 +267,34 @@ namespace InstaBudka.Views
                         //вообще лучше отдельным окном повесить где-нибудь в углу кнопку печать и на нее команду , куски кода которой можно спиздить в kolazh page
                         //надо соединить фото, которое печатаем и его подпись с хаштэгами и вывести это на печать
                         WebClient client = new WebClient();
-
+                        
 
                         //Адрес картинки  class FFVAD, свойсто src
-                        Stream stream = client.OpenRead(b);
-                        Bitmap bitmap;
-                        bitmap = new Bitmap(stream);
+                        try
+                        {
+                            Stream stream = client.OpenRead(b);
+                            Bitmap bitmap;
+                            bitmap = new Bitmap(stream);
 
-                        bitmap.Save(filename, format);
+                            bitmap.Save(filename, format);
+                            stream.Flush();
+                            stream.Close();
+                            client.Dispose();
+                        }
+                        catch (Exception e)
+                        {
+                            DownloadIndex++;
+                            if(DownloadIndex>100)
+                            {
+                                App.CurrentApp.Browser.Manage().Window.Minimize();
+                                NavigationService.Navigate(new Chose_Page());
+                                
+                                break;
+                            }
+                        }
+                        
 
-                        stream.Flush();
-                        stream.Close();
-                        client.Dispose();
+                        
                         //TakesScreenshot(App.CurrentApp.Browser, App.CurrentApp.Browser.FindElements(By.ClassName("_9AhH0")).Last());
                         var test = App.CurrentApp.Browser.PageSource;
                         if (File.Exists("screen.jpg"))
@@ -292,6 +308,7 @@ namespace InstaBudka.Views
                     }
                     catch
                     {
+                        
                     }
                 }
             }));
