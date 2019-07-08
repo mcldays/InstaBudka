@@ -83,6 +83,7 @@ namespace InstaBudka.Views
                 MessageBox.Show("Камера не подключена");
             }
             
+            
         }
 
         public static readonly DependencyProperty bi2Property = DependencyProperty.Register(
