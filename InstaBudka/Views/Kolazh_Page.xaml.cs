@@ -141,11 +141,11 @@ namespace InstaBudka.Views
                 PrintCanvas.VerticalAlignment = VerticalAlignment.Top;
                 PrintCanvas.HorizontalAlignment = HorizontalAlignment.Left;
                 // Увеличить размер в 5 раз
-                PrintGrid.LayoutTransform = new RotateTransform(270);
+                PrintGrid.LayoutTransform = new RotateTransform(90);
                 PrintCanvas.LayoutTransform = new ScaleTransform(0.578, 0.578);
                 SecondGrid.Visibility = Visibility.Collapsed;
                 // Определить поля
-                int pageMargin = 0;
+                int pageMargin = 10;
 
                 // Получить размер страницы
                 System.Windows.Size pageSize = new System.Windows.Size(printDialog.PrintableAreaWidth,

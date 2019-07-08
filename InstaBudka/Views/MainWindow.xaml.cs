@@ -41,8 +41,8 @@ namespace InstaBudka
 
             InitializeComponent();
             Frame1.NavigationService.Navigate(new Chose_Page(), UriKind.Relative);
+            var myID = Process.GetCurrentProcess();
 
-            
             Widthh = SystemParameters.PrimaryScreenWidth;
             Heightt = SystemParameters.PrimaryScreenHeight;
             //this.Cursor = Cursors.None; 
