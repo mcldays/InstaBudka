@@ -97,7 +97,11 @@ namespace InstaBudka.Views
         public ICommand BackCommand => _backCommand ?? (_backCommand = new Command((c =>
             {
                 LocalWebCam.Stop();
-                NavigationService.Navigate(new Chose_Page());
+                App.CurrentApp.Kw.Topmost = false;
+                App.CurrentApp.Kw.Close();
+  
+
+
             }
         )));
 
@@ -147,15 +151,15 @@ namespace InstaBudka.Views
             {
                 var countdownAnimation = new StringAnimationUsingKeyFrames();
 
-                for (var i = 1; i >= 0; i--)
+                for (var i = 3; i >= 0; i--)
                 {
-                    var keyTime = TimeSpan.FromSeconds(1 - i);
+                    var keyTime = TimeSpan.FromSeconds(3 - i);
                     var frame = new DiscreteStringKeyFrame(i.ToString(), KeyTime.FromTimeSpan(keyTime));
                     countdownAnimation.KeyFrames.Add(frame);
                 }
 
                 countdownAnimation.KeyFrames.Add(new DiscreteStringKeyFrame(" ",
-                    KeyTime.FromTimeSpan(TimeSpan.FromSeconds(2))));
+                    KeyTime.FromTimeSpan(TimeSpan.FromSeconds(4))));
                 Storyboard.SetTargetName(countdownAnimation, target.Name);
                 Storyboard.SetTargetProperty(countdownAnimation, new PropertyPath(TextBlock.TextProperty));
 

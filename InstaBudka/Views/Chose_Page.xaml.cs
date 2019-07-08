@@ -38,7 +38,6 @@ namespace InstaBudka.Views
             int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
             if (hwnd != 0) WinAPI.ShowWindow(hwnd, 0);
 
-            App.CurrentApp.Kw = new Kollazh_Window();
 
             WinAPI.ShowWindow(hwnd, 0);
             
@@ -69,6 +68,8 @@ namespace InstaBudka.Views
         private ICommand _photoCommand;
         public ICommand PhotoCommand => _photoCommand ?? (_photoCommand = new Command((c =>
            {
+               App.CurrentApp.Kw = new Kollazh_Window();
+
                //NavigationService.Navigate(new Photo_Page());
                App.CurrentApp.Kw.Show();
                App.CurrentApp.Kw.Topmost = true;
