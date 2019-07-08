@@ -57,6 +57,7 @@ namespace InstaBudka.Views
 
 
 
+
         public void ChangeAdress(string NewAdress)
         {
 
@@ -234,7 +235,7 @@ namespace InstaBudka.Views
                 //Thread.Sleep(500);
                 //int hwnd = WinAPI.FindWindow("Chrome_WidgetWin_1", null);
                 App.CurrentApp.Browser.Manage().Window.Minimize();
-                NavigationService.GoBack();
+                NavigationService.Navigate(new Chose_Page());
                 //if (hwnd != 0) WinAPI.ShowWindow(hwnd, SW_HIDE);
 
 
@@ -320,6 +321,9 @@ namespace InstaBudka.Views
             //screenshot.Save(String.Format(fileName, ImageFormat.Jpeg));
         }
 
+        public int RefreshIndex;
+
+
         private async void General_Page_OnLoaded(object sender, RoutedEventArgs ee)
         {
             App.CurrentApp.Browser.Manage().Window.Maximize();
@@ -332,7 +336,7 @@ namespace InstaBudka.Views
 
             //try
             //{
-
+            RefreshIndex = 0;
 
 
             timer.Interval = TimeSpan.FromMilliseconds(50);
@@ -393,6 +397,17 @@ namespace InstaBudka.Views
                     }
                     catch (Exception e)
                     {
+
+
+
+                        RefreshIndex++;
+                        if (RefreshIndex > 100)
+                        {
+                            App.CurrentApp.Browser.Manage().Window.Minimize();
+                            NavigationService.Navigate(new Chose_Page());
+                            break;
+                        }
+
                         if (string.IsNullOrEmpty(App.CurrentApp.Browser.PageSource))
                         {
                             App.CurrentApp.Browser.Navigate().Refresh();
@@ -400,6 +415,10 @@ namespace InstaBudka.Views
                         }
                         if (App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))
                             break;
+                       
+
+
+
                     }
                 }
             }
@@ -490,6 +509,20 @@ namespace InstaBudka.Views
                         //    await Task.Delay(5000);
 
                         //}
+                        RefreshIndex++;
+                        if (RefreshIndex > 100)
+                        {
+                            App.CurrentApp.Browser.Manage().Window.Minimize();
+                            NavigationService.Navigate(new Chose_Page());
+                            break;
+                        }
+                        if (string.IsNullOrEmpty(App.CurrentApp.Browser.PageSource))
+                        {
+                            App.CurrentApp.Browser.Navigate().Refresh();
+                            await Task.Delay(3000);
+                        }
+
+
                         App.CurrentApp.Browser.Manage().Window.Minimize();
                         NavigationService.Navigate(new Chose_Page());
                         break;
