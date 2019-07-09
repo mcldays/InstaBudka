@@ -10,13 +10,26 @@
       DataContext="{Binding RelativeSource= {RelativeSource Self}}">
 
     <Grid Width="1080" Height="1920">
-        <Image Source="../Images/перва страница.png"></Image>
+        <Image Source="../Images/инстабудка старт.png"></Image>
+        <Image Source="../Images/кнопка инстаграм.png"
+               Width="448" Margin="0,420,0,0"></Image>
 
         <Button
                 Command="{Binding PhotoCommand }" Margin="316,952,316,854">
             <Button.Template>
                 <ControlTemplate>
-                    <Border Background="Transparent"/>
+                    <Border Background="White"
+                            CornerRadius="12"
+                            BorderBrush="#b82e9c" BorderThickness="4">
+                        <TextBlock Text="СДЕЛАТЬ ФОТО"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Name="PhotoTextBlock"
+                                   Foreground="#b82e9c"
+                                   Padding="30"
+                                   FontSize="30"
+                                   FontFamily="Roboto"></TextBlock>
+                    </Border>
                 </ControlTemplate>
             </Button.Template>
         </Button>

@@ -84,7 +84,7 @@ namespace InstaBudka.Views
             MiniFons = Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Fons\\Mini").ToList();
 
             List<FonModel> AllFonModels2 = new List<FonModel>();
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 8; i++)
             {
                 FonModel FM = new FonModel(){PathToImage = MiniFons[i]};
                 AllFonModels2.Add(FM);
