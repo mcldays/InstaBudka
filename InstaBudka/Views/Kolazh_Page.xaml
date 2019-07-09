@@ -12,7 +12,8 @@
       Title="Kolazh_Page"
       DataContext="{Binding RelativeSource= {RelativeSource Self}}">
 
-    <Grid Background="White" Width="1080" Height="1920" Name="GlobalGrid">
+    <Grid Background="White" Width="1080" Height="1920" Name="GlobalGrid"
+          >
         <Grid.Resources>
         <Style TargetType="Button">
             <Setter Property="BorderThickness" Value="0"></Setter>
@@ -33,6 +34,7 @@
         <Canvas Name="PrintCanvas" Width="900" Height="600"
                 VerticalAlignment="Top" Background="White"
                 Margin="0,0,0,0"
+                RenderOptions.BitmapScalingMode="Fant"
                 HorizontalAlignment="Center">
             <!--<Canvas.Effect>
                 <DropShadowEffect BlurRadius="20"
@@ -40,7 +42,8 @@
 
                 </DropShadowEffect>
             </Canvas.Effect>-->
-            <Grid  Width="900" Height="600" Name="PrintGrid">
+            <Grid  Width="900" Height="600" Name="PrintGrid"
+                   RenderOptions.BitmapScalingMode="Fant">
             
 
                 <Image Name="FonImage" Stretch="Fill" 
@@ -90,14 +93,14 @@
                                  
                                  GotFocus="TextBox_OnGotFocus"
                                  
-                                 Margin="0,40,0,0"
+                                 Margin="0,26,0,0"
                                  
-                                  MaxLength="120"
+                                  MaxLength="60"
                                    TextAlignment="Center"
                                    Foreground="#6b6b6b"
                                    AcceptsReturn="True"
                                    CaretBrush="Black"
-                                   MaxLines="5"
+                                   MaxLines="2"
                                    Width="700"
                                    Padding="4"
                                     

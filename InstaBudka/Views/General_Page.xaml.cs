@@ -175,15 +175,17 @@ namespace InstaBudka.Views
 
             if (IsElementPresent(By.ClassName("bY2yH")))
             {
+                timer2.Stop();
+
                 // Проверка, видос ли это
                 if (IsElementPresent(By.ClassName("QvAa1 ")))
                 {
                     ((IJavaScriptExecutor) App.CurrentApp.Browser).ExecuteScript(
                         "document.getElementsByClassName('ckWGn')[0].click();");
+                    timer2.Start();
                     return;
                 }
 
-                timer2.Stop();
 
                 try
                 {
@@ -515,7 +517,7 @@ namespace InstaBudka.Views
 
 
                         App.CurrentApp.Browser.Manage().Window.Minimize();
-                        NavigationService.Navigate(new Chose_Page());
+                        NavigationService?.Navigate(new Chose_Page());
                         break;
 
                         if (App.CurrentApp.Browser.PageSource.Contains("К сожалению, эта страница недоступна."))

@@ -42,6 +42,7 @@ namespace InstaBudka
 
                 InitializeComponent();
                 _url = url;
+                NameImage= new BitmapImage(new Uri("pack://application:,,,/Images/waiting.png"));
             }
             catch (Exception e)
             {
@@ -186,7 +187,7 @@ namespace InstaBudka
             Border.Margin = new Thickness(0, 0, 0, 0);
             TransformGroup group = new TransformGroup();
             //group.Children.Add(new RotateTransform(270));
-            group.Children.Add(new ScaleTransform(0.645, 0.645));
+            group.Children.Add(new ScaleTransform(0.650, 0.650));
 
             Border.LayoutTransform = group;
             // Определить поля
