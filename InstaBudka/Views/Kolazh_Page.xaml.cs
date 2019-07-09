@@ -28,6 +28,7 @@ namespace InstaBudka.Views
         public Kolazh_Page( string photo1,string photo2,string photo3)
         {
             InitializeComponent();
+
             Photo1 = photo1;
             Photo2 = photo2;
             Photo3 = photo3;
