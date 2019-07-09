@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -40,13 +41,30 @@ namespace InstaBudka.Views
 
 
             WinAPI.ShowWindow(hwnd, 0);
-            
+            Loaded+= OnLoaded;
 
 
         }
-        
 
-        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            var test = Directory.GetCurrentDirectory();
+            var allphoto = Directory.GetFiles(Directory.GetCurrentDirectory());
+            foreach (string s in allphoto)
+            {
+                if(s.Contains(".jpg")||s.Contains(".png")||s.Contains(".jpeg"))
+                try
+                {
+                    File.Delete(s);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+
+        }
+
 
         public static class WinAPI
 

@@ -63,16 +63,14 @@ namespace InstaBudka
                     Stream stream = c.Result;
                         Bitmap bitmap;
                     bitmap = new Bitmap(stream);
-                    if (File.Exists("1.jpeg"))
-                        File.Exists("1.jpeg");
-
-                    bitmap.Save("1.jpeg", ImageFormat.Jpeg);
+                  var photo=  "Photo " + DateTime.Now.ToLongTimeString().Replace(":", ".") + ".jpeg";
+                    bitmap.Save(photo, ImageFormat.Jpeg);
                     stream.Flush();
                     stream.Close();
                     client.Dispose();
                     var a = new BitmapImage();
                     a.BeginInit();
-                    a.UriSource = new Uri($"file:///{Directory.GetCurrentDirectory()}\\1.jpeg");
+                    a.UriSource = new Uri($"file:///{Directory.GetCurrentDirectory()}\\"+photo);
                     a.EndInit();
                     NameImage = a;
                 if (File.Exists("screen.jpg"))
@@ -188,11 +186,11 @@ namespace InstaBudka
             Border.Margin = new Thickness(0, 0, 0, 0);
             TransformGroup group = new TransformGroup();
             //group.Children.Add(new RotateTransform(270));
-            group.Children.Add(new ScaleTransform(0.578, 0.578));
+            group.Children.Add(new ScaleTransform(0.645, 0.645));
 
             Border.LayoutTransform = group;
             // Определить поля
-            int pageMargin = 10;
+            int pageMargin = 0;
 
             // Получить размер страницы
             System.Windows.Size pageSize = new System.Windows.Size(printDialog.PrintableAreaWidth,
