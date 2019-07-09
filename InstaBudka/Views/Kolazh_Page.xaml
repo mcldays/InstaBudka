@@ -121,8 +121,9 @@
             
         VerticalAlignment="Bottom"
         HorizontalAlignment="Center" />
-            <ItemsControl AlternationCount="15" ItemsSource="{Binding AllFonModels}" 
+            <ItemsControl AlternationCount="8" ItemsSource="{Binding AllFonModels}" 
                           Name="MyItemsControl"
+                          
                       HorizontalAlignment="Center" Margin="0,200,0,0" Width="950"
                       Height="560">
                 <ItemsControl.ItemsPanel>
@@ -142,7 +143,7 @@
                                 BorderBrush="#b82e9c"
                                 Panel.ZIndex="100"
                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Path=(ItemsControl.AlternationIndex)}"
-                                Margin="10">
+                                Margin="15">
                             <Button.Effect>
                                 <DropShadowEffect BlurRadius="20"
                                                   Opacity="0.8">
@@ -154,12 +155,12 @@
 
 
                                
-                                <Border CornerRadius="20" Width="170"
+                                <Border CornerRadius="20" 
                                             BorderBrush="#b82e9c"
-                                            
+                                            Width="200"
                                             ClipToBounds="True"
                                             Panel.ZIndex="40"
-                                            Height="170" Background="Transparent">
+                                            Height="200" Background="Transparent">
 
                                     <Border.Triggers>
                                         <EventTrigger RoutedEvent="Border.MouseDown">
@@ -167,7 +168,7 @@
                                             <!--<Setter Property="Border.BorderBrush" Value="DarkViolet"></Setter>-->
                                         </EventTrigger>
                                     </Border.Triggers>
-                                    <Rectangle RadiusX="10" RadiusY="10" Width="150" Height="150"
+                                    <Rectangle RadiusX="10" RadiusY="10" Width="200" Height="200"
                                         >
                                             <Rectangle.Fill>
                                                 <ImageBrush  ImageSource="{Binding  PathToImage}" Stretch="Fill"/>

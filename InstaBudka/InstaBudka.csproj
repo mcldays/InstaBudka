@@ -231,6 +231,8 @@
     <Content Include="chromedriver.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\кнопка инстаграм.png" />
+    <Resource Include="Images\инстабудка старт.png" />
     <Resource Include="Images\page_search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
