@@ -143,6 +143,7 @@ namespace InstaBudka.Views
                 // Увеличить размер в 5 раз
                 PrintGrid.LayoutTransform = new RotateTransform(90);
                 PrintCanvas.LayoutTransform = new ScaleTransform(0.645, 0.645);
+                
                // PrintCanvas.LayoutTransform = new ScaleTransform(0.578, 0.578);
                 SecondGrid.Visibility = Visibility.Collapsed;
                 // Определить поля
