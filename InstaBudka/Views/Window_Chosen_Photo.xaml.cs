@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,7 +27,7 @@ namespace InstaBudka
     /// </summary>
     public partial class Window_Chosen_Photo : Window
     {
-        public Window_Chosen_Photo(string nick, string deskription, string datetime)
+        public Window_Chosen_Photo(string nick, string deskription, string datetime, string url)
         {
             try
             {
@@ -35,18 +38,62 @@ namespace InstaBudka
                 Deskription = deskription;
                 Date = datetime;
 
-
+                Loaded+= OnLoaded;
 
                 InitializeComponent();
-                NameImage = new BitmapImage(new Uri($"file:///{Directory.GetCurrentDirectory()}\\1.jpeg"));
-                if (File.Exists("screen.jpg"))
-                    ScreenImage = new BitmapImage(new Uri("file:///" + Directory.GetCurrentDirectory() + "\\screen.jpg"));
+                _url = url;
             }
             catch (Exception e)
             {
                 
             }
             
+        }
+
+        private string _url;
+
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            WebClient client = new WebClient();
+            client.OpenReadCompleted += (b, c) =>
+            {
+                try
+                {
+
+                    Stream stream = c.Result;
+                        Bitmap bitmap;
+                    bitmap = new Bitmap(stream);
+                    if (File.Exists("1.jpeg"))
+                        File.Exists("1.jpeg");
+
+                    bitmap.Save("1.jpeg", ImageFormat.Jpeg);
+                    stream.Flush();
+                    stream.Close();
+                    client.Dispose();
+                    var a = new BitmapImage();
+                    a.BeginInit();
+                    a.UriSource = new Uri($"file:///{Directory.GetCurrentDirectory()}\\1.jpeg");
+                    a.EndInit();
+                    NameImage = a;
+                if (File.Exists("screen.jpg"))
+                    ScreenImage = new BitmapImage(new Uri("file:///" + Directory.GetCurrentDirectory() + "\\screen.jpg"));
+                }
+                catch (Exception e)
+                {
+
+                }
+
+
+            };
+
+
+    
+            client.OpenReadAsync(new Uri(_url));
+                //Адрес картинки  class FFVAD, свойсто src
+
+          
+
+           
         }
 
         public static readonly DependencyProperty NickProperty = DependencyProperty.Register(

@@ -188,9 +188,9 @@ namespace InstaBudka.Views
                 try
                 {
                     App.CurrentApp.Browser.Manage().Window.Minimize();
-                    await SaveImage("1.jpeg", ImageFormat.Jpeg);
+                   string url= await SaveImage("1.jpeg", ImageFormat.Jpeg);
 
-                    Window_Chosen_Photo wnd = new Window_Chosen_Photo(name, text, date );
+                    Window_Chosen_Photo wnd = new Window_Chosen_Photo(name, text, date , url);
                     App.CurrentApp.Browser.Manage().Window.Minimize();
 
                     wnd.ShowDialog();
@@ -249,10 +249,10 @@ namespace InstaBudka.Views
         public int DownloadIndex;
 
 
-        public async Task SaveImage(string filename, ImageFormat format)
+        public async Task<string> SaveImage(string filename, ImageFormat format)
         {
             DownloadIndex = 0;
-            await Task.Run((async () =>
+           return await Task.Run((async () =>
             {
 
                 while (true)
@@ -266,33 +266,7 @@ namespace InstaBudka.Views
                             "return document.getElementsByClassName('KL4Bh')[0].children[0].getAttribute('src')"); //тут мы сэйвим картинку. которую открыли. но тут указан индекс нулевой для теста,но надо получать актуальный у блока фотки. на которую нажали и выгружать оттуда фотку
                         //вообще лучше отдельным окном повесить где-нибудь в углу кнопку печать и на нее команду , куски кода которой можно спиздить в kolazh page
                         //надо соединить фото, которое печатаем и его подпись с хаштэгами и вывести это на печать
-                        WebClient client = new WebClient();
-                        
-
-                        //Адрес картинки  class FFVAD, свойсто src
-                        try
-                        {
-                            Stream stream = client.OpenRead(b);
-                            Bitmap bitmap;
-                            bitmap = new Bitmap(stream);
-
-                            bitmap.Save(filename, format);
-                            stream.Flush();
-                            stream.Close();
-                            client.Dispose();
-                        }
-                        catch (Exception e)
-                        {
-                            DownloadIndex++;
-                            if(DownloadIndex>100)
-                            {
-                                App.CurrentApp.Browser.Manage().Window.Minimize();
-                                NavigationService.Navigate(new Chose_Page());
-                                
-                                break;
-                            }
-                        }
-                        
+                       
 
                         
                         //TakesScreenshot(App.CurrentApp.Browser, App.CurrentApp.Browser.FindElements(By.ClassName("_9AhH0")).Last());
@@ -304,7 +278,7 @@ namespace InstaBudka.Views
                             TakesScreenshot(App.CurrentApp.Browser,
                                 App.CurrentApp.Browser.FindElement(
                                     By.ClassName("C4VMK"))); //Подпись + хаштэги скриншот делаем в папку с exe
-                        break;
+                        return b;
                     }
                     catch
                     {
