@@ -143,7 +143,7 @@ namespace InstaBudka.Views
                 PrintCanvas.HorizontalAlignment = HorizontalAlignment.Left;
                 // Увеличить размер в 5 раз
                 PrintGrid.LayoutTransform = new RotateTransform(90);
-                PrintCanvas.LayoutTransform = new ScaleTransform(0.650, 0.650);
+                PrintCanvas.LayoutTransform = new ScaleTransform(0.65, 0.65);
                 // PrintCanvas.LayoutTransform = new ScaleTransform(0.578, 0.578);
                 SecondGrid.Visibility = Visibility.Collapsed;
                 // Определить поля
@@ -197,7 +197,8 @@ namespace InstaBudka.Views
         private void MakeScreenElement(FrameworkElement elem)
         {
             RenderTargetBitmap renderTargetBitmap =
-                new RenderTargetBitmap((int)elem.Width, (int)elem.Height, 96, 96, PixelFormats.Pbgra32);
+                new RenderTargetBitmap((int)(elem.Width * 3.125), (int)(elem.Height*3.125), 300, 300, PixelFormats.Pbgra32);
+            
             renderTargetBitmap.Render(elem);
             PngBitmapEncoder pngImage = new PngBitmapEncoder();
             pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
@@ -211,9 +212,11 @@ namespace InstaBudka.Views
 
         protected void btnPrint_Click()
         {
+           
             PrintDocument pd = new PrintDocument();
             //пробуй и true и false
             pd.OriginAtMargins = false;
+           
             pd.PrintPage += PrintPage;
             pd.Print();
         }

@@ -130,7 +130,7 @@ namespace InstaBudka
         private void MakeScreenElement(FrameworkElement elem)
         {
             RenderTargetBitmap renderTargetBitmap =
-                new RenderTargetBitmap((int)elem.Width, (int)elem.Height, 96, 96, PixelFormats.Pbgra32);
+                new RenderTargetBitmap((int)(elem.Width*3.125), (int)(elem.Height*3.125), 300, 300, PixelFormats.Pbgra32);
             renderTargetBitmap.Render(elem);
             PngBitmapEncoder pngImage = new PngBitmapEncoder();
             pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
@@ -186,8 +186,8 @@ namespace InstaBudka
             // Увеличить размер в 5 раз
             Border.Margin = new Thickness(0, 0, 0, 0);
             TransformGroup group = new TransformGroup();
-            //group.Children.Add(new RotateTransform(270));
-            group.Children.Add(new ScaleTransform(0.650, 0.650));
+            //group.Children.Add(new RotateTransform(90));
+            group.Children.Add(new ScaleTransform(0.65, 0.65));
 
             Border.LayoutTransform = group;
             // Определить поля
