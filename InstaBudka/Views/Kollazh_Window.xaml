@@ -10,14 +10,12 @@
         Title="Kollazh_Window" Height="1920" Width="1080"
         DataContext="{Binding RelativeSource= {RelativeSource Self}}">
     <Grid Width="1080" Height="1920">
-<ScrollViewer VerticalAlignment="Top"
-              Height="768">
+        <!--TODO убрать скрольвьювер-->
+        
         <Frame Name="Frame1"
                NavigationUIVisibility="Hidden"
                Source="Photo_Page.xaml"
            ></Frame>
-</ScrollViewer>
-
 
     </Grid>
 </Window>

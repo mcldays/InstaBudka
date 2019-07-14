@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Management;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -15,6 +16,11 @@ namespace InstaBudka
     /// </summary>
     public partial class App : Application
     {
+
+
+        
+
+
         public static App CurrentApp => App.Current as App;
 
        private  IWebDriver _browser;

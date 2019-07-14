@@ -17,6 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using InstaBudka.Utilities;
+using System.Management;
+using System.Printing;
 
 namespace InstaBudka.Views
 {
@@ -25,13 +27,43 @@ namespace InstaBudka.Views
     /// </summary>
     public partial class Kolazh_Page : Page
     {
-        public Kolazh_Page( string photo1,string photo2,string photo3)
+        public Kolazh_Page(string photo1, string photo2, string photo3)
         {
             InitializeComponent();
-            
+
             Photo1 = photo1;
             Photo2 = photo2;
             Photo3 = photo3;
+
+            
+            
+
+            //string printerName = "Samsung SCX-4100 Series (USB001)";
+            //string query = string.Format("SELECT * from Win32_Printer WHERE Name LIKE '%{0}'", printerName);
+            //List<string> Props = new List<string>();
+            //using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+            //using (ManagementObjectCollection coll = searcher.Get())
+            //{
+            //    try
+            //    {
+            //        foreach (ManagementObject printer in coll)
+            //        {
+            //            foreach (PropertyData property in printer.Properties)
+            //            {
+            //                Props.Add(string.Format("{0}: {1}", property.Name, property.Value));
+            //            }
+            //        }
+            //    }
+            //    catch (ManagementException ex)
+            //    {
+            //        Console.WriteLine(ex.Message);
+            //    }
+            //}
+
+            //var atest = Props;
+
+
+
         }
 
         public static readonly DependencyProperty FonProperty = DependencyProperty.Register(
@@ -212,14 +244,17 @@ namespace InstaBudka.Views
 
         protected void btnPrint_Click()
         {
-           
+
             PrintDocument pd = new PrintDocument();
             //пробуй и true и false
             pd.OriginAtMargins = false;
-           
+
             pd.PrintPage += PrintPage;
+
             pd.Print();
+            
         }
+
 
         private void PrintPage(object o, PrintPageEventArgs e)
         {
