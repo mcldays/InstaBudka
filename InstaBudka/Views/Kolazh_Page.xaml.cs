@@ -234,6 +234,7 @@ namespace InstaBudka.Views
             Fon = AllFons[int.Parse(c.ToString())];
         }
         )));
+        
 
         private ICommand _backCommand;
         public ICommand BackCommand => _backCommand ?? (_backCommand = new Command((c =>
