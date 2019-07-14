@@ -43,6 +43,7 @@ namespace InstaBudka
 
             InitializeComponent();
 
+
             FileStream FS = new FileStream("NameOfPrinter.txt", FileMode.OpenOrCreate);
             StreamReader Str = new StreamReader(FS);
             string PrinterName = Str.ReadLine();
@@ -51,22 +52,24 @@ namespace InstaBudka
             var server = new LocalPrintServer();
             server.Refresh();
             var queue = server.GetPrintQueues();
-            var neededQueue = queue.FirstOrDefault(f => f.Name == PrinterName);
-            neededQueue.Refresh();
-            if (neededQueue.NumberOfJobs!=0)
+            var neededQueue = queue.FirstOrDefault(f => f.Name == PrinterName?.Trim());
+            if (neededQueue != null)
             {
-                
-                var g= neededQueue.GetPrintJobInfoCollection();
-                foreach (var ku in g)
+                neededQueue?.Refresh();
+                if (neededQueue?.NumberOfJobs != 0)
                 {
-                    ku.Cancel();
+
+                    var g = neededQueue?.GetPrintJobInfoCollection();
+                    foreach (var ku in g)
+                    {
+                        ku.Cancel();
+                    }
+
+
+                    //neededQueue.Purge();
+
                 }
-            
-                
-                //neededQueue.Purge();
-
             }
-
 
             Frame1.NavigationService.Navigate(new Chose_Page(), UriKind.Relative);
             var myID = Process.GetCurrentProcess();
