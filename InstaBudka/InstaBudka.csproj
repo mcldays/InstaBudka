@@ -230,13 +230,13 @@
     <Resource Include="Images\страница выбранной фото.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="chromedriver.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Images\waiting.png" />
     <Resource Include="Images\кнопка инстаграм.png" />
     <Resource Include="Images\инстабудка старт.png" />
     <Resource Include="Images\page_search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="chromedriver.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Selenium.Chrome.WebDriver.74.0.0\build\Selenium.Chrome.WebDriver.targets" Condition="Exists('..\packages\Selenium.Chrome.WebDriver.74.0.0\build\Selenium.Chrome.WebDriver.targets')" />
@@ -245,5 +245,7 @@
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Selenium.Chrome.WebDriver.74.0.0\build\Selenium.Chrome.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.Chrome.WebDriver.74.0.0\build\Selenium.Chrome.WebDriver.targets'))" />
+    <Error Condition="!Exists('..\packages\Selenium.Chrome.WebDriver.75.0.0\build\Selenium.Chrome.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.Chrome.WebDriver.75.0.0\build\Selenium.Chrome.WebDriver.targets'))" />
   </Target>
+  <Import Project="..\packages\Selenium.Chrome.WebDriver.75.0.0\build\Selenium.Chrome.WebDriver.targets" Condition="Exists('..\packages\Selenium.Chrome.WebDriver.75.0.0\build\Selenium.Chrome.WebDriver.targets')" />
 </Project>
